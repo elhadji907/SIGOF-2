@@ -179,9 +179,11 @@
                         <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
 
                             @if (!empty($une?->image))
-                                <img class="img-fluid" alt="Image" src="{{ asset($une?->getUne()) }}">
+                                <img class="img-fluid main-image rounded-4" alt="Image"
+                                    src="{{ asset($une?->getUne()) }}">
                             @else
-                                <img src="{{ asset('asset/img/dg.png') }}" alt="Hero Image" class="img-fluid">
+                                <img src="{{ asset('asset/img/dg.png') }}" alt="Hero Image"
+                                    class="img-fluid main-image rounded-4">
                             @endif
 
                             <div class="customers-badge">
@@ -196,22 +198,27 @@
                     </div>
                 </div>
 
-                <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
-                    @foreach ($postes as $poste)
-                        <div class="col-lg-4 col-md-6">
-                            <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#ShowPostModal{{ $poste->id }}">
-                                <div class="stat-item">
-                                    <img class="rounded-circle" alt="{{ $poste->legende }}"
-                                        src="{{ asset($poste->getPoste()) }}" width="50" height="auto">
-                                    <div class="stat-content">
-                                        <h6>{{ $poste?->legende }}</h6>
+                @foreach ($postes as $poste)
+                @endforeach
+
+                @if (!empty($poste))
+                    <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
+                        @foreach ($postes as $poste)
+                            <div class="col-lg-4 col-md-6">
+                                <a href="#" data-bs-toggle="modal"
+                                    data-bs-target="#ShowPostModal{{ $poste->id }}">
+                                    <div class="stat-item">
+                                        <img class="rounded-circle" alt="{{ $poste->legende }}"
+                                            src="{{ asset($poste->getPoste()) }}" width="50" height="auto">
+                                        <div class="stat-content">
+                                            <h6>{{ $poste?->legende }}</h6>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
 
             </div>
 
@@ -257,8 +264,8 @@
                                         <img src="{{ asset('asset/img/dg.png') }}" alt="DG ONFP"
                                             class="profile-image">
                                         <div>
-                                            <h4 class="profile-name"><b>Mouhamadou Lamine Bara LO</b></h4>
-                                            <p class="profile-position">DG ONFP</p>
+                                            <h4 class="profile-name"><b>M. Lamine Bara LO</b></h4>
+                                            <p class="profile-position">Directeur Général</p>
                                         </div>
                                     </div>
                                 </div>
@@ -295,68 +302,44 @@
         </section>
         <!-- /About Section -->
 
-        <!-- Clients Section -->
-        <section id="partenaires" class="clients section">
+        <section class="testimonials section light-background">
+        </section>
+        <!-- /Stats Section -->
 
+        <!-- Services Section -->
+        <section id="services" class="services section light-background">
+
+            <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Partenaires</h2>
-            </div>
-            <!-- End Section Title -->
+                <h2>Services</h2>
+            </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-                <div class="swiper init-swiper">
-                    <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "breakpoints": {
-                "320": {
-                  "slidesPerView": 2,
-                  "spaceBetween": 40
-                },
-                "480": {
-                  "slidesPerView": 3,
-                  "spaceBetween": 60
-                },
-                "640": {
-                  "slidesPerView": 4,
-                  "spaceBetween": 80
-                },
-                "992": {
-                  "slidesPerView": 6,
-                  "spaceBetween": 120
-                }
-              }
-            }
-          </script>
-                    <div class="swiper-wrapper align-items-center">
-                        @foreach ($projets as $projet)
-                            <div class="swiper-slide"><img src="{{ asset($projet?->getProjetImage()) }}"
-                                    class="img-fluid" alt="">
+                <div class="row g-4">
+                    @foreach ($services as $service)
+                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                            <div class="service-card d-flex">
+                                <div class="icon flex-shrink-0">
+                                    <i class="bi bi-easel"></i>
+                                </div>
+                                <div>
+                                    <h3>{{ $service?->titre }}</h3>
+                                    <p>{{ $service?->name }}</p>
+                                    <a href="{{ $service?->lien }}" class="read-more" target="_blank">En savoir plus
+                                        <i class="bi bi-arrow-right"></i></a>
+                                </div>
                             </div>
-                        @endforeach
-                        <div class="swiper-slide"><img src="" class="img-fluid" alt=""></div>
-                    </div>
-                    <div class="swiper-pagination"></div>
+                        </div>
+                    @endforeach
+                    <!-- End Service Card -->
+
                 </div>
 
             </div>
 
-        </section>
-        <!-- /Clients Section -->
+        </section><!-- /Services Section -->
 
-        <section id="testimonials" class="testimonials section light-background">
-        </section>
         <!-- Stats Section -->
         <section id="stats" class="stats section">
 
@@ -401,42 +384,6 @@
             </div>
 
         </section>
-        <!-- /Stats Section -->
-
-        <!-- Services Section -->
-        <section id="services" class="services section light-background">
-
-            <!-- Section Title -->
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Services</h2>
-            </div><!-- End Section Title -->
-
-            <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-                <div class="row g-4">
-                    @foreach ($services as $service)
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="service-card d-flex">
-                                <div class="icon flex-shrink-0">
-                                    <i class="bi bi-easel"></i>
-                                </div>
-                                <div>
-                                    <h3>{{ $service?->titre }}</h3>
-                                    <p>{{ $service?->name }}</p>
-                                    <a href="{{ $service?->lien }}" class="read-more" target="_blank">En savoir plus
-                                        <i class="bi bi-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                    <!-- End Service Card -->
-
-                </div>
-
-            </div>
-
-        </section><!-- /Services Section -->
-
         <!-- Faq Section -->
         <section class="faq-9 faq section light-background" id="faq">
 
@@ -445,7 +392,8 @@
 
                     <div class="col-lg-5" data-aos="fade-up">
                         <h2 class="faq-title">Réponses aux questions</h2>
-                        <p class="faq-description">Vous avez une question ? Consultez les questions fréquemment posées</p>
+                        <p class="faq-description">Vous avez une question ? Consultez les questions fréquemment posées
+                        </p>
                         <div class="faq-arrow d-none d-lg-block" data-aos="fade-up" data-aos-delay="200">
                             <svg class="faq-arrow" width="200" height="211" viewBox="0 0 200 211"
                                 fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -477,9 +425,11 @@
             </div>
         </section><!-- /Faq Section -->
 
+        <section class="stats section">
+        </section>
+        
         <!-- Contact Section -->
         <section id="contact" class="contact section light-background">
-
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Contact</h2>
@@ -596,7 +546,8 @@
                                     <label for="message" class="form-label">Message<span
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
-                                        <textarea class="form-control" name="message" rows="4" placeholder="Ecrire votre message ici, Poser votre question, ..." required></textarea>
+                                        <textarea class="form-control" name="message" rows="4"
+                                            placeholder="Ecrire votre message ici, Poser votre question, ..." required></textarea>
                                     </div>
                                 </div>
 
@@ -613,6 +564,67 @@
 
         </section>
         <!-- /Contact Section -->
+        <!-- Clients Section -->
+        <section id="partenaires" class="clients section">
+
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Partenaires</h2>
+            </div>
+            <!-- End Section Title -->
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper init-swiper">
+                    <script type="application/json" class="swiper-config">
+                        {
+                        "loop": true,
+                        "speed": 600,
+                        "autoplay": {
+                            "delay": 5000
+                        },
+                        "slidesPerView": "auto",
+                        "pagination": {
+                            "el": ".swiper-pagination",
+                            "type": "bullets",
+                            "clickable": true
+                        },
+                        "breakpoints": {
+                            "320": {
+                            "slidesPerView": 2,
+                            "spaceBetween": 40
+                            },
+                            "480": {
+                            "slidesPerView": 3,
+                            "spaceBetween": 60
+                            },
+                            "640": {
+                            "slidesPerView": 4,
+                            "spaceBetween": 80
+                            },
+                            "992": {
+                            "slidesPerView": 6,
+                            "spaceBetween": 120
+                            }
+                        }
+                        }
+                    </script>
+                    <div class="swiper-wrapper align-items-center">
+                        @foreach ($projets as $projet)
+                            <div class="swiper-slide"><img src="{{ asset($projet?->getProjetImage()) }}"
+                                    class="img-fluid" alt="">
+                            </div>
+                        @endforeach
+                        <div class="swiper-slide"><img src="" class="img-fluid" alt=""></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+            </div>
+
+        </section>
+        
+        <section class="testimonials section light-background">
+        </section>
 
         {{-- Connexion --}}
         <div
@@ -995,11 +1007,14 @@
 
                             </div>
                         </div>
+                        <div class="modal-footer mt-5">
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
 
         {{-- Antennes modal --}}
         @foreach ($antennes as $antenne)
@@ -1008,59 +1023,85 @@
                 <div class="modal fade" id="antenneModal{{ $antenne?->id }}" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="w-100  text-center">{{ $antenne?->name }}</h3>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row g-3">
-                                    <?php $i = 1; ?>
-                                    <b><u>Régions</u>:</b>
-                                    @foreach ($antenne?->regions as $region)
-                                        <div>{{ $i++ . '. ' . $region?->nom }}</div>
-                                    @endforeach
-                                    <div>
-                                        <b><u>Contact</u>:</b> {{ $antenne?->contact }}
-                                    </div>
-                                    <div>
-                                        <b><u>Adresse</u>:</b> {{ $antenne?->adresse }}
+                            <section id="pricing" class="pricing section light-background">
+                                <!-- Section Title -->
+                                <div class="container section-title" data-aos="fade-up">
+                                    <h2>{{ $antenne?->name }}</h2>
+                                    {{-- <p>{{ $antenne?->adresse }}</p> --}}
+                                </div>
+                                <!-- End Section Title -->
+                                <div class="container" data-aos="fade-up" data-aos-delay="100">
+                                    <div class="row justify-content-center">
+                                        <!-- Standard Plan -->
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12"
+                                            data-aos="fade-up" data-aos-delay="200">
+                                            <div class="pricing-card popular">
+                                                <div class="popular-badge">{{ $antenne?->code }}</div>
+                                                {{-- <h3>Chef : <span
+                                                        class="currency">{{ $antenne?->chef?->user?->firstname . ' ' . $antenne?->chef?->user?->name }}</span>
+                                                </h3> --}}
+
+                                                <h4>ZONE DE COUVERTURE</h4>
+                                                <ul class="features-list">
+                                                    @foreach ($antenne?->regions as $region)
+                                                        @if (!empty($region))
+                                                            <li>
+                                                                <i class="bi bi-check-circle-fill"></i>
+                                                                {{ 'REGION DE ' . $region?->nom }}
+                                                            </li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                                <h4>CONTACT</h4>
+                                                <p><i class="bi bi-telephone"></i>
+                                                    {{ $antenne?->contact . ' / ' . $antenne?->chef?->user?->telephone }}
+                                                </p>
+                                                <p><i class="bi bi-envelope"></i>
+                                                    {{ $antenne?->chef?->user?->email }}
+                                                </p>
+                                                <h4>ADRESSE</h4>
+                                                <div class="icon-box">
+                                                    <p><i class="bi bi-geo-alt"></i> {{ $antenne?->adresse }}</p>
+                                                </div>
+                                                {{-- <a href="#" class="btn btn-light">
+                                                    En savoir plus
+                                                    <i class="bi bi-arrow-right"></i>
+                                                </a> --}}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
         @foreach ($postes as $poste)
-            <div
-                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
-                <div class="modal fade" id="ShowPostModal{{ $poste->id }}" tabindex="-1">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <form method="post" action="#" enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-header text-center bg-gradient-default">
-                                    <h1 class="h4 text-black mb-0">{{ $poste->legende }}</h1>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row g-3">
-
-                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                                            <img src="{{ asset($poste->getPoste()) }}" class="d-block w-100"
-                                                alt="{{ $poste->legende }}">
-                                        </div>
+            <div class="modal fade" id="ShowPostModal{{ $poste->id }}" tabindex="-1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <section class="pricing section light-background">
+                            <div class="container section-title" data-aos="fade-up">
+                                <h1 class="h4 text-black mb-0">{{ $poste->legende }}</h1>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row g-3">
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
+                                        <img src="{{ asset($poste->getPoste()) }}"
+                                            class="d-block w-100 main-image rounded-4" alt="{{ $poste->legende }}">
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <p>{{ $poste->name }}</p>
+                                    </div>
 
-                                    </div>
-                                    <div class="modal-footer mt-5">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                    </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="modal-footer mt-2">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
