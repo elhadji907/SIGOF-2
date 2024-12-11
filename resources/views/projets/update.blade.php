@@ -285,11 +285,8 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary btn-sm"
-                                            data-bs-dismiss="modal">Fermer</button>
-                                        <button type="submit" class="btn btn-primary btn-sm"><i
-                                                class="bi bi-printer"></i>
-                                            Modifier</button>
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Enregistrer les modifications</button>
                                     </div>
                                 </div>
                             </form>

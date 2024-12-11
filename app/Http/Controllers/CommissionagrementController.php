@@ -24,9 +24,9 @@ class CommissionagrementController extends Controller
         $request->validate([
             'commission'    =>  'required|string|unique:commissionagrements,commission,except,id',
             'session'       =>  'required|string',
-            'date'          =>  'nullable|date',
-            'lieu'          =>  'nullable|string',
             'annee'         =>  'required|string',
+            'description'   =>  'nullable|string',
+            'lieu'          =>  'nullable|string',
 
         ]);
 
@@ -34,7 +34,6 @@ class CommissionagrementController extends Controller
 
             'commission'    =>  $request->input('commission'),
             'session'       =>  $request->input('session'),
-            'date'          =>  $request->input('date'),
             'description'   =>  $request->input('description'),
             'lieu'          =>  $request->input('lieu'),
             'annee'         =>  $request->input('annee'),
@@ -50,7 +49,7 @@ class CommissionagrementController extends Controller
     public function update(Request $request, $id)
     {
         $commissionagrement = Commissionagrement::findOrFail($id);
-
+        
         $request->validate([
             'commission'    =>  ["required", "string", "unique:commissionagrements,commission,{$id}"],
             'session'       =>  'required|string',

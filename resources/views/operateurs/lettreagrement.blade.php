@@ -186,7 +186,7 @@
                     la propriété de l'Office.</li>
             </ul>
             </p>
-            <table style="margin-top: -10px;">
+            <table style="margin-top: -100px;">
                 <thead>
                     <tr class="heading">
                         <td colspan="3">

@@ -22,7 +22,7 @@
                         <div class="card info-card revenue-card">
                             <a href="{{ route('operateurs.index') }}">
                                 <div class="card-body">
-                                    <h5 class="card-title">Opérateurs <span>| Tous</span></h5>
+                                    <h5 class="card-title">Demandes <span>| opérateurs</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -32,7 +32,7 @@
                                             <h6>
                                                 {{ count($operateurs) }}
                                             </h6>
-                                            <span class="text-muted small pt-2 ps-1">Tous</span>
+                                            <span class="text-muted small pt-2 ps-1"></span>
                                             {{-- <span class="text-success small pt-1 fw-bold">{{ number_format($pourcentage_nouveau, 2, ',', ' ') .'%' }}</span> --}}
                                         </div>
                                     </div>
@@ -48,9 +48,9 @@
                                 <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                             </div> --}}
                             {{-- {{ route('commissionagrements.show', $commissionagrement->id) }} --}}
-                            <a href="#">
+                            <a href="{{ route('operateurs.agreer') }}">
                                 <div class="card-body">
-                                    <h5 class="card-title">Operateurs <span>| Agréés</span></h5>
+                                    <h5 class="card-title">Agréments <span>| en cours</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -116,7 +116,7 @@
                             {{-- {{ route('showRejeter', ['id' => $commissionagrement->id]) }} --}}
                             <a href="#">
                                 <div class="card-body">
-                                    <h5 class="card-title">Opérateurs <span>| Rejetés</span></h5>
+                                    <h5 class="card-title">Agréments <span>| expirés</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -140,7 +140,7 @@
                         <div class="card info-card revenue-card">
                             <a href="#">
                                 <div class="card-body">
-                                    <h5 class="card-title">Opérateurs <span>| Nouveau</span></h5>
+                                    <h5 class="card-title">Nouvelles <span>| demandes</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -189,12 +189,33 @@
                 <div class="card">
                     <div class="card-body">
                         @if (auth()->user()->hasRole('super-admin|admin|DEC'))
-                            <div class="pt-1">
+                            {{-- <div class="pt-1">
                                 <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
                                     data-bs-toggle="modal" data-bs-target="#AddOperateurModal">Ajouter</button>
+                            </div> --}}
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                @can('user-create')
+                                    <h5 class="card-title">{{ $title }}</h5>
+                                    <span class="d-flex align-items-baseline">
+                                        <a href="#" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal"
+                                            data-bs-target="#AddOperateurModal" title="Ajouter">Ajouter</a>
+                                        <div class="filter">
+                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                    class="bi bi-three-dots"></i></a>
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                <li>
+                                                    <button type="button" class="dropdown-item btn btn-sm"
+                                                        data-bs-toggle="modal" data-bs-target="#generate_rapport"></i>Rechercher
+                                                        plus</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </span>
+                                @endcan
                             </div>
                         @endif
-                        <h5 class="card-title">Liste des opérateurs</h5>
+                        {{-- <h5 class="card-title">Liste des opérateurs</h5> --}}
                         <div class="table-responsive">
                             <table class="table datatables table-bordered table-hover table-striped" id="table-operateurs">
                                 <thead>
@@ -266,7 +287,7 @@
                                                 <td class="text-center">
                                                     {{-- <span
                                                         class="badge bg-info">{{ count($operateur?->formations) }}</span> --}}
-                                                     @foreach ($operateur->formations as $formation)
+                                                    @foreach ($operateur->formations as $formation)
                                                         @if ($loop->last)
                                                             <a href="#"><span
                                                                     class="badge bg-info">{{ $loop->count }}</span></a>
@@ -1364,6 +1385,121 @@
                 </div>
             @endforeach --}}
             <!-- End Edit Operateur-->
+        </div>
+
+        <div class="modal fade" id="generate_rapport" tabindex="-1" role="dialog"
+            aria-labelledby="generate_rapportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="card-header text-center bg-gradient-default">
+                        <h1 class="h4 text-black mb-0">FAIRE UNE RECHERCHE</h1>
+                    </div>
+                    <form method="post" action="{{ route('operateurs.report') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="operateur_name" class="form-label">Raison sociale</label>
+                                                <input type="text" name="operateur_name"
+                                                    value="{{ old('operateur_name') }}"
+                                                    class="form-control form-control-sm @error('operateur_name') is-invalid @enderror"
+                                                    id="operateur_name" placeholder="Raison sociale">
+                                                @error('operateur_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="operateur_sigle" class="form-label">Sigle</label>
+                                                <input type="text" name="operateur_sigle"
+                                                    value="{{ old('operateur_sigle') }}"
+                                                    class="form-control form-control-sm @error('operateur_sigle') is-invalid @enderror"
+                                                    id="operateur_sigle" placeholder="Sigle">
+                                                @error('operateur_sigle')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="numero_agrement" class="form-label">N° agrément</label>
+                                                <input type="text" name="numero_agrement"
+                                                    value="{{ old('numero_agrement') }}"
+                                                    class="form-control form-control-sm @error('numero_agrement') is-invalid @enderror"
+                                                    id="numero_agrement" placeholder="Numéro agrément">
+                                                @error('numero_agrement')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="telephone" class="form-label">Téléphone</label>
+                                                <input minlength="5" maxlength="10" type="text" name="telephone"
+                                                    value="{{ old('telephone') }}"
+                                                    class="form-control form-control-sm @error('telephone') is-invalid @enderror"
+                                                    id="telephone" placeholder="7xxxxxxxx">
+                                                @error('telephone')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email" value="{{ old('email') }}"
+                                                    class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                                    id="email" placeholder="email@email.com">
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block submit_rapport btn-sm">Rechercher</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 

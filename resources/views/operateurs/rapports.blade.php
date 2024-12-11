@@ -24,9 +24,6 @@
                 title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
             <p> | Tableau de bord</p>
         </span>
-        {{-- @isset($operateurs)
-            <span class="page-title badge bg-primary">{{ $title }}</span>
-        @endisset --}}
         @can('rapport-operateur-view')
             <span class="d-flex align-items-baseline">
                 <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
@@ -42,10 +39,6 @@
                             <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#generate_rapport_module"></i>Par module</button>
                         </li>
-                        {{-- <li>
-                            <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#generate_rapport_module_region"></i>rapport module/région</button>
-                        </li> --}}
                     </ul>
                 </div>
             </span>
@@ -54,10 +47,7 @@
     <section class="section">
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
-                @isset($operateurs)
-                    {{-- <div class="pb-2">
-                        <span class="page-title badge bg-info">{{ $title }}</span>
-                    </div> --}}
+                @if(!empty($operateurs))
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">{{ $title }}</h5>

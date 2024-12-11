@@ -52,7 +52,38 @@ class OperateurController extends Controller
             $pourcentage_nouveau = "0";
         }
 
-        return view("operateurs.index", compact("operateurs", "departements", "operateur_agreer", "operateur_rejeter", "pourcentage_agreer", "pourcentage_rejeter", "operateur_nouveau", "pourcentage_nouveau"));
+        $total_count = Operateur::get();
+        $total_count = number_format($total_count->count(), 0, ',', ' ');
+
+        $operateur_liste = Operateur::take(100)
+            ->latest()
+            ->get();
+
+        $count_operateur = number_format($operateur_liste?->count(), 0, ',', ' ');
+
+        if ($count_operateur < "1") {
+            $title = 'Aucun opérateur';
+        } elseif ($count_operateur == "1") {
+            $title = $count_operateur . ' opérateur sur un total de ' . $total_count;
+        } else {
+            $title = 'Liste des ' . $count_operateur . ' derniers opérateurs sur un total de ' . $total_count;
+        }
+
+
+        return view(
+            "operateurs.index",
+            compact(
+                "operateurs",
+                "departements",
+                "operateur_agreer",
+                "operateur_rejeter",
+                "pourcentage_agreer",
+                "pourcentage_rejeter",
+                "operateur_nouveau",
+                "title",
+                "pourcentage_nouveau"
+            )
+        );
     }
 
     public function agrement()
@@ -1433,5 +1464,94 @@ class OperateurController extends Controller
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function generateReport(Request $request)
+    {
+        $this->validate($request, [
+            'operateur_name'    => 'nullable|string',
+            'operateur_sigle'   => 'nullable|string',
+            'numero_agrement'   => 'nullable|string',
+            'telephone'         => 'nullable|string',
+            'email'             => 'nullable|email',
+        ]);
+
+        if ($request?->operateur_name == null && $request->operateur_sigle == null && $request->telephone == null && $request->numero_agrement == null && $request->email == null) {
+            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            return redirect()->back();
+        }
+
+        $departements           = Departement::orderBy("created_at", "desc")->get();
+        $operateur_agreer       = Operateur::where('statut_agrement', 'agréer')->count();
+        $operateur_rejeter      = Operateur::where('statut_agrement', 'rejeter')->count();
+        $operateur_nouveau      = Operateur::where('statut_agrement', 'nouveau')->count();
+        $operateur_total        = Operateur::where('statut_agrement', 'agréer')->orwhere('statut_agrement', 'rejeter')->orwhere('statut_agrement', 'nouveau')->count();
+        if (isset($operateur_total) && $operateur_total > '0') {
+            $pourcentage_agreer = ((($operateur_agreer) / ($operateur_total)) * 100);
+            $pourcentage_rejeter = ((($operateur_rejeter) / ($operateur_total)) * 100);
+            $pourcentage_nouveau = ((($operateur_nouveau) / ($operateur_total)) * 100);
+        } else {
+            $pourcentage_agreer = "0";
+            $pourcentage_rejeter = "0";
+            $pourcentage_nouveau = "0";
+        }
+
+        /* $total_count = Operateur::get();
+        $total_count = number_format($total_count->count(), 0, ',', ' '); */
+
+        /* $operateur_liste = Operateur::take(100)
+            ->latest()
+            ->get();
+
+        $count_operateur = number_format($operateur_liste?->count(), 0, ',', ' '); */
+
+        /*      if ($count_operateur < "1") {
+            $title = 'Aucun opérateur';
+        } elseif ($count_operateur == "1") {
+            $title = $count_operateur . ' opérateur sur un total de ' . $total_count;
+        } else {
+            $title = 'Liste des ' . $count_operateur . ' derniers opérateurs sur un total de ' . $total_count;
+        } */
+
+        $operateurs = Operateur::join('users', 'users.id', 'operateurs.users_id')
+            ->select('operateurs.*')
+            ->where('operateur', 'LIKE', "%{$request?->operateur_name}%")
+            ->where('username', 'LIKE', "%{$request?->operateur_sigle}%")
+            ->where('numero_agrement', 'LIKE', "%{$request?->numero_agrement}%")
+            ->where('telephone', 'LIKE', "%{$request?->telephone}%")
+            ->where('email', 'LIKE', "%{$request?->email}%")
+            ->distinct()
+            ->get();
+
+        $count = $operateurs?->count();
+
+        if (isset($count) && $count < "1") {
+            $title = 'aucun opérateur trouvé';
+        } elseif (isset($count) && $count == "1") {
+            $title = $count . ' opérateur trouvé';
+        } else {
+            $title = $count . ' opérateurs trouvés';
+        }
+
+        return view(
+            'operateurs.index',
+            compact(
+                'operateurs',
+                "operateurs",
+                "departements",
+                "operateur_agreer",
+                "operateur_rejeter",
+                "pourcentage_agreer",
+                "pourcentage_rejeter",
+                "operateur_nouveau",
+                "title",
+                "pourcentage_nouveau"
+            )
+        );
+    }
+
+    public function agreer(Request $request)
+    {
+        return view('operateurs.agreer');
     }
 }

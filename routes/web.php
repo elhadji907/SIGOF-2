@@ -349,6 +349,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('operateurs/rapports', [OperateurController::class, 'rapports'])->name('operateurs.rapport');
     Route::post('operateurs/rapports', [OperateurController::class, 'generateRapport']);
 
+    Route::get('operateurs/index', [OperateurController::class, 'index'])->name('operateurs.report');
+    Route::post('operateurs/index', [OperateurController::class, 'generateReport']);
+
+    Route::get('agreer', [OperateurController::class, 'agreer'])->name('operateurs.agreer');
+
     Route::get('modules/rapports', [ModuleController::class, 'rapports'])->name('modules.rapport');
     Route::post('modules/rapports', [ModuleController::class, 'generateRapport']);
 
