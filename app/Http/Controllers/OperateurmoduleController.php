@@ -133,7 +133,6 @@ class OperateurmoduleController extends Controller
             ]);
             Alert::success($operateurmodule->module, 'mis à jour');
             $operateurmodule->save();
-            
         } elseif (!empty($operateurmodule_find)) {
             foreach ($operateur_find as $value) {
                 if (($value->module == $operateurmodule_find->module)) {
@@ -179,16 +178,20 @@ class OperateurmoduleController extends Controller
     public function destroy($id)
     {
         $operateurmodule = Operateurmodule::find($id);
-        if ($operateurmodule->statut != 'nouveau') {
-            Alert::warning('Attention ! ', 'action impossible module déjà traité');
-            return redirect()->back();
-        } else {
 
-            $operateurmodule->delete();
-
-            Alert::success('Effectuée !', 'module supprimée');
-
-            return redirect()->back();
+        foreach (Auth::user()->roles as $role) {
+            if (!empty($role?->name) && ($role?->name == 'super-admin')) {
+                Alert::success('Effectuée !', 'module supprimée');
+                $operateurmodule->delete();
+                return redirect()->back();
+            } elseif ($operateurmodule->statut != 'nouveau') {
+                Alert::warning('Attention ! ', 'action impossible module déjà traité');
+                return redirect()->back();
+            } else {
+                $operateurmodule->delete();
+                Alert::success('Effectuée !', 'module supprimée');
+                return redirect()->back();
+            }
         }
     }
 }
