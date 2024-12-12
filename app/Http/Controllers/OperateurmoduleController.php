@@ -19,8 +19,19 @@ class OperateurmoduleController extends Controller
     }
     public function index()
     {
-        $operateurmodules = Operateurmodule::orderBy('created_at', 'desc')->get();
-        return view("operateurmodules.index", compact("operateurmodules"));
+        $operateurmodules = Operateurmodule::take(50)
+            ->latest()
+            ->get();
+        $module_statuts = Operateurmodule::get()->unique('statut');
+        $operateurs = Operateur::orderBy('created_at', 'desc')->get();
+        return view(
+            "operateurmodules.index",
+            compact(
+                "operateurmodules",
+                "operateurs",
+                "module_statuts",
+            )
+        );
     }
 
     public function store(Request $request)
@@ -163,7 +174,6 @@ class OperateurmoduleController extends Controller
             Alert::success($operateurmodule->module, 'mis à jour');
             $operateurmodule->save();
         }
-
         return redirect()->back();
     }
 
@@ -193,5 +203,52 @@ class OperateurmoduleController extends Controller
                 return redirect()->back();
             }
         }
+    }
+    public function rapports()
+    {
+        $operateurmodules = Operateurmodule::take(50)
+            ->latest()
+            ->get();
+        $module_statuts = Operateurmodule::get()->unique('statut');
+        $operateurs = Operateur::orderBy('created_at', 'desc')->get();
+        return view(
+            "operateurmodules.index",
+            compact(
+                "operateurmodules",
+                "operateurs",
+                "module_statuts",
+            )
+        );
+    }
+    public function generateRapport(Request $request)
+    {
+        $this->validate($request, [
+            'module'    => 'nullable|string',
+            'statut'    => 'nullable|string',
+            'operateur' => 'nullable|string',
+        ]);
+
+        $operateurs = Operateur::orderBy('created_at', 'desc')->get();
+
+        $module_statuts = Operateurmodule::get()->unique('statut');
+
+        if ($request?->module == null && $request->statut == null && $request->operateur == null) {
+            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            return redirect()->back();
+        } elseif (!empty($request?->module)) {
+            $operateurmodules = Operateurmodule::where('module', $request?->module)->get();
+        } elseif (!empty($request?->statut)) {
+            $operateurmodules = Operateurmodule::where('statut', $request?->statut)->get();
+        } elseif (!empty($request?->operateur)) {
+            $operateurmodules = Operateurmodule::where('operateurs_id', $request?->operateur)->get();
+        } else {
+            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+        }
+
+        return view('operateurmodules.index', compact(
+            'operateurmodules',
+            'operateurs',
+            'module_statuts',
+        ));
     }
 }

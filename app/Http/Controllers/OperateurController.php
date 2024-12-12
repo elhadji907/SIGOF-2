@@ -55,7 +55,7 @@ class OperateurController extends Controller
         $total_count = Operateur::get();
         $total_count = number_format($total_count->count(), 0, ',', ' ');
 
-        $operateur_liste = Operateur::take(100)
+        $operateur_liste = Operateur::take(50)
             ->latest()
             ->get();
 
@@ -1272,9 +1272,11 @@ class OperateurController extends Controller
     {
         $title = 'rapports opérateurs';
         $regions = Region::orderBy("created_at", "desc")->get();
+        $module_statuts = Operateurmodule::get()->unique('statut');
         return view('operateurs.rapports', compact(
             'title',
             'regions',
+            'module_statuts',
         ));
     }
     public function generateRapport(Request $request)
@@ -1552,6 +1554,14 @@ class OperateurController extends Controller
 
     public function agreer(Request $request)
     {
-        return view('operateurs.agreer');
+        $title = "Liste des opérateurs agréés";
+        $operateurs             = Operateur::where('statut_agrement', 'agréer')->get();
+        return view(
+            'operateurs.agreer',
+            compact(
+                'title',
+                'operateurs'
+            )
+        );
     }
 }

@@ -134,7 +134,7 @@
                                                     <td>{{ $operateurmodule?->operateur?->user?->adresse }}</td>
                                                     <td>{{ $operateurmodule?->domaine }}</td>
                                                     <td>{{ $operateurmodule?->module }}</td>
-                                                    <td>{{ $operateurmodule?->niveau_qualification }}</td>
+                                                    <td>{{ $operateurmodule?->categorie }}</td>
                                                     <td>{{ $operateurmodule?->operateur?->numero_agrement }}</td>
                                                     {{-- <td style="text-align: center;">
                                                             @foreach ($operateur?->operateurmodules as $operateurmodule)

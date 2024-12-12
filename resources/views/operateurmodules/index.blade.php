@@ -37,9 +37,32 @@
                 @endif
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Liste des modules opérateurs</h5>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <h5 class="card-title">Liste des modules opérateurs</h5>
+                            @can('rapport-operateur-view')
+                                <span class="d-flex align-items-baseline">
+                                    <a href="#" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#generate_rapport_module_region" title="Générer rapports">Rechercher plus</a>
+                                  {{--   <div class="filter">
+                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                class="bi bi-three-dots"></i></a>
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <li>
+                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#generate_rapport"></i>Par région</button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item btn btn-sm" data-bs-toggle="modal"
+                                                    data-bs-target="#generate_rapport_module"></i>Par module</button>
+                                            </li>
+                                        </ul>
+                                    </div> --}}
+                                </span>
+                            @endcan
+                        </div>
                         <!-- Table with stripped rows -->
-                        <table class="table datatables table-bordered table-hover align-middle justify-content-center" id="table-operateurModules">
+                        <table class="table datatables table-bordered table-hover align-middle justify-content-center"
+                            id="table-operateurModules">
                             <thead>
                                 <tr>
                                     <th class="text-center">DOMAINE</th>
@@ -60,17 +83,18 @@
                                         <td style="text-align: center;">{{ $operateurmodule?->module }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->categorie }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->niveau_qualification }}</td>
-                                        <td style="text-align: center;">{{ $operateurmodule?->operateur?->user?->username }}</td>
+                                        <td style="text-align: center;">{{ $operateurmodule?->operateur?->user?->username }}
+                                        </td>
                                         <td style="text-align: center;">
                                             <span
                                                 class="{{ $operateurmodule?->statut }}">{{ $operateurmodule?->statut }}</span>
-                                        </td>                                        
+                                        </td>
                                         <td>
                                             <span class="d-flex align-items-baseline justify-content-center"><a
                                                     href="{{ route('operateurmodules.show', $operateurmodule->id) }}"
                                                     class="btn btn-primary btn-sm" title="voir détails"><i
                                                         class="bi bi-eye"></i></a>
-                                                <div class="filter">
+                                                {{-- <div class="filter">
                                                     <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                             class="bi bi-three-dots"></i></a>
                                                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -81,15 +105,15 @@
                                                                 <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                             </button>
                                                         </li>
-                                                        {{-- <li>
+                                                        <li>
                                                             <button type="button" class="dropdown-item btn btn-sm mx-1"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#myModal{{ $operateurmodule->id }}">
                                                                 <i class="bi bi-trash" title="Supprimer"></i> Supprimer
                                                             </button>
-                                                        </li> --}}
+                                                        </li>
                                                     </ul>
-                                                </div>
+                                                </div> --}}
                                             </span>
                                         </td>
                                     </tr>
@@ -192,7 +216,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                             </div>
                         </form>
@@ -235,6 +260,113 @@
                 </div>
             </div>
         @endforeach
+
+        <div class="modal fade" id="generate_rapport_module_region" tabindex="-1" role="dialog"
+            aria-labelledby="generate_rappor_module_regionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Générer rapport opérateurs par module et région</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="{{ route('operateurmodules.rapport') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="row">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="module" class="form-label">Module</label>
+                                                <input type="text" name="module" id="module_operateur"
+                                                    class="form-control form-control-sm"
+                                                    placeholder="Module ou spécialité" />
+                                                <div id="moduleList"></div>
+                                                {{ csrf_field() }}
+                                                {{-- <input type="text" name="module" placeholder="module..."
+                                                    class="form-control form-control-sm module"> --}}
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="operateur" class="form-label">Opérateur</label>
+                                                <select name="operateur"
+                                                    class="form-select  @error('operateur') is-invalid @enderror"
+                                                    aria-label="Select" id="select-field-region-module-rapport"
+                                                    data-placeholder="Choisir">
+                                                    <option value=""></option>
+                                                    @foreach ($operateurs as $op)
+                                                        <option value="{{ $op?->id }}">
+                                                            {{ $op?->user?->username }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('operateur')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <div class="form-group">
+                                                <label for="statut" class="form-label">Statut</label>
+                                                <select name="statut"
+                                                    class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                                    aria-label="Select" id="select-field-statut-rappo"
+                                                    data-placeholder="Choisir">
+                                                    <option value="{{ old('statut') }}">
+                                                        {{ old('statut') }}
+                                                    </option>
+                                                    
+                                                    @foreach ($module_statuts as $module)
+                                                        <option value="{{ $module?->statut }}">
+                                                            {{ $module?->statut }}
+                                                        </option>
+                                                    @endforeach
+
+                                                    {{-- <option value="agréer">
+                                                        agréer
+                                                    </option>
+                                                    <option value="nouveau">
+                                                        nouveau
+                                                    </option>
+                                                    <option value="rejeter">
+                                                        rejeter
+                                                    </option>
+                                                    <option value="sous réserve">
+                                                        sous réserve
+                                                    </option>
+                                                    <option value="retenu">
+                                                        retenu
+                                                    </option>
+                                                    <option value="attente">
+                                                        attente
+                                                    </option> --}}
+                                                </select>
+                                                @error('statut')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <div>{{ $message }}</div>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <div class="text-center">
+                                        <button type="submit"
+                                            class="btn btn-primary btn-block submit_rapport btn-sm">Envoyer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
 @endsection
