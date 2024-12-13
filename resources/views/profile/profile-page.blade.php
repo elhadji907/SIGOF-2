@@ -621,7 +621,7 @@
                                             <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                                 <input name="facebook" type="facebook"
                                                     class="form-control form-control-sm @error('facebook') is-invalid @enderror"
-                                                    id="facebook" value="{{ $user->facebook ?? old('facebook') }}"
+                                                    id="facebook" value="{!! $user->facebook ?? old('facebook') !!}"
                                                     autocomplete="facebook" placeholder="lien de votre compte facebook">
                                                 @error('facebook')
                                                     <span class="invalid-feedback" role="alert">

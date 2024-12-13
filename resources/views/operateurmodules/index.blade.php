@@ -83,7 +83,7 @@
                                         <td style="text-align: center;">{{ $operateurmodule?->module }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->categorie }}</td>
                                         <td style="text-align: center;">{{ $operateurmodule?->niveau_qualification }}</td>
-                                        <td style="text-align: center;">{{ $operateurmodule?->operateur?->user?->username }}
+                                        <td style="text-align: center;"><a href="{{ route('operateurs.show', $operateurmodule?->operateur?->id) }}">{{ $operateurmodule?->operateur?->user?->username }}</a>
                                         </td>
                                         <td style="text-align: center;">
                                             <span

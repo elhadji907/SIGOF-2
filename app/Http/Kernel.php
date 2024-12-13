@@ -70,5 +70,7 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
 
         'isAdmin' => \App\Http\Middleware\AdminMiddleware::class,
+
+        'XSS' => \App\Http\Middleware\XSS::class,
     ];
 }
