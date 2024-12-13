@@ -19,11 +19,13 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
     use SoftDeletes;
     use \App\Helpers\UuidForKey;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    
     protected $dates = [
         'date_naissance',
         'email_verified_at'

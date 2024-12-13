@@ -51,10 +51,10 @@
                         <table class="table datatables align-middle justify-content-center" id="table-agrements">
                             <thead>
                                 <tr>
-                                    <th>Commission agrément</th>
+                                    <th width="40%">Commission agrément</th>
                                     <th width="10%" class="text-center">Session</th>
                                     <th width="5%" class="text-center">Année</th>
-                                    <th width="20%">Lieu</th>
+                                    <th width="10%">Lieu</th>
                                     <th width="10%">PV</th>
                                     <th width="10%">Fin agrément</th>
                                     <th width="5%" class="text-center">Operateurs</th>

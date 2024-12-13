@@ -99,7 +99,6 @@
                                             <label for="budjet" class="form-label">Budjet (F CFA)</label>
                                             <input type="number" name="budjet"
                                                 value="{{ $projet->budjet ?? old('budjet') }}" min="0"
-                                                step="0.001"
                                                 class="form-control form-control-sm @error('budjet') is-invalid @enderror"
                                                 id="budjet" placeholder="Budjet total">
                                             @error('budjet')
@@ -110,7 +109,8 @@
                                         </div>
 
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="debut" class="form-label">Date début</label>
+                                            <label for="debut" class="form-label">Date début<span
+                                                class="text-danger mx-1">*</span></label>
                                             <input type="date" name="debut"
                                                 value="{{ $projet->debut?->format('Y-m-d') ?? old('debut') }}"
                                                 class="form-control form-control-sm @error('debut') is-invalid @enderror"
@@ -123,7 +123,8 @@
                                         </div>
 
                                         <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
-                                            <label for="fin" class="form-label">Date fin</label>
+                                            <label for="fin" class="form-label">Date fin<span
+                                                class="text-danger mx-1">*</span></label>
                                             <input type="date" name="fin"
                                                 value="{{ $projet?->fin?->format('Y-m-d') ?? old('fin') }}"
                                                 class="form-control form-control-sm @error('fin') is-invalid @enderror"
@@ -139,7 +140,6 @@
                                             <label for="effectif" class="form-label">Effectif à former</label>
                                             <input type="number" name="effectif"
                                                 value="{{ $projet?->effectif ?? old('effectif') }}" min="0"
-                                                step="5"
                                                 class="form-control form-control-sm @error('effectif') is-invalid @enderror"
                                                 id="effectif" placeholder="effectif total à former">
                                             @error('effectif')

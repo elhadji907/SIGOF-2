@@ -4,7 +4,7 @@
     <div class="pagetitle">
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
+                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                 <li class="breadcrumb-item">Tables</li>
                 <li class="breadcrumb-item active">Données</li>
             </ol>
@@ -252,7 +252,7 @@
                                     <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="effectif" class="form-label">Effectif à former</label>
                                         <input type="number" name="effectif" value="{{ old('effectif') }}"
-                                            min="0" step="5"
+                                            min="0"
                                             class="form-control form-control-sm @error('effectif') is-invalid @enderror"
                                             id="effectif" placeholder="effectif total à former">
                                         @error('effectif')
@@ -314,10 +314,9 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button type="button" class="btn btn-secondary btn-sm"
                                         data-bs-dismiss="modal">Fermer</button>
-                                    <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                        Enregistrer</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                                 </div>
                             </div>
                         </form>
