@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $total_user = User::count();
         $email_verified_at = DB::table(table: 'users')->where('email_verified_at', '!=', null)->count();
-        $total_arrive = Arrive::count();
+        $total_arrive = Arrive::where('type', null)->count();
         $total_depart = Depart::count();
         $total_interne = Interne::count();
 

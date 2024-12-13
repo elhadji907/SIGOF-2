@@ -691,6 +691,8 @@ class ArriveController extends Controller
             ->latest()
             ->get();
 
+        $count_arrives = Arrive::where('type', 'operateur')->count();
+
         $count_courrier = number_format($arrives?->count(), 0, ',', ' ');
 
         if ($count_courrier < "1") {
@@ -713,6 +715,7 @@ class ArriveController extends Controller
                 "anneeEnCours",
                 "numCourrier",
                 "title",
+                "count_arrives",
                 "numDossier"
             )
         );

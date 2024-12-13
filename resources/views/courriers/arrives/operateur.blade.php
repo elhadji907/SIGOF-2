@@ -8,7 +8,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Accueil</a></li>
                 <li class="breadcrumb-item">Tables</li>
-                <li class="breadcrumb-item active">Liste des courriers d'agrément des opérateurs</li>
+                <li class="breadcrumb-item active">Courriers agrément opérateurs</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -68,7 +68,7 @@
                                         </div>
                                         <div class="ps-3">
                                             <h6>
-                                                <span class="text-primary">{{ count($arrives) ?? '0' }}</span>
+                                                <span class="text-primary">{{ $count_arrives }}</span>
                                             </h6>
                                             <span class="text-success small pt-1 fw-bold">Tous</span>
                                             {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
