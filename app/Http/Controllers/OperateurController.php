@@ -198,12 +198,19 @@ class OperateurController extends Controller
 
             $arrive->save();
 
+            
+        if (!empty($request->input('date_quitus'))) {
+            $date_quitus = $request->input('date_quitus');
+        } else {
+            $date_quitus = null;
+        }
+
             $operateur = Operateur::create([
                 "numero_agrement"      =>       $numCourrier . '/ONFP/DG/DEC/' . date('Y'),
                 /* "statut"               =>       $request->input("statut"),
                 "autre_statut"         =>       $request->input("autre_statut"), */
                 "type_demande"         =>       $request->input("type_demande"),
-                "debut_quitus"         =>       $request->input("date_quitus"),
+                "debut_quitus"         =>       $date_quitus,
                 "annee_agrement"       =>       date('Y-m-d'),
                 "statut_agrement"      =>       'nouveau',
                 "departements_id"      =>       $departement?->id,
@@ -364,12 +371,18 @@ class OperateurController extends Controller
 
         $departement = Departement::where('nom', $request->input("departement"))->first();
 
+        if (!empty($request->input('date_quitus'))) {
+            $date_quitus = $request->input('date_quitus');
+        } else {
+            $date_quitus = null;
+        }
+
         $operateur = Operateur::create([
             "numero_dossier"       =>       $request->input("numero_dossier"),
             'numero_arrive'        =>       $request->input("numero_arrive"),
             "numero_agrement"      =>       $request->input("numero_agrement"),
             "type_demande"         =>       $request->input("type_demande"),
-            "debut_quitus"         =>       $request->input("date_quitus"),
+            "debut_quitus"         =>       $date_quitus,
             "annee_agrement"       =>       date('Y-m-d'),
             "statut_agrement"      =>       'nouveau',
             "departements_id"      =>       $departement?->id,
@@ -493,6 +506,12 @@ class OperateurController extends Controller
 
         $arrive->save();
 
+        if (!empty($request->input('date_quitus'))) {
+            $date_quitus = $request->input('date_quitus');
+        } else {
+            $date_quitus = null;
+        }
+
         $op = Operateur::create([
             "numero_agrement"      =>       $numCourrier . '/ONFP/DG/DEC/' . date('Y'),
             "categorie"            =>       $operateur?->categorie,
@@ -504,7 +523,7 @@ class OperateurController extends Controller
             "rccm"                 =>       $operateur?->registre_commerce, /* choisir ninea ou rccm */
             "ninea"                =>       $operateur?->ninea, /* enregistrer le numero de la valeur choisi (ninea ou rccm) */
             /* "quitus"               =>       $request->input("quitus"), */
-            "debut_quitus"         =>       $request->input("date_quitus"),
+            "debut_quitus"         =>       $date_quitus,
             "departements_id"      =>       $operateur?->departements_id,
             "regions_id"           =>       $operateur?->departement?->region?->id,
             "users_id"             =>       $operateur?->users_id,
@@ -727,12 +746,18 @@ class OperateurController extends Controller
 
         $user->save();
 
+        if (!empty($request->input('date_quitus'))) {
+            $date_quitus = $request->input('date_quitus');
+        } else {
+            $date_quitus = null;
+        }
+
         $operateur->update([
             'numero_arrive'        =>       $request->input("numero_arrive"),
             "numero_dossier"       =>       $request->input("numero_dossier"),
             "numero_agrement"      =>       $request->input("numero_agrement"),
             "type_demande"         =>       $request->input("type_demande"),
-            "debut_quitus"         =>       $request->input("date_quitus"),
+            "debut_quitus"         =>       $date_quitus,
             "departements_id"      =>       $departement?->id,
             "regions_id"           =>       $departement?->region?->id,
             "users_id"             =>       $user->id,
@@ -797,9 +822,15 @@ class OperateurController extends Controller
             }
         }
 
+        if (!empty($request->input('date_quitus'))) {
+            $date_quitus = $request->input('date_quitus');
+        } else {
+            $date_quitus = null;
+        }
+
         $operateur->update([
             "type_demande"         =>       $request->input("type_demande"),
-            "debut_quitus"         =>       $request->input("date_quitus"),
+            "debut_quitus"         =>       $date_quitus,
             "departements_id"      =>       $departement?->id,
             "regions_id"           =>       $departement?->region?->id,
             "users_id"             =>       $user->id,

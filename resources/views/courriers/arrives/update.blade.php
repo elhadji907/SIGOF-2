@@ -29,7 +29,7 @@
                                 <h5 class="card-title text-center pb-0 fs-4">Modification</h5>
                                 <p class="text-center small">modification courrier arrivé</p>
                             </div> --}}
-                            <form method="post" action="{{ url('arrives/' . $arrive->id) }}" enctype="multipart/form-data"
+                            <form method="post" action="{{ url('arrives/' . $arrive?->id) }}" enctype="multipart/form-data"
                                 class="row g-3">
                                 @csrf
                                 @method('PUT')
@@ -37,7 +37,7 @@
                                     <label for="date_arrivee" class="form-label">Date arrivée<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_arrivee"
-                                        value="{{ $arrive->courrier->date_recep?->format('Y-m-d') ?? old('date_arrivee') }}"
+                                        value="{{ $arrive?->courrier?->date_recep?->format('Y-m-d') ?? old('date_arrivee') }}"
                                         class="form-control form-control-sm @error('date_arrivee') is-invalid @enderror"
                                         id="date_arrivee" placeholder="Date arrivée">
                                     @error('date_arrivee')
@@ -52,7 +52,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
                                         <input type="number" min="0" name="numero_arrive"
-                                            value="{{ $arrive->numero ?? old('numero_arrive') }}"
+                                            value="{{ $arrive?->numero ?? old('numero_arrive') }}"
                                             class="form-control form-control-sm @error('numero_arrive') is-invalid @enderror"
                                             id="numero_arrive" placeholder="Numéro de correspondance">
                                         @error('numero_arrive')
@@ -67,7 +67,7 @@
                                     <label for="date_correspondance" class="form-label">Date correspondance<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="date" name="date_correspondance"
-                                        value="{{ $arrive->courrier->date_cores?->format('Y-m-d') ?? old('date_correspondance') }}"
+                                        value="{{ $arrive?->courrier?->date_cores?->format('Y-m-d') ?? old('date_correspondance') }}"
                                         class="form-control form-control-sm @error('date_correspondance') is-invalid @enderror"
                                         id="date_correspondance" placeholder="nom">
                                     @error('date_correspondance')
@@ -82,7 +82,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <div class="input-group has-validation">
                                         <input type="text" min="0" name="numero_correspondance"
-                                            value="{{ $arrive->courrier->numero ?? old('numero_correspondance') }}"
+                                            value="{{ $arrive?->courrier?->numero ?? old('numero_correspondance') }}"
                                             class="form-control form-control-sm @error('numero_correspondance') is-invalid @enderror"
                                             id="numero_correspondance" placeholder="Numéro de correspondance">
                                         @error('numero_correspondance')
@@ -97,7 +97,7 @@
                                     <label for="annee" class="form-label">Année<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="number" min="2024" name="annee"
-                                        value="{{ $arrive->courrier->annee ?? old('annee') }}"
+                                        value="{{ $arrive?->courrier?->annee ?? old('annee') }}"
                                         class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                         id="annee" placeholder="Année">
                                     @error('annee')
@@ -111,7 +111,7 @@
                                     <label for="expediteur" class="form-label">Expéditeur<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="expediteur"
-                                        value="{{ $arrive->courrier->expediteur ?? old('expediteur') }}"
+                                        value="{{ $arrive?->courrier?->expediteur ?? old('expediteur') }}"
                                         class="form-control form-control-sm @error('expediteur') is-invalid @enderror"
                                         id="expediteur" placeholder="Expéditeur">
                                     @error('expediteur')
@@ -125,7 +125,7 @@
                                     <label for="objet" class="form-label">Objet<span
                                             class="text-danger mx-1">*</span></label>
                                     <input type="text" name="objet"
-                                        value="{{ $arrive->courrier->objet ?? old('objet') }}"
+                                        value="{{ $arrive?->courrier?->objet ?? old('objet') }}"
                                         class="form-control form-control-sm @error('objet') is-invalid @enderror"
                                         id="objet" placeholder="Objet">
                                     @error('objet')
@@ -138,7 +138,7 @@
                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="reference" class="form-label">Référence</label>
                                     <input type="text" name="reference"
-                                        value="{{ $arrive->courrier->reference ?? old('reference') }}"
+                                        value="{{ $arrive?->courrier?->reference ?? old('reference') }}"
                                         class="form-control form-control-sm @error('reference') is-invalid @enderror"
                                         id="reference" placeholder="Référence">
                                     @error('reference')
@@ -151,7 +151,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="numero_reponse" class="form-label">Numéro réponse</label>
                                     <input type="number" min="0" name="numero_reponse"
-                                        value="{{ $arrive->courrier->numero_reponse ?? old('numero_reponse') }}"
+                                        value="{{ $arrive?->courrier?->numero_reponse ?? old('numero_reponse') }}"
                                         class="form-control form-control-sm @error('numero_reponse') is-invalid @enderror"
                                         id="numero_reponse" placeholder="Numéro réponse">
                                     @error('numero_reponse')
@@ -164,7 +164,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="date_reponse" class="form-label">Date réponse</label>
                                     <input type="date" min="0" name="date_reponse"
-                                        value="{{ $arrive->courrier->date_reponse?->format('Y-m-d') ?? old('date_reponse') }}"
+                                        value="{{ $arrive?->courrier?->date_reponse?->format('Y-m-d') ?? old('date_reponse') }}"
                                         class="form-control form-control-sm @error('date_reponse') is-invalid @enderror"
                                         id="date_reponse" placeholder="Numéro réponse">
                                     @error('date_reponse')
@@ -177,7 +177,7 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
                                     <label for="observation" class="form-label">Observations </label>
                                     <textarea name="observation" id="observation" rows="1" class="form-control form-control-sm"
-                                        placeholder="Observations">{{ old('observation', $arrive->courrier->observation) }}</textarea>
+                                        placeholder="Observations">{{ old('observation', $arrive?->courrier?->observation) }}</textarea>
                                     @error('observation')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -188,7 +188,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="legende" class="form-label">Légende</label>
                                     <input type="text" name="legende"
-                                        value="{{ $arrive->courrier->legende ?? old('legende') }}"
+                                        value="{{ $arrive?->courrier?->legende ?? old('legende') }}"
                                         class="form-control form-control-sm @error('legende') is-invalid @enderror"
                                         id="legende" placeholder="Le nom du fichier scanné">
                                     @error('legende')
@@ -213,11 +213,11 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="reference" class="form-label">Fichier</label><br>
-                                    @if (isset($arrive->courrier->file))
+                                    @if (isset($arrive?->courrier?->file))
                                         <div>
                                             <a class="btn btn-outline-secondary btn-sm"
                                                 title="télécharger le fichier joint" target="_blank"
-                                                href="{{ asset($arrive->courrier->getFile()) }}">
+                                                href="{{ asset($arrive?->courrier?->getFile()) }}">
                                                 <i class="bi bi-file-earmark-pdf"></i>
                                             </a>
                                         </div>
@@ -225,7 +225,7 @@
                                         <div class="badge bg-warning">Aucun</div>
                                     @endif
                                     {{-- <img class="w-25" alt="courrier"
-                                    src="{{ asset($arrive->courrier->getFile()) }}" width="50"
+                                    src="{{ asset($arrive?->courrier?->getFile()) }}" width="50"
                                     height="auto"> --}}
                                 </div>
 

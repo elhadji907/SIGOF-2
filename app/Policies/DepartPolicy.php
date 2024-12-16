@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Operateur;
+use App\Models\Depart;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class OperateurPolicy
+class DepartPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -19,39 +19,39 @@ class OperateurPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Operateur $operateur): bool
+    public function view(User $user, Depart $depart): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $depart->courrier->user->id;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    /* public function create(User $user): bool
     {
-        return $user->id === auth()->id();
-    }
+        //
+    } */
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Operateur $operateur): bool
+    public function update(User $user, Depart $depart): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $depart->courrier->user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Operateur $operateur): bool
+    public function delete(User $user, Depart $depart): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $depart->courrier->user->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-   /*  public function restore(User $user, Operateur $operateur): bool
+    /* public function restore(User $user, Depart $depart): bool
     {
         //
     } */
@@ -59,7 +59,7 @@ class OperateurPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-   /*  public function forceDelete(User $user, Operateur $operateur): bool
+    /* public function forceDelete(User $user, Depart $depart): bool
     {
         //
     } */

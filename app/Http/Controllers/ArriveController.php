@@ -141,6 +141,12 @@ class ArriveController extends Controller
             'objet'                     =>  ['required', 'string', 'max:200'],
         ]);
 
+        if (!empty($request->input('date_reponse'))) {
+            $date_reponse = $request->input('date_reponse');
+        } else {
+            $date_reponse = null;
+        }
+
         $courrier = new Courrier([
             'date_recep'            =>      $request->input('date_arrivee'),
             'date_cores'            =>      $request->input('date_correspondance'),
@@ -150,7 +156,7 @@ class ArriveController extends Controller
             'expediteur'            =>      $request->input('expediteur'),
             'reference'             =>      $request->input('reference'),
             'numero_reponse'        =>      $request->input('numero_reponse'),
-            'date_reponse'          =>      $request->input('date_reponse'),
+            'date_reponse'          =>      $date_reponse,
             'observation'           =>      $request->input('observation'),
             'type'                  =>      'arrive',
             "user_create_id"        =>      Auth::user()->id,
@@ -248,6 +254,7 @@ class ArriveController extends Controller
     public function update(Request $request, $id)
     {
         $arrive = Arrive::findOrFail($id);
+        $this->authorize('update', $arrive);
         $courrier = Courrier::findOrFail($arrive->courriers_id);
 
         $imp = $request->input('imp');
@@ -288,6 +295,13 @@ class ArriveController extends Controller
             "observation"           => ["nullable", "string"],
             "file"                  => ['sometimes', 'file', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048']
         ]);
+
+
+        if (!empty($request->input('date_reponse'))) {
+            $date_reponse = $request->input('date_reponse');
+        } else {
+            $date_reponse = null;
+        }
 
         if (isset($courrier->file)) {
             $this->validate($request, [
@@ -332,7 +346,7 @@ class ArriveController extends Controller
                     'expediteur'       =>      $request->input('expediteur'),
                     'reference'        =>      $request->input('reference'),
                     'numero_reponse'   =>      $request->input('numero_reponse'),
-                    'date_reponse'     =>      $request->input('date_reponse'),
+                    'date_reponse'     =>      $date_reponse,
                     'observation'      =>      $request->input('observation'),
                     'file'             =>      $filePath,
                     'legende'          =>      $request->input('legende'),
@@ -353,7 +367,7 @@ class ArriveController extends Controller
                     'expediteur'       =>      $request->input('expediteur'),
                     'reference'        =>      $request->input('reference'),
                     'numero_reponse'   =>      $request->input('numero_reponse'),
-                    'date_reponse'     =>      $request->input('date_reponse'),
+                    'date_reponse'     =>      $date_reponse,
                     'observation'      =>      $request->input('observation'),
                     'legende'          =>      $request->input('legende'),
                     'type'             =>      'arrive',
