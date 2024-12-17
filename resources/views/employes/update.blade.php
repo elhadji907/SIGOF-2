@@ -82,10 +82,10 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="name" class="form-label">Date naissance<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_naissance"
-                                        value="{{ $employe->user->date_naissance?->format('Y-m-d') ?? old('date_naissance') }}"
-                                        class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                        id="date_naissance" placeholder="Date naissance">
+                                    <input type="text" name="date_naissance"
+                                        value="{{ $employe->user->date_naissance?->format('d-m-Y') ?? old('date_naissance') }}"
+                                        class="datepicker form-control form-control-sm @error('date_naissance') is-invalid @enderror"
+                                        id="date_naissance" placeholder="dd-mm-aaaa">
                                     @error('date_naissance')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -169,10 +169,10 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="name" class="form-label">Date embauche<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_embauche"
-                                        value="{{ $employe->date_embauche?->format('Y-m-d') ?? old('date_embauche') }}"
-                                        class="form-control form-control-sm @error('date_embauche') is-invalid @enderror"
-                                        id="date_embauche" placeholder="Date embauche">
+                                    <input type="text" name="date_embauche"
+                                        value="{{ $employe->date_embauche?->format('d-m-Y') ?? old('date_embauche') }}"
+                                        class="datepicker form-control form-control-sm @error('date_embauche') is-invalid @enderror"
+                                        id="date_embauche" placeholder="dd-mm-aaaa">
                                     @error('date_embauche')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

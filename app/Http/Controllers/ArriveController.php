@@ -132,8 +132,8 @@ class ArriveController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_arrivee'              =>  ["required", "date"],
-            'date_correspondance'       =>  ["required", "date"],
+            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
             'numero_arrive'             =>  ["required", "string", "min:4", "max:6", "unique:arrives,numero,Null,id,deleted_at,NULL"],
             'numero_correspondance'     =>  ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL"],
             'annee'                     =>  ['required', 'numeric', 'min:2022'],
@@ -178,6 +178,21 @@ class ArriveController extends Controller
 
     public function addCourrierOperateur(ArriveOperateurStoreRequest $request): RedirectResponse
     {
+        $this->validate($request, [
+            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            'numero_arrive'             =>  ["required", "string", "min:4", "max:6", "unique:arrives,numero,Null,id,deleted_at,NULL"],
+            'annee'                     =>  ['required', 'numeric', 'min:2022'],
+            'expediteur'                =>  ['required', 'string', 'max:200'],
+            'objet'                     =>  ['required', 'string', 'max:200'],
+        ]);
+
+        if (!empty($request->input('date_reponse'))) {
+            $date_reponse = $request->input('date_reponse');
+        } else {
+            $date_reponse = null;
+        }
+
         $user = new User([
             /* 'firstname'             =>      $request->input("prenom"),
             'name'                  =>      $request->input("nom"), */
@@ -209,7 +224,7 @@ class ArriveController extends Controller
             'objet'                 =>      $request->input('objet'),
             'expediteur'            =>      $request->input('expediteur'),
             'numero_reponse'        =>      $request->input('numero_reponse'),
-            'date_reponse'          =>      $request->input('date_reponse'),
+            'date_reponse'          =>      $date_reponse,
             'observation'           =>      $request->input('observation'),
             'type'                  =>      'arrive',
             "user_create_id"        =>      Auth::user()->id,
@@ -283,8 +298,8 @@ class ArriveController extends Controller
         }
 
         $this->validate($request, [
-            "date_arrivee"          => ["required", "date"],
-            "date_correspondance"   => ["required", "date"],
+            "date_arrivee"          => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            "date_correspondance"   => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
             "numero_correspondance" => ["nullable", "string", "min:6", "max:9", "unique:courriers,numero,{$arrive->courrier->id}"],
             "numero_arrive"         => ["required", "string", "min:6", "max:9", "unique:arrives,numero,{$arrive->id}"],
             "annee"                 => ["required", "string"],

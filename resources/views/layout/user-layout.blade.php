@@ -74,6 +74,10 @@
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Jan 29 2024 with Bootstrap v5.3.2
@@ -305,6 +309,7 @@
             border-radius: 25% 10%;
             /* border-radius: 5px; */
         }
+
         .invalide {
             background-color: #DC3545;
             color: white;
@@ -633,25 +638,25 @@
                 });
         });
     </script>
-        <script type="text/javascript">
-            $('.une_confirm').click(function(event) {
-                var form = $(this).closest("form");
-                var name = $(this).data("name");
-                event.preventDefault();
-                swal({
-                        title: `Êtes-vous sûr de vouloir mettre à la une?`,
-                        text: "Si oui, cliquez sur ok.",
-                        icon: "success",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            form.submit();
-                        }
-                    });
-            });
-        </script>
+    <script type="text/javascript">
+        $('.une_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Êtes-vous sûr de vouloir mettre à la une?`,
+                    text: "Si oui, cliquez sur ok.",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -1185,7 +1190,7 @@
             dropdownParent: $('#AddoperateurModal'),
         });
     </script>
-    
+
     <script>
         $('#select-field-statutop').select2({
             theme: "bootstrap-5",
@@ -1245,7 +1250,7 @@
             dropdownParent: $('#AddOperateurModal'),
         });
     </script>
-    
+
     <script>
         $('#select-field-formulaire_signeop').select2({
             theme: "bootstrap-5",
@@ -2266,6 +2271,45 @@
         });
     </script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#datepicker").kendoDatePicker().datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-40:+0",
+                allowMultidate: true,
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
+                    'Septembre', 'Octobre', 'Novembre', 'Décembre'
+                ],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août',
+                    'Sept.', 'Oct.', 'Nov.', 'Déc.'
+                ],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.',
+            });
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-40:+0",
+                allowMultidate: true,
+                monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août',
+                    'Septembre', 'Octobre', 'Novembre', 'Décembre'
+                ],
+                monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août',
+                    'Sept.', 'Oct.', 'Nov.', 'Déc.'
+                ],
+                dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+                dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+                dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+                weekHeader: 'Sem.',
+            });
+        });
     </script>
     @stack('scripts')
 </body>

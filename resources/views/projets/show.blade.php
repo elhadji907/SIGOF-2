@@ -102,7 +102,7 @@
 
                                         <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                             <div class="label">Date signature</div>
-                                            <div>{{ $projet?->date_signature->format('d/m/Y') }}</div>
+                                            <div>{{ $projet?->date_signature->format('d-m-Y') }}</div>
                                         </div>
                                         @isset($projet?->budjet)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
@@ -119,13 +119,13 @@
                                         @isset($projet?->debut)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date début</div>
-                                                <div>{{ $projet?->debut->format('d/m/Y') }}</div>
+                                                <div>{{ $projet?->debut->format('d-m-Y') }}</div>
                                             </div>
                                         @endisset
                                         @isset($projet?->fin)
                                             <div class="col-12 col-md-3 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                                                 <div class="label">Date fin</div>
-                                                <div>{{ $projet?->fin->format('d/m/Y') }}</div>
+                                                <div>{{ $projet?->fin->format('d-m-Y') }}</div>
                                             </div>
                                         @endisset
                                     </form>

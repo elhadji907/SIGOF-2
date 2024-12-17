@@ -59,9 +59,9 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Modules: {{ $collectivemodule->module }}</h5>
-                            <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-primary btn-sm float-end btn-rounded" data-bs-toggle="modal"
                                 data-bs-target="#AddIndividuelModal">
-                                <i class="bi bi-plus" title="Ajouter"></i>
+                                Ajouter
                             </button>
                         </div>
                         <table class="table datatables align-middle justify-content-center" id="table-modules">
@@ -229,9 +229,9 @@
                                     <div class="col-12 col-md-4 col-lg-4 mb-0">
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_naissance" value="{{ old('date_naissance') }}"
-                                            class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                            id="date_naissance" placeholder="Date naissance">
+                                        <input type="text" name="date_naissance" value="{{ old('date_naissance') }}"
+                                            class="datepicker form-control form-control-sm @error('date_naissance') is-invalid @enderror"
+                                            id="date_naissance" placeholder="dd-mm-aaaa">
                                         @error('date_naissance')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -338,10 +338,9 @@
                                         @enderror
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
+                                        <button type="button" class="btn btn-secondary btn-sm"
                                             data-bs-dismiss="modal">Fermer</button>
-                                        <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
-                                            Enregistrer</button>
+                                        <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                                     </div>
                                 </div>
                         </form>

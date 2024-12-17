@@ -120,6 +120,12 @@ class DepartController extends Controller
     }
     public function store(DepartStoreRequest $request): RedirectResponse
     {
+        if (!empty($request->input('date_reponse'))) {
+            $date_reponse = $request->input('date_reponse');
+        } else {
+            $date_reponse = null;
+        }
+
         $courrier = new Courrier([
             'date_depart'        =>      $request->input('date_depart'),
             'numero'             =>      $request->input('numero_correspondance'),
@@ -127,7 +133,7 @@ class DepartController extends Controller
             'annee'              =>      $request->input('annee'),
             'objet'              =>      $request->input('objet'),
             'numero_reponse'     =>      $request->input('numero_reponse'),
-            'date_reponse'       =>      $request->input('date_reponse'),
+            'date_reponse'       =>      $date_reponse,
             'observation'        =>      $request->input('observation'),
             'reference'          =>      $request->input('service_expediteur'),
             'type'               =>      'depart',
@@ -187,18 +193,24 @@ class DepartController extends Controller
         }
 
         $this->validate($request, [
-            "date_depart"           => ["required", "date"],
-            "date_corres"           => ["required", "date"],
+            "date_depart"           => ["required", "date", "max:10", "min:10"],
+            "date_corres"           => ["required", "date", "max:10", "min:10"],
             "numero_correspondance" => ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL" . $depart->courrier->id],
             "numero_depart"         => ["required", "string", "min:4", "max:6", "unique:departs,numero,Null,id,deleted_at,NULL" . $depart->id],
             "annee"                 => ["required", "string"],
             "objet"                 => ["required", "string"],
             "destinataire"          => ["required", "string"],
             "numero_reponse"        => ["string", "min:4", "max:6", "nullable", "unique:courriers,numero_reponse,Null,id,deleted_at,NULL" . $courrier->id],
-            "date_reponse"          => ["nullable", "date"],
+            "date_reponse"          => ["nullable", "date", "max:10", "min:10"],
             "observation"           => ["nullable", "string"],
             "reference"             => ["nullable", "string"],
         ]);
+
+        if (!empty($request->input('date_reponse'))) {
+            $date_reponse = $request->input('date_reponse');
+        } else {
+            $date_reponse = null;
+        }
 
         if (isset($courrier->file)) {
             $this->validate($request, [
@@ -219,7 +231,7 @@ class DepartController extends Controller
                     'annee'              =>      $request->input('annee'),
                     'objet'              =>      $request->input('objet'),
                     'numero_reponse'     =>      $request->input('numero_reponse'),
-                    'date_reponse'       =>      $request->input('date_reponse'),
+                    'date_reponse'       =>      $date_reponse,
                     'observation'        =>      $request->input('observation'),
                     'reference'          =>      $request->input('service_expediteur'),
                     'file'               =>      $filePath,
@@ -239,7 +251,7 @@ class DepartController extends Controller
                     'annee'              =>      $request->input('annee'),
                     'objet'              =>      $request->input('objet'),
                     'numero_reponse'     =>      $request->input('numero_reponse'),
-                    'date_reponse'       =>      $request->input('date_reponse'),
+                    'date_reponse'       =>      $date_reponse,
                     'observation'        =>      $request->input('observation'),
                     'reference'          =>      $request->input('service_expediteur'),
                     'legende'            =>      $request->input('legende'),

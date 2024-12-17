@@ -452,14 +452,15 @@ class IndividuelleController extends Controller
     public function addIndividuelle(Request $request)
     {
         $this->validate($request, [
-            'civilite'                      => ["required", "string"],
-            'date_depot'                    => ["required", "date"],
-            "cin"                           => ["required", "string", "min:13", "max:15", Rule::unique(User::class)],
+            'civilite'                      => ['required', 'string'],
+            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'cin'                           => ['required', 'string', 'min:13', 'max:15', 'unique:' . User::class],
+            'email'                         => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'firstname'                     => ['required', 'string', 'max:50'],
             'lastname'                      => ['required', 'string', 'max:25'],
             'telephone'                     => ['required', 'string', 'min:9', 'max:9'],
             'telephone_secondaire'          => ['required', 'string', 'min:9', 'max:9'],
-            'date_naissance'                => ['required', 'date'],
+            'date_naissance'                => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
             'lieu_naissance'                => ['required', 'string'],
             'adresse'                       => ['required', 'string', 'max:255'],
             'departement'                   => ['required', 'string', 'max:255'],
@@ -1234,7 +1235,7 @@ class IndividuelleController extends Controller
             ->limit(500)
             ->latest()
             ->get();
-            
+
         $total_count = Individuelle::get();
         $total_count = number_format($total_count->count(), 0, ',', ' ');
 
@@ -1265,7 +1266,7 @@ class IndividuelleController extends Controller
             ->limit(500)
             ->latest()
             ->get();
-            
+
         $total_count = Individuelle::get();
         $total_count = number_format($total_count->count(), 0, ',', ' ');
 

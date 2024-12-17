@@ -21,7 +21,7 @@ class ProfileUpdateRequest extends FormRequest
             'civilite'                  => ['required', 'string', 'max:8'],
             'firstname'                 => ['required', 'string', 'max:150'],
             'name'                      => ['required', 'string', 'max:25'],
-            'date_naissance'            => ['required', 'string'],
+            'date_naissance'            => ['required', 'date', "max:10", "min:10", "date_format:d-m-Y"],
             'lieu_naissance'            => ['required', 'string'],
             'image'                     => ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'email'                     => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],

@@ -437,9 +437,9 @@
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="date_quitus" class="form-label">Date délivrance </label>
-                                            <input type="date" name="date_quitus"
-                                                value="{{ $operateur?->debut_quitus?->format('Y-m-d') ?? old('date_quitus') }}"
-                                                class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
+                                            <input type="text" name="date_quitus"
+                                                value="{{ $operateur?->debut_quitus?->format('d-m-Y') ?? old('date_quitus') }}"
+                                                class="datepicker form-control form-control-sm @error('date_quitus') is-invalid @enderror"
                                                 id="date_quitus" placeholder="Date quitus">
                                             @error('date_quitus')
                                                 <span class="invalid-feedback" role="alert">

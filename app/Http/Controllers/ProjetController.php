@@ -41,7 +41,7 @@ class ProjetController extends Controller
             "sigle"             => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "date_signature"    => ["date", "string", Rule::unique('projets')->where(function ($query) {
+            "date_signature"    => ["date", "min:10", "max:10", "date_format:d-m-Y", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "description"       => ["required", "string", Rule::unique('projets')->where(function ($query) {
@@ -50,8 +50,8 @@ class ProjetController extends Controller
             "duree"             => ["nullable", "string"],
             "budjet"            => ["nullable", "string"],
             "effectif"          => ["nullable", "string"],
-            "debut"             => ["nullable", "date"],
-            "fin"               => ["nullable", "date"],
+            "debut"             => ["nullable", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            "fin"               => ["nullable", "date", "min:10", "max:10", "date_format:d-m-Y"],
             "type"              => ["required", "string"],
             "type_projet"       => ["required", "string"],
         ]);
@@ -110,15 +110,15 @@ class ProjetController extends Controller
             "sigle"             => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($id)],
-            "date_signature"    => ["date", "string"],
+            "date_signature"    => ["date", "min:10", "max:10", "date_format:d-m-Y"],
             "description"       => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($id)],
             "duree"             => ["nullable", "string"],
             "budjet"            => ["nullable", "string"],
             "effectif"          => ["nullable", "string"],
-            "debut"             => ["required", "date"],
-            "fin"               => ["required", "date"],
+            "debut"             => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            "fin"               => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
             "type"              => ["required", "string"],
             "type_projet"       => ["required", "string"],
             "date_ouverture"    => ["required", "string"],

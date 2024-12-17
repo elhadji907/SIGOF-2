@@ -253,9 +253,9 @@
                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="date_arrivee" class="form-label">Date arrivée<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_arrivee" value="{{ old('date_arrivee') }}"
-                                        class="form-control form-control-sm @error('date_arrivee') is-invalid @enderror"
-                                        id="date_arrivee" placeholder="Date arrivée">
+                                    <input type="text" name="date_arrivee" value="{{ old('date_arrivee') }}"
+                                        class="datepicker form-control form-control-sm @error('date_arrivee') is-invalid @enderror"
+                                        id="date_arrivee" placeholder="dd-mm-aaaa">
                                     @error('date_arrivee')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -266,10 +266,10 @@
                                 <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="date_correspondance" class="form-label">Date correspondance<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_correspondance"
+                                    <input type="text" name="date_correspondance"
                                         value="{{ old('date_correspondance') }}"
-                                        class="form-control form-control-sm @error('date_correspondance') is-invalid @enderror"
-                                        id="date_correspondance" placeholder="nom">
+                                        class="datepicker form-control form-control-sm @error('date_correspondance') is-invalid @enderror"
+                                        id="date_correspondance" placeholder="dd-mm-aaaa">
                                     @error('date_correspondance')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>

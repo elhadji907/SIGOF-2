@@ -371,7 +371,7 @@
                         </div>
 
                         <div class="text-center p-3">
-                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                         </div>
                         </form>
 

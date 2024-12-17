@@ -32,14 +32,12 @@
 </x-guest-layout> --}}
 
 @extends('layout.user-layout')
-@section('title', 'ONFP - demandes operateurs')
+@section('title', 'SIGOF')
 @section('space-work')
 
     <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
         {{-- <h1>ONFP.SN</h1> --}}
-        <h4>{{ __("Merci de vous être inscrit ! Avant de commencer, pourriez-vous vérifier votre adresse e-mail en
-                                                                                                                                                                    cliquant sur le lien que nous venons de vous envoyer par e-mail ? Si vous n'avez pas reçu l'e-mail,
-                                                                                                                                                                    nous vous en enverrons un autre avec plaisir.") }}
+        <h4>{{ __("Merci de vous être inscrit ! Avant de commencer, pourriez-vous vérifier votre adresse e-mail en cliquant sur le lien que nous venons de vous envoyer par e-mail ? Si vous n'avez pas reçu l'e-mail, nous vous en enverrons un autre avec plaisir.") }}
         </h4>
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf

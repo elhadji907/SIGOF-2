@@ -31,26 +31,26 @@
                             </h2>
                             <span><a href="mailto:{{ Auth::user()?->email }}">{{ Auth::user()?->email }}</a></span>
                             <div class="social-links mt-2">
-                                @isset(Auth::user()?->twitter)
+                                @if (!empty(Auth::user()?->twitter))
                                     <a href="{{ Auth::user()?->twitter }}" class="twitter" target="_blank"><i
                                             class="bi bi-twitter" title="compte twitter"></i></a>
-                                @endisset
-                                @isset(Auth::user()?->facebook)
+                                @endif
+                                @if (!empty(Auth::user()?->facebook))
                                     <a href="{{ Auth::user()?->facebook }}" class="facebook" target="_blank"><i
                                             class="bi bi-facebook" title="compte facebook"></i></a>
-                                @endisset
-                                @isset(Auth::user()?->instagram)
+                                @endif
+                                @if (!empty(Auth::user()?->instagram))
                                     <a href="{{ Auth::user()?->instagram }}" class="instagram" target="_blank"><i
                                             class="bi bi-instagram" title="compte instagram"></i></a>
-                                @endisset
-                                @isset(Auth::user()?->linkedin)
+                                @endif
+                                @if (!empty(Auth::user()?->linkedin))
                                     <a href="{{ Auth::user()?->linkedin }}" class="linkedin" target="_blank"><i
                                             class="bi bi-linkedin" title="compte linkedin"></i></a>
-                                @endisset
-                                @isset(Auth::user()?->web)
+                                @endif
+                                @if (!empty(Auth::user()?->web))
                                     <a href="{{ Auth::user()?->web }}" class="web" target="_blank"><i class="bi bi-globe"
                                             title="site web"></i></a>
-                                @endisset
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -168,7 +168,8 @@
                                             Informations personnelles
                                         </div>
                                         <div class="col-12 col-md-9 col-lg-9 col-sm-12 col-xs-12 col-xxl-9">
-                                            @if (!empty(Auth::user()?->operateur) &&
+                                            @if (
+                                                !empty(Auth::user()?->operateur) &&
                                                     !empty(Auth::user()?->username) &&
                                                     !empty(Auth::user()?->ninea) &&
                                                     !empty(Auth::user()?->rccm) &&
@@ -282,7 +283,7 @@
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Date naissance</div>
                                             <div class="col-lg-9 col-md-8">
-                                                {{ Auth::user()?->date_naissance->format('d/m/Y') }}
+                                                {{ Auth::user()?->date_naissance->format('d-m-Y') }}
                                             </div>
                                         </div>
                                     @endisset
@@ -487,13 +488,15 @@
 
                                         {{-- Statut juridique --}}
                                         <div class="row mb-3">
-                                            <label for="statut" class="col-md-4 col-lg-3 col-form-label">Statut juridique<span class="text-danger mx-1">*</span>
+                                            <label for="statut" class="col-md-4 col-lg-3 col-form-label">Statut
+                                                juridique<span class="text-danger mx-1">*</span>
                                             </label>
                                             <div class="col-md-8 col-lg-9">
                                                 <div class="pt-2">
                                                     <select name="statut"
                                                         class="form-select form-select-sm @error('statut') is-invalid @enderror"
-                                                        aria-label="Select" id="statut-operateur" data-placeholder="Choisir statut">
+                                                        aria-label="Select" id="statut-operateur"
+                                                        data-placeholder="Choisir statut">
                                                         <option value="{{ $user?->statut ?? old('statut') }}">
                                                             {{ $user?->statut ?? old('statut') }}
                                                         </option>
@@ -527,11 +530,11 @@
                                                         <option value="Autre">
                                                             Autre
                                                         </option>
-                                                    @error('statut')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <div>{{ $message }}</div>
-                                                        </span>
-                                                    @enderror
+                                                        @error('statut')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <div>{{ $message }}</div>
+                                                            </span>
+                                                        @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -1112,7 +1115,7 @@
                                                     aria-label="Select" id="select-field-file"
                                                     data-placeholder="Choisir">
                                                     <option value="{{ old('legende') }}">
-                                                        
+
                                                     </option>
                                                     @foreach ($user_files as $file)
                                                         <option value="{{ $file?->id }}">

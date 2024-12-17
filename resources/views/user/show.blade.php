@@ -38,22 +38,22 @@
                         </h2>
                         <div class="social-links mt-2">
                             <div class="social-links mt-2">
-                                @isset($user?->twitter)
+                                @if (!empty($user?->twitter))
                                     <a href="{{ $user?->twitter }}" class="twitter" target="_blank"><i
                                             class="bi bi-x-twitter"></i></a>
-                                @endisset
-                                @isset($user?->facebook)
+                                @endif
+                                @if (!empty($user?->facebook))
                                     <a href="{{ $user?->facebook }}" class="facebook" target="_blank"><i
                                             class="bi bi-facebook"></i></a>
-                                @endisset
-                                @isset($user?->instagram)
+                                @endif
+                                @if (!empty($user?->instagram))
                                     <a href="{{ $user?->instagram }}" class="instagram" target="_blank"><i
                                             class="bi bi-instagram"></i></a>
-                                @endisset
-                                @isset($user?->linkedin)
+                                @endif
+                                @if (!empty($user?->linkedin))
                                     <a href="{{ $user?->linkedin }}" class="linkedin" target="_blank"><i
                                             class="bi bi-linkedin"></i></a>
-                                @endisset
+                                @endif
                             </div>
                         </div>
 
@@ -345,10 +345,10 @@
                                             <label for="date_naissance" class="col-md-4 col-lg-3 col-form-label">Date
                                                 naissance<span class="text-danger mx-1">*</span></label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="date" name="date_naissance"
-                                                    value="{{ $user->date_naissance?->format('Y-m-d') ?? old('date_naissance') }}"
-                                                    class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                                    id="date_naissance" placeholder="Date naissance">
+                                                <input type="text" name="date_naissance"
+                                                    value="{{ $user->date_naissance?->format('d-m-Y') ?? old('date_naissance') }}"
+                                                    class="datepicker form-control form-control-sm @error('date_naissance') is-invalid @enderror"
+                                                    id="date_naissance" placeholder="dd-mm-aaaa">
                                                 @error('date_naissance')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>

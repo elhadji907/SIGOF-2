@@ -766,9 +766,9 @@
                                     </div> --}}
                                     <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_quitus" class="form-label">Date délivrance</label>
-                                        <input type="date" name="date_quitus" value="{{ old('date_quitus') }}"
-                                            class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                            id="date_quitus" placeholder="Date quitus">
+                                        <input type="text" name="date_quitus" value="{{ old('date_quitus') }}"
+                                            class="datepicker form-control form-control-sm @error('date_quitus') is-invalid @enderror"
+                                            id="date_quitus" placeholder="dd-mm-aaaa">
                                         @error('date_quitus')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

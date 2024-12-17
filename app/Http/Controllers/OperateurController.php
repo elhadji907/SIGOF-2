@@ -275,7 +275,7 @@ class OperateurController extends Controller
             "autre_statut"              =>  "nullable|string",
             "departement"               =>  "required|string",
             "quitus"                    =>  ['image', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"               =>  "nullable|date",
+            "date_quitus"               =>  "nullable|date|max:10|min:10|date_format:d-m-Y",
             "type_demande"              =>  "required|string",
             "arrete_creation"           =>  "nullable|string",
             "file_arrete_creation"      =>  ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
@@ -439,7 +439,7 @@ class OperateurController extends Controller
         }
         $this->validate($request, [
             "quitus"                =>      ['image', 'required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['required', 'date'],
+            "date_quitus"           =>      ['required', 'date',"max:10", "min:10", "date_format:d-m-Y"],
         ]);
 
         foreach (Auth::user()->roles as $key => $role) {
@@ -625,7 +625,7 @@ class OperateurController extends Controller
             "ninea"                 =>      ['nullable', 'string'],
             "registre_commerce"     =>      ['nullable', 'string'],
             "quitus"                =>      ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['nullable', 'date'],
+            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:d-m-Y"],
             "type_demande"          =>      ['required', 'string'],
             "arrete_creation"       =>      ['nullable', 'string'],
             "file_arrete_creation"  =>      ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
@@ -808,7 +808,7 @@ class OperateurController extends Controller
         $this->validate($request, [
             "departement"           =>      ['required', 'string'],
             "quitus"                =>      ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['nullable', 'date'],
+            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:d-m-Y"],
             "type_demande"          =>      ['required', 'string'],
         ]);
 
@@ -1031,7 +1031,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date'               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
             ]);
             Alert::success("Effectué !", "l'opérateur " . $operateur?->user?->username . ' a été agréé');
         } elseif ($count_nouveau > 0) {
@@ -1041,7 +1041,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'rejeter',
                 'motif'              => 'rejeter',
-                'date'               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
             ]);
             Alert::warning("Dommage !", "l'opérateur " . $operateur?->user?->username . " n'a pas été agréé");
         } else {
@@ -1108,7 +1108,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date'               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
             ]);
 
             $operateur->save();
@@ -1160,7 +1160,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date'               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
             ]);
 
             $operateur->save();
