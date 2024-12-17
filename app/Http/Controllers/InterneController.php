@@ -74,7 +74,7 @@ class InterneController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_arrivee'              =>  ["required", "date"],
+            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
             /* 'date_correspondance'       =>  ["required", "date"], */
             'numero_interne'            =>  ["required", "string", "min:4", "max:6", "unique:internes,numero,Null,id,deleted_at,NULL"],
           /*   'numero_correspondance'     =>  ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL"], */
@@ -148,7 +148,7 @@ class InterneController extends Controller
         }
 
         $this->validate($request, [
-            "date_interne"          => ["required", "date"],
+            "date_interne"          => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
             /* "date_correspondance"   => ["required", "date"], */
            /*  "numero_correspondance" => ["nullable", "string", "min:6", "max:9", "unique:courriers,numero,{$interne->courrier->id}"], */
             "numero_interne"         => ["required", "string", "min:6", "max:9", "unique:internes,numero,{$interne->id}"],

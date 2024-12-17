@@ -44,10 +44,10 @@
                                 <div class="col-12 col-md-6 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <label for="date_interne" class="form-label">Date internee<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_interne"
-                                        value="{{ $interne->courrier->date_recep?->format('Y-m-d') ?? old('date_interne') }}"
-                                        class="form-control form-control-sm @error('date_interne') is-invalid @enderror"
-                                        id="date_interne" placeholder="Date internee">
+                                    <input type="text" name="date_interne"
+                                        value="{{ $interne->courrier->date_recep?->format('d-m-Y') ?? old('date_interne') }}"
+                                        class="datepicker form-control form-control-sm @error('date_interne') is-invalid @enderror"
+                                        id="date_interne" placeholder="dd-mm-aaaa">
                                     @error('date_interne')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -233,8 +233,8 @@
                                     height="auto"> --}}
                                 </div>
 
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-outline-success btn-sm">Modifier</button>
+                                <div class="text-center pt-2">
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Enregistrer les modifications</button>
                                 </div>
                             </form>
 
