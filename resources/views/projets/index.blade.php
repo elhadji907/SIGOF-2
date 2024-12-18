@@ -37,9 +37,8 @@
                     <div class="card-body">
                         @if (auth()->user()->hasRole('super-admin|admin'))
                             <div class="pt-1">
-                                <button type="button" class="btn btn-primary float-end btn-rounded" data-bs-toggle="modal"
-                                    data-bs-target="#AddProjetModal">
-                                    <i class="bi bi-plus" title="Ajouter"></i>
+                                <button type="button" class="btn btn-primary btn-sm float-end btn-rounded" data-bs-toggle="modal"
+                                    data-bs-target="#AddProjetModal">Ajouter
                                 </button>
                             </div>
                         @endif
@@ -152,11 +151,15 @@
                     <div class="modal-content">
                         <form method="post" action="{{ route('addProjet') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="modal-header">
+                           {{--  <div class="modal-header">
                                 <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un nouveau
                                     projet ou programme</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
+                            </div> --}}
+                            
+                            <div class="card-header text-center bg-gradient-default">
+                                <h1 class="h4 text-black mb-0">AJOUTER PROJET OU PROGRAMME</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
