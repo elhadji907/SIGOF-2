@@ -47,9 +47,9 @@ class AuthenticatedSessionController extends Controller
         $count_operateurs = Operateur::where('statut_agrement', 'agréer')->count();
 
         if ($count_today <= "0") {
-            $title = "nouvelle demande aujourd'hui";
+            $title = "demande reçue aujourd'hui";
         } else {
-            $title = "nouvelles demandes aujourd'hui";
+            $title = "demandes reçues aujourd'hui";
         }
 
         return view(
@@ -87,7 +87,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        Alert::success('Bienvenue ! '  . Auth::user()->firstname . ' ' . Auth::user()->name, 'Vous êtes bien connecté');
+        /* Alert::success('Bienvenue, ' . Auth::user()->firstname . ' ' . Auth::user()->name . '!', 'Connexion réussie.'); */
+
+        alert()->html(
+            '<i>Connexion réussie !</i>',
+            "Bienvenue, <br> Votre connexion a été établie avec succès.<br>
+        Nous vous souhaitons une excellente expérience sur notre plateforme !",
+            'success'
+        );
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -102,6 +109,13 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        /* Alert::success('Déconnexion réussie', 'Merci d’avoir utilisé notre application! Nous espérons vous revoir bientôt. À très bientôt !'); */
+
+        alert()->html('<i>Déconnexion réussie !</i>', "Merci d'avoir utilisé notre application ! <br> 
+        Nous espérons vous revoir bientôt. <br>
+        À très bientôt !", 'success');
+
 
         return redirect('/');
     }

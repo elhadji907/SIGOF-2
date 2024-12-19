@@ -4,7 +4,7 @@
 # {{ $greeting }}
 @else
 @if ($level === 'error')
-# @lang('Whoops!')
+# @lang('Oups!')
 @else
 # @lang('Hello!')
 @endif
@@ -39,16 +39,20 @@
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-@lang('Regards'),<br>
-{{ config('app.name') }}
+@lang('Bonjour'),<br>
+{{ __("Nous vous remercions chaleureusement pour votre inscription et l'intérêt que vous portez à l'ONFP. Vous avez désormais accès à l'ensemble de nos services en ligne, ainsi qu'à nos formations et offres variées.
+L’équipe Digital est à votre disposition pour vous guider dans toutes vos démarches et répondre à toutes vos questions. Vous pouvez nous joindre par email à contact@onfp.sn ou par téléphone au (+221) 33 827 92 51.
+Nous restons à l'écoute de vos suggestions et besoins, afin de vous offrir un service optimal et adapté.
+Bien cordialement,
+L’équipe Digital de l'ONFP") }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 <x-slot:subcopy>
 @lang(
-    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n".
-    'into your web browser:',
+    "Si vous rencontrez des difficultés pour cliquer sur le \":actionText\" bouton, copiez et collez l'URL ci-dessous\n".
+    'dans votre navigateur Web: ',
     [
         'actionText' => $actionText,
     ]

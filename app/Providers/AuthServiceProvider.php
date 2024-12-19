@@ -26,9 +26,9 @@ class AuthServiceProvider extends ServiceProvider
        
     VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
         return (new MailMessage)
-            ->subject('Vérifier l\'adresse e-mail')
+            ->subject('ONFP - Vérification adresse e-mail')
             ->line('Cliquez sur le bouton ci-dessous pour vérifier votre adresse e-mail.')
-            ->action('Vérifier l\'adresse e-mail', $url);
+            ->action('Cliquer ici pour vérifier l\'adresse e-mail', $url);
     });
     }
 }

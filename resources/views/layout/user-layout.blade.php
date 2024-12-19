@@ -410,12 +410,12 @@
     <script>
         setTimeout(function() {
             $('.alert-success').remove();
-        }, 5000);
+        }, 60000);
     </script>
     <script>
         setTimeout(function() {
             $('.alert-danger').remove();
-        }, 5000);
+        }, 60000);
     </script>
     <script>
         function myFunction() {

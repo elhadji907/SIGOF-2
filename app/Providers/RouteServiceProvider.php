@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -37,5 +38,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+        
+        /* Alert::success('Compte vérifié', 'Merci d\'entrer vos identifiants personnels pour vous connecter.'); */
     }
 }

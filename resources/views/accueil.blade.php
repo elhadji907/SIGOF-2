@@ -636,7 +636,7 @@
                             action="{{ route('login') }}">
                             @csrf
                             <div class="modal-header">
-                                <h5 class="w-100 text-center">Création compte personnel</h5>
+                                <h5 class="w-100 text-center">CONNEXION</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
@@ -1294,13 +1294,13 @@
     <script>
         setTimeout(function() {
             $('.alert-success').remove();
-        }, 10000);
+        }, 120000);
     </script>
 
     <script>
         setTimeout(function() {
             $('.alert-danger').remove();
-        }, 10000);
+        }, 120000);
     </script>
 
     <script>

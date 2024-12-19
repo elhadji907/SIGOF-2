@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             /* 'prenom'                => ['required', 'string', 'max:50'], */
-            'username'              => ['required', 'string', 'min:3','max:25', 'unique:' . User::class],
+            'username'              => ['required', 'string', 'min:3', 'max:25', 'unique:' . User::class],
             'email'                 => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             /* 'telephone'             => ['required', 'string', 'max:25', 'min:9'], */
             /* 'adresse'               => ['required', 'string', 'max:255'], */
@@ -91,8 +91,6 @@ class RegisteredUserController extends Controller
         ]); */
 
         $user->assignRole($request->input('role'));
-        
-        Alert::success('Félicitations ! ' . $user->username, ' Votre compte est créé, merci de vérifier votre boite e-mail, pour activer votre compte');
 
         event(new Registered($user));
         /* event(new Registered($demandeur));
@@ -110,7 +108,16 @@ class RegisteredUserController extends Controller
         /* Redirection vers le connexion après incrption */
         /* $status = "Compte créé, merci de vous connecter";
         return redirect(RouteServiceProvider::LOGIN)->with('status', $status); */
-        $status = "Compte créé, merci de vous connecter";
-        return redirect(RouteServiceProvider::LOGIN)->with('status', __($status));
+
+        /* Alert::success('Félicitations  ! ' . $user->username, 'Votre inscription a été réussie, 
+        Pour activer votre compte, veuillez vérifier votre boîte e-mail et suivre les instructions. 
+        Si vous ne trouvez pas l\'e-mail, pensez à vérifier votre dossier spam.'); */
+
+        alert()->html('<i>Félicitations </i> <a href="#">' . $user->username . '</a>', "Votre inscription a été effectuée avec <b>succès</b>, <br> 
+        Pour activer votre compte, veuillez vérifier votre <a href='#'>boîte e-mail</a> et suivre les instructions. <br>
+        Si vous ne trouvez pas l'e-mail, pensez à vérifier votre dossier spam.", 'success');
+
+
+        return redirect(RouteServiceProvider::LOGIN);
     }
 }
