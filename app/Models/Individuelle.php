@@ -142,7 +142,8 @@ class Individuelle extends Model
 		'arrondissements_id' => 'int',
 		'departements_id' => 'int',
 		'users_id' => 'int',
-		'regions_id' => 'int'
+		'regions_id' => 'int',
+		'date_depot' => 'datetime'
 	];
 
 	protected $dates = [

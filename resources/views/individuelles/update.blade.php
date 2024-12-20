@@ -569,7 +569,20 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-4">
+                                    <label for="date_depot" class="form-label">Date depot<span
+                                            class="text-danger mx-1">*</span></label>
+                                    <input type="text" name="date_depot" value="{{ $individuelle->date_depot->format('d-m-Y') ?? old('date_depot') }}"
+                                        class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
+                                        id="date_depot" placeholder="dd-mm-aaaa">
+                                    @error('date_depot')
+                                        <span class="invalid-feedback" role="alert">
+                                            <div>{{ $message }}</div>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-8">
                                     <label for="projet" class="form-label">Projet</label>
                                     <select name="projet" class="form-select  @error('projet') is-invalid @enderror"
                                         aria-label="Select" id="select-field-projet" data-placeholder="Choisir projet">

@@ -123,41 +123,38 @@
                 style="width: 100%; max-width: 300px" />
         </b>
     </h6> --}}
-    <div class="invoice-box">
+    
+    <h6 valign="top" style="text-align: center;">
+        <b>REPUBLIQUE DU SENEGAL<br></b>
+        Un Peuple - Un But - Une Foi<br>
+        <b>********<br>
+            MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+            ********<br>
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                style="width: 100%; max-width: 300px" />
+        </b>
+    </h6>
+    <h4 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h4>
+    <div class="invoice-box" style="margin-top: -50px;">
         <table cellpadding="0" cellspacing="0">
-            <tr class="top">
+            {{-- <tr class="top">
                 <td>
                     <table>
                         <tr>
                             <td>
                                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
                                     style="width: 100%; max-width: 300px" />
-
-                                {{--  REPUBLIQUE DU SENEGAL<br>
-                                Un Peuple - Un But - Une Foi<br>
-                                ********<br>
-                                MINISTERE DE LA FORMATION PROFESSIONNELLE<br>
-                                ********<br>
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                    style="width: 100%; max-width: 300px" /> --}}
                             </td>
-                            {{-- 
-                            <td>
-                                <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->initiale_evaluateur_onfp }}</p>
-                                <p style="text-align: center; font-weight: bold;">Dakar, le</p><br>
-                                <p style="text-align: left; font-weight: bold; font-style: italic">Le Directeur général
-                                </p>
-                            </td> --}}
                         </tr>
                     </table>
                 </td>
-            </tr>
+            </tr> --}}
             <tr>
                 <td colspan="2">
                     <table class="information">
                         <tr>
                             <td>
-                                <h2 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h2>
+                                {{-- <h2 style="text-align: center;">ATTESTATION DE BONNE EXECUTION DE FORMATION</h2> --}}
 
                                 <p style="text-align : justify;">
                                     <b>OPERATEUR </b> :

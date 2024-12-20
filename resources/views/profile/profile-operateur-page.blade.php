@@ -199,29 +199,29 @@
                                     </div>
 
 
-                                    @isset(Auth::user()?->username)
+                                    @if(!empty(Auth::user()?->username))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Sigle</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->username }}</div>
                                         </div>
-                                    @endisset
-                                    @isset(Auth::user()?->operateur)
+                                    @endif
+                                    @if(!empty(Auth::user()?->operateur))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Opérateur</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->operateur }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->email)
+                                    @if(!empty(Auth::user()?->email))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Email</div>
                                             <div class="col-lg-9 col-md-8"><a
                                                     href="mailto:{{ Auth::user()?->email }}">{{ Auth::user()?->email }}</a>
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->telephone)
+                                    @if(!empty(Auth::user()?->telephone))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Téléphone</div>
                                             <div class="col-lg-9 col-md-8"><a
@@ -230,111 +230,111 @@
                                                     href="tel:+221{{ Auth::user()?->telephone }}">{{ Auth::user()?->telephone }}</a>
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->adresse)
+                                    @if(!empty(Auth::user()?->adresse))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Adresse</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->adresse }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    {{-- @isset(Auth::user()?->web)
+                                    {{-- @if(!empty(Auth::user()?->web))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Site web</div>
                                             <div class="col-lg-9 col-md-8"><a href="{{ Auth::user()?->web }}" class="web"
                                                     target="_blank"><i class="bi bi-globe" title="site web"></i></a></div>
                                         </div>
-                                    @endisset --}}
+                                    @endif --}}
 
                                     <hr>
 
                                     <h5 class="card-title">Responsable</h5>
 
-                                    @isset(Auth::user()?->cin)
+                                    @if(!empty(Auth::user()?->cin))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">CIN</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->cin }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->civilite)
+                                    @if(!empty(Auth::user()?->civilite))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Civilité</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->civilite }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->firstname)
+                                    @if(!empty(Auth::user()?->firstname))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Prénom</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->firstname }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->name)
+                                    @if(!empty(Auth::user()?->name))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Nom</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->name }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->date_naissance)
+                                    {{-- @if(!empty(Auth::user()?->date_naissance))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Date naissance</div>
                                             <div class="col-lg-9 col-md-8">
                                                 {{ Auth::user()?->date_naissance->format('d-m-Y') }}
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->lieu_naissance)
+                                    @if(!empty(Auth::user()?->lieu_naissance))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Lieu naissance</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->lieu_naissance }}</div>
                                         </div>
-                                    @endisset
+                                    @endif --}}
 
-                                    @isset(Auth::user()?->situation_familiale)
+                                    {{-- @if(!empty(Auth::user()?->situation_familiale))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Situation familiale</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->situation_familiale }}</div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->situation_professionnelle)
+                                    @if(!empty(Auth::user()?->situation_professionnelle))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Situation profes.</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->situation_professionnelle }}
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif --}}
 
-                                    @isset(Auth::user()?->telephone)
+                                    @if(!empty(Auth::user()?->telephone))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Téléphone</div>
                                             <div class="col-lg-9 col-md-8"><a
                                                     href="tel:+221{{ Auth::user()?->telephone }}">{{ Auth::user()?->telephone }}</a>
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->email_responsable)
+                                    @if(!empty(Auth::user()?->email_responsable))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Email</div>
                                             <div class="col-lg-9 col-md-8"><a
                                                     href="mailto:{{ Auth::user()?->email_responsable }}">{{ Auth::user()?->email_responsable }}</a>
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
-                                    @isset(Auth::user()?->fonction_responsable)
+                                    @if(!empty(Auth::user()?->fonction_responsable))
                                         <div class="row">
                                             <div class="col-lg-3 col-md-4 label">Fonction</div>
                                             <div class="col-lg-9 col-md-8">{{ Auth::user()?->fonction_responsable }}
                                             </div>
                                         </div>
-                                    @endisset
+                                    @endif
 
                                 </div>
                             </div>
@@ -487,6 +487,58 @@
                                         </div>
 
                                         {{-- Statut juridique --}}
+                                        {{-- <div class="row mb-3">
+                                            <label for="statut" class="col-md-4 col-lg-3 col-form-label">Statut
+                                                juridique<span class="text-danger mx-1">*</span>
+                                            </label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <select name="statut"
+                                                    class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                                    aria-label="Select" id="statut-operateur"
+                                                    data-placeholder="Choisir statut">
+                                                    <option value="{{ $user?->statut ?? old('statut') }}">
+                                                        {{ $user?->statut ?? old('statut') }}
+                                                    </option>
+                                                    <option value="GIE">
+                                                        GIE
+                                                    </option>
+                                                    <option value="Association">
+                                                        Association
+                                                    </option>
+                                                    <option value="Entreprise individuelle">
+                                                        Entreprise individuelle
+                                                    </option>
+                                                    <option value="SA">
+                                                        SA
+                                                    </option>
+                                                    <option value="SUARL">
+                                                        SUARL
+                                                    </option>
+                                                    <option value="SARL">
+                                                        SARL
+                                                    </option>
+                                                    <option value="SNC">
+                                                        SNC
+                                                    </option>
+                                                    <option value="SCS">
+                                                        SCS
+                                                    </option>
+                                                    <option value="Etablissement public">
+                                                        Etablissement public
+                                                    </option>
+                                                    <option value="Autre">
+                                                        Autre
+                                                    </option>
+                                                    @error('statut')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
+                                            </div>
+                                        </div> --}}
+
+
+                                        {{-- Statut juridique --}}
                                         <div class="row mb-3">
                                             <label for="statut" class="col-md-4 col-lg-3 col-form-label">Statut
                                                 juridique<span class="text-danger mx-1">*</span>
@@ -494,9 +546,9 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <div class="pt-2">
                                                     <select name="statut"
-                                                        class="form-select form-select-sm @error('statut') is-invalid @enderror"
+                                                        class="form-select  @error('statut') is-invalid @enderror"
                                                         aria-label="Select" id="statut-operateur"
-                                                        data-placeholder="Choisir statut">
+                                                        data-placeholder="Choisir">
                                                         <option value="{{ $user?->statut ?? old('statut') }}">
                                                             {{ $user?->statut ?? old('statut') }}
                                                         </option>
@@ -530,11 +582,12 @@
                                                         <option value="Autre">
                                                             Autre
                                                         </option>
-                                                        @error('statut')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <div>{{ $message }}</div>
-                                                            </span>
-                                                        @enderror
+                                                    </select>
+                                                    @error('statut')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <div>{{ $message }}</div>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -829,23 +882,23 @@
                                         </div>
 
                                         {{-- Date de naissance --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="date_naissance" class="col-md-4 col-lg-3 col-form-label">Date
                                                 naissance</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input type="date" name="date_naissance"
-                                                    value="{{ $user->date_naissance?->format('Y-m-d') ?? old('date_naissance') }}"
+                                                <input type="text" name="date_naissance"
+                                                    value="{{ $user->date_naissance?->format('d-m-Y') ?? old('date_naissance') }}"
                                                     class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                                    id="date_naissance" placeholder="Date naissance">
+                                                    id="date_naissance" placeholder="dd-mm-aaaa">
                                                 @error('date_naissance')
                                                     <span class="invalid-feedback" role="alert">
                                                         <div>{{ $message }}</div>
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- Lieu naissance --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="lieu naissance" class="col-md-4 col-lg-3 col-form-label">Lieu
                                                 naissance</label>
                                             <div class="col-md-8 col-lg-9">
@@ -860,9 +913,9 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- Situation familiale --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="adresse" class="col-md-4 col-lg-3 col-form-label">Situation
                                                 familiale</label>
                                             <div class="col-md-8 col-lg-9">
@@ -893,9 +946,9 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         {{-- Situation professionnelle --}}
-                                        <div class="row mb-3">
+                                        {{-- <div class="row mb-3">
                                             <label for="adresse" class="col-md-4 col-lg-3 col-form-label">Situation
                                                 profes.</label>
                                             <div class="col-md-8 col-lg-9">
@@ -932,7 +985,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Sauvegarder les

@@ -67,6 +67,7 @@
                             </a>
                         </div>
                     </div>
+                    
                     <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                         <div class="card info-card sales-card">
                             {{-- <div class="filter">
@@ -94,6 +95,32 @@
                         </div>
                     </div>
 
+                    <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
+                        <div class="card info-card sales-card">
+                            {{--  <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                            </div> --}}
+                            <a href="{{ route('arrivesop') }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">Courriers <span>| Agréments</span></h5>
+                                    <div class="d-flex align-items-center">
+                                        <div
+                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-file-earmark-text"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                            <h6>
+                                                <span class="text-primary">{{ $count_arrives }}</span>
+                                            </h6>
+                                            <span class="text-success small pt-1 fw-bold">Tous</span>
+                                            {{-- <span class="text-muted small pt-2 ps-1">increase</span> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,7 +215,8 @@
                                                                 @can('delete', $arrive)
                                                                     @can('arrive-delete')
                                                                         <li>
-                                                                            <form action="{{ route('arrives.destroy', $arrive?->id) }}"
+                                                                            <form
+                                                                                action="{{ route('arrives.destroy', $arrive?->id) }}"
                                                                                 method="post">
                                                                                 @csrf
                                                                                 @method('DELETE')

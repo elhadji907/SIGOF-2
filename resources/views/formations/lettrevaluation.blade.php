@@ -129,21 +129,26 @@
                 <td colspan="2">
                     <table>
                         <tr>
-                            <td>
+                            {{-- <td>
                                 <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
                                     style="width: 100%; max-width: 300px" />
+                            </td> --}}
 
-                                {{--  REPUBLIQUE DU SENEGAL<br>
+
+                            <h6 valign="top" style="text-align: center; margin-left: -75px;">
+                                <b>REPUBLIQUE DU SENEGAL<br></b>
                                 Un Peuple - Un But - Une Foi<br>
-                                ********<br>
-                                MINISTERE DE LA FORMATION PROFESSIONNELLE<br>
-                                ********<br>
-                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
-                                    style="width: 100%; max-width: 300px" /> --}}
-                            </td>
+                                <b>********<br>
+                                    MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                                    ********<br>
+                                    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                        style="width: 100%; max-width: 300px" />
+                                </b>
+                            </h6>
 
                             <td>
-                                <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->initiale_evaluateur_onfp }}</p>
+                                <p style="font-weight: bold;">ONFP/DG/DEC/{{ $formation?->initiale_evaluateur_onfp }}
+                                </p>
                                 <p style="text-align: center; font-weight: bold;">Dakar, le</p><br>
                                 <p style="text-align: left; font-weight: bold; font-style: italic">Le Directeur général
                                 </p>
@@ -157,7 +162,7 @@
                     <table class="information">
                         <tr>
                             <td>
-                                <h2 style="text-align: center;">LETTRE DE MISSION</h2>
+                                <h2 style="text-align: center; margin-top: -25px;">LETTRE DE MISSION</h2>
 
                                 <p style="text-align : justify;">
                                     <b>{{ $formation?->onfpevaluateur?->name . ', ' . $formation->onfpevaluateur?->fonction }},</b>
@@ -175,7 +180,7 @@
                                         {{ $formation?->module?->name }}
                                     @endif
                                 </p>
-                                <p><b>Niveau de qualification </b>: {{ $formation?->niveau_qualification }} </p>
+                                <p><b>Niveau de qualification </b>: {{ $formation?->type_certification }} </p>
                                 <p><b>Nombre de bénéficiaires </b>:
                                     {{ ' H: ' . str_pad($formation->prevue_h, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {{ ' F: ' . str_pad($formation->prevue_f, 2, '0', STR_PAD_LEFT) }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

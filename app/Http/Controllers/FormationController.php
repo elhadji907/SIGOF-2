@@ -168,8 +168,8 @@ class FormationController extends Controller
             "lieu"                  =>   "required|string",
             "type_certification"    =>   "required|string",
             "types_formation"       =>   "required|string",
-            "date_debut"            =>   "nullable|date",
-            "date_fin"              =>   "nullable|date",
+            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
         ]);
 
         /* $mois = date('m');
@@ -266,7 +266,49 @@ class FormationController extends Controller
             "date_fin"              =>   "nullable|date",
         ]); */
 
-        $effectif_prevu = $request->input('prevue_h') + $request->input('prevue_f');
+        if (!empty($request->input('prevue_h'))) {
+            $prevue_h = $request->input('prevue_h');
+        } else {
+            $prevue_h = null;
+        }
+        if (!empty($request->input('prevue_f'))) {
+            $prevue_f = $request->input('prevue_f');
+        } else {
+            $prevue_f = null;
+        }
+
+
+        $effectif_prevu = $prevue_h + $prevue_f;
+
+        if (!empty($request->input('date_debut'))) {
+            $date_debut = $request->input('date_debut');
+        } else {
+            $date_debut = null;
+        }
+
+        if (!empty($request->input('date_fin'))) {
+            $date_fin = $request->input('date_fin');
+        } else {
+            $date_fin = null;
+        }
+
+        if (!empty($request->input('frais_operateurs'))) {
+            $frais_operateurs = $request->input('frais_operateurs');
+        } else {
+            $frais_operateurs = null;
+        }
+
+        if (!empty($request->input('frais_add'))) {
+            $frais_add = $request->input('frais_add');
+        } else {
+            $frais_add = null;
+        }
+
+        if (!empty($request->input('autes_frais'))) {
+            $autes_frais = $request->input('autes_frais');
+        } else {
+            $autes_frais = null;
+        }
 
         $formation = new Formation([
             "code"                  =>   $request->input('code'),
@@ -280,15 +322,15 @@ class FormationController extends Controller
             "type_certification"  =>   $request->input('type_certification'),
             /* "numero_convention"     =>   $request->input('numero_convention'), */
             /* "titre"                 =>   $request->input('titre'), */
-            "date_debut"            =>   $request->input('date_debut'),
-            "date_fin"              =>   $request->input('date_fin'),
+            "date_debut"            =>   $date_debut,
+            "date_fin"              =>   $date_fin,
             "effectif_prevu"        =>   $effectif_prevu,
-            "prevue_h"              =>   $request->input('prevue_h'),
-            "prevue_f"              =>   $request->input('prevue_f'),
-            "frais_operateurs"      =>   $request->input('frais_operateurs'),
+            "prevue_h"              =>   $prevue_h,
+            "prevue_f"              =>   $prevue_f,
+            "frais_operateurs"      =>   $frais_operateurs,
             /* "lettre_mission"        =>   $request->input('lettre_mission'), */
-            "frais_add"             =>   $request->input('frais_add'),
-            "autes_frais"           =>   $request->input('autes_frais'),
+            "frais_add"             =>   $frais_add,
+            "autes_frais"           =>   $autes_frais,
             "projets_id"            =>   $request->input('projet'),
             "programmes_id"         =>   $request->input('programme'),
             "choixoperateurs_id"    =>   $request->input('choixoperateur'),
@@ -352,17 +394,28 @@ class FormationController extends Controller
             "lieu"                  =>   "required|string",
             "type_certification"   =>    "required|string",
             "titre"                 =>   "nullable|string",
-            "date_debut"            =>   "nullable|date",
-            "date_convention"       =>   "nullable|date",
-            "date_lettre"           =>   "nullable|date",
-            "date_fin"              =>   "nullable|date",
+            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_convention"       =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_lettre"           =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
             "lettre_mission"        =>   "nullable|string",
             "annee"                 =>   "nullable|numeric",
             "file_convention"       =>  ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
             "detf-file"             =>  ['sometimes', 'file', 'mimes:pdf', 'max:2048']
         ]);
 
-        $effectif_prevu = $request->input('prevue_h') + $request->input('prevue_f');
+        if(!empty($request->input('prevue_h'))){
+            $prevue_h = $request->input('prevue_h');
+        } else {
+            $prevue_h = null;
+        }
+        if(!empty($request->input('prevue_f'))){
+            $prevue_f = $request->input('prevue_f');
+        } else {
+            $prevue_f = null;
+        }
+
+        $effectif_prevu = $prevue_h + $prevue_f;
 
         $projet = Projet::where('sigle', $request->input('projet'))->first();
 
@@ -435,6 +488,64 @@ class FormationController extends Controller
             $formation->save();
         }
 
+        if (!empty($request->input('date_debut'))) {
+            $date_debut = date('Y-m-d H:i:s', strtotime($request->input('date_debut')));
+        } else {
+            $date_debut = null;
+        }
+
+        if (!empty($request->input('date_fin'))) {
+            $date_fin = date('Y-m-d H:i:s', strtotime($request->input('date_fin')));
+        } else {
+            $date_fin = null;
+        }
+
+        if (!empty($request->input('date_pv'))) {
+            $date_pv = date('Y-m-d H:i:s', strtotime($request->input('date_pv')));
+        } else {
+            $date_pv = null;
+        }
+
+        if (!empty($request->input('date_lettre'))) {
+            $date_lettre = date('Y-m-d H:i:s', strtotime($request->input('date_lettre')));
+        } else {
+            $date_lettre = null;
+        }
+
+        if (!empty($request->input('date_convention'))) {
+            $date_convention = date('Y-m-d H:i:s', strtotime($request->input('date_convention')));
+        } else {
+            $date_convention = null;
+        }
+
+        if (!empty($request->input('frais_operateurs'))) {
+            $frais_operateurs = $request->input('frais_operateurs');
+        } else {
+            $frais_operateurs = null;
+        }
+        if (!empty($request->input('frais_add'))) {
+            $frais_add = $request->input('frais_add');
+        } else {
+            $frais_add = null;
+        }
+        if (!empty($request->input('autes_frais'))) {
+            $autes_frais = $request->input('autes_frais');
+        } else {
+            $autes_frais = null;
+        }
+
+        if (!empty($request->input('frais_evaluateur'))) {
+            $frais_evaluateur = $request->input('frais_evaluateur');
+        } else {
+            $frais_evaluateur = null;
+        }
+        if (!empty($request->input('onfpevaluateur'))) {
+            $onfpevaluateur = $request->input('onfpevaluateur');
+        } else {
+            $onfpevaluateur = null;
+        }
+
+
         $formation->update([
             "code"                  =>   $request->input('code'),
             "name"                  =>   $request->input('name'),
@@ -446,16 +557,16 @@ class FormationController extends Controller
             "numero_convention"     =>   $request->input('numero_convention'),
             "titre"                 =>   $titre,
             "type_certificat"       =>   $type,
-            "date_debut"            =>   $request->input('date_debut'),
-            "date_convention"       =>   $request->input('date_convention'),
-            "date_lettre"           =>   $request->input('date_lettre'),
-            "date_fin"              =>   $request->input('date_fin'),
+            "date_debut"            =>   $date_debut,
+            "date_fin"              =>   $date_fin,
+            "date_convention"       =>   $date_convention,
+            "date_lettre"           =>   $date_lettre,
             "effectif_prevu"        =>   $effectif_prevu,
-            "prevue_h"              =>   $request->input('prevue_h'),
-            "prevue_f"              =>   $request->input('prevue_f'),
-            "frais_operateurs"      =>   $request->input('frais_operateurs'),
-            "frais_add"             =>   $request->input('frais_add'),
-            "autes_frais"           =>   $request->input('autes_frais'),
+            "prevue_h"              =>   $prevue_h,
+            "prevue_f"              =>   $prevue_f,
+            "frais_operateurs"      =>   $frais_operateurs,
+            "frais_add"             =>   $frais_add,
+            "autes_frais"           =>   $autes_frais,
             "projets_id"            =>   $projet?->id,
             "lettre_mission"        =>   $request->input('lettre_mission'),
             "programmes_id"         =>   $request->input('programme'),
@@ -463,18 +574,18 @@ class FormationController extends Controller
             "referentiels_id"       =>   $referentiel_id,
             "annee"                 =>   $request->input('annee'),
             "membres_jury"          =>   $request->input('membres_jury'),
-            "frais_evaluateur"      =>   $request->input('frais_evaluateur'),
+            "frais_evaluateur"      =>   $frais_evaluateur,
             "recommandations"       =>   $request->input('recommandations'),
-            "date_pv"               =>   $request->input('date_pv'),
-            "evaluateurs_id"        =>   $request->input('evaluateur'),
-            "onfpevaluateurs_id"    =>   $request->input('onfpevaluateur'),
+            "date_pv"               =>   $date_pv,
+            /* "evaluateurs_id"        =>   $request->input('evaluateur'), */
+            "onfpevaluateurs_id"    =>   $onfpevaluateur,
             "attestation"           =>   $request->statut,
 
         ]);
 
         $formation->save();
 
-        Alert::success("Formation", "modifiée avec succès");
+        Alert::success("Modification effectuée", "formation modifiée avec succès");
 
         return redirect()->back();
     }
@@ -1398,8 +1509,8 @@ class FormationController extends Controller
             'type_certificat'           => ['nullable', 'string'],
             'recommandations'           => ['nullable', 'string'],
             'titre'                     => ['nullable', 'string'],
-            'date_pv'                   => ['required', 'date'],
-            'date_convention'           => ['required', 'date'],
+            'date_pv'                   => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'date_convention'           => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
         ]);
 
         $formation = Formation::findOrFail($request->input('id'));
@@ -1420,6 +1531,18 @@ class FormationController extends Controller
             $type = null;
         }
 
+        if (!empty($request->input('date_pv'))) {
+            $date_pv = $request->input('date_pv');
+        } else {
+            $date_pv = null;
+        }
+
+        if (!empty($request->input('date_convention'))) {
+            $date_convention = $request->input('date_convention');
+        } else {
+            $date_convention = null;
+        }
+
         $formation->update([
             "membres_jury"                  =>  $request->input('membres_jury'),
             "numero_convention"             =>  $request->input('numero_convention'),
@@ -1428,7 +1551,8 @@ class FormationController extends Controller
             "type_certificat"               =>  $type,
             "titre"                         =>  $titre,
             "recommandations"               =>  $request->input('recommandations'),
-            "date_pv"                       =>  $request->input('date_pv'),
+            "date_pv"                       =>  $date_pv,
+            "date_convention"               =>  $date_convention,
             "evaluateurs_id"                =>  $request->input('evaluateur'),
             "onfpevaluateurs_id"            =>  $request->input('onfpevaluateur'),
             "referentiels_id"               =>  $referentiel_id,

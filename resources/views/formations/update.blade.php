@@ -144,10 +144,10 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_debut" class="form-label">Date début</label>
-                                        <input type="date" name="date_debut"
-                                            value="{{ $formation?->date_debut?->format('Y-m-d') ?? old('date_debut') }}"
+                                        <input type="text" name="date_debut"
+                                            value="{{ $formation?->date_debut?->format('d-m-Y') ?? old('date_debut') }}"
                                             class="form-control form-control-sm @error('date_debut') is-invalid @enderror"
-                                            id="date_debut" placeholder="Date début">
+                                            id="date_debut" placeholder="dd-mm-aaaa">
                                         @error('date_debut')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -157,10 +157,10 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_fin" class="form-label">Date fin</label>
-                                        <input type="date" name="date_fin"
-                                            value="{{ $formation?->date_fin?->format('Y-m-d') ?? old('date_fin') }}"
+                                        <input type="text" name="date_fin"
+                                            value="{{ $formation?->date_fin?->format('d-m-Y') ?? old('date_fin') }}"
                                             class="form-control form-control-sm @error('date_fin') is-invalid @enderror"
-                                            id="date_fin" placeholder="Date début">
+                                            id="date_fin" placeholder="dd-mm-aaaa">
                                         @error('date_fin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -207,10 +207,10 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_lettre" class="form-label">Date lettre</label>
-                                        <input type="date" name="date_lettre"
-                                            value="{{ $formation?->date_lettre?->format('Y-m-d') ?? old('date_lettre') }}"
+                                        <input type="text" name="date_lettre"
+                                            value="{{ $formation?->date_lettre?->format('d-m-Y') ?? old('date_lettre') }}"
                                             class="form-control form-control-sm @error('date_lettre') is-invalid @enderror"
-                                            id="date_lettre" placeholder="Date lettre">
+                                            id="date_lettre" placeholder="dd-mm-aaaa">
                                         @error('date_lettre')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -233,10 +233,10 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_convention" class="form-label">Date convention</label>
-                                        <input type="date" name="date_convention"
-                                            value="{{ $formation?->date_convention?->format('Y-m-d') ?? old('date_convention') }}"
+                                        <input type="text" name="date_convention"
+                                            value="{{ $formation?->date_convention?->format('d-m-Y') ?? old('date_convention') }}"
                                             class="form-control form-control-sm @error('date_convention') is-invalid @enderror"
-                                            id="date_convention" placeholder="Date convention">
+                                            id="date_convention" placeholder="dd-mm-aaaa">
                                         @error('date_convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -396,10 +396,10 @@
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label class="form-label">Date évaluation</label>
-                                            <input type="date" name="date_pv"
-                                                value="{{ $formation?->date_pv?->format('Y-m-d') ?? old('date_pv') }}"
+                                            <input type="text" name="date_pv"
+                                                value="{{ $formation?->date_pv?->format('d-m-Y') ?? old('date_pv') }}"
                                                 class="form-control form-control-sm @error('date_pv') is-invalid @enderror"
-                                                id="date_pv" placeholder="date_pv">
+                                                id="date_pv" placeholder="dd-mm-aaaa">
                                             @error('date_pv')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -423,7 +423,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                    {{-- <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
                                             <label for="evaluateur" class="form-label">Evaluateur</label>
                                             <select name="evaluateur"
@@ -446,7 +446,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <div class="mb-3">
@@ -531,8 +531,7 @@
                                         </div>
                                     </div>
                                     <div class="text-center p-3">
-                                        <button type="submit" class="btn btn-primary"><i
-                                                class="bi bi-printer"></i>&nbsp;Enregister les modifications</button>
+                                        <button type="submit" class="btn btn-primary btn-sm">Enregister les modifications</button>
                                     </div>
                                 </form>
                             </div>

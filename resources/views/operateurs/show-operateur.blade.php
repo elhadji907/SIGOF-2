@@ -38,9 +38,9 @@
                             </button>
                             @can('devenir-operateur-agrement-ouvert')
                                 @can('devenir-operateur-agrement-create')
-                                    <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                    <button type="button" class="btn btn-warning btn-sm float-end btn-rounded"
                                         data-bs-toggle="modal" data-bs-target="#AddoperateurModal">
-                                        <i class="bi bi-plus" title="Renouvellement agrément"></i>
+                                        renouveler agrément
                                     </button>
                                 @endcan
                             @endcan
@@ -58,7 +58,7 @@
                                         <th width="5%" class="text-center">Référence</th>
                                         <th class="text-center">Equi. & Infras.</th>
                                         <th width="5%" class="text-center">Formateurs</th>
-                                        <th width="5%" class="text-center">Localités</th>
+                                        {{-- <th width="5%" class="text-center">Localités</th> --}}
                                         <th class="text-center">Type demande</th>
                                         <th width="10%" class="text-center">Etat</th>
                                         <th width="10%" class="text-center">Statut</th>
@@ -139,9 +139,7 @@
                                                         <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
                                                 @endcan
                                             </td>
-                                            <td style="text-align: center;">
-                                                {{-- <span
-                                                    class="{{ $localite_count }}">{{ count($operateur->operateurlocalites) }}</span> --}}
+                                            {{-- <td style="text-align: center;">
                                                 <span class="badge bg-info">
                                                     {{ count($operateur->operateurlocalites) }}
                                                 </span>
@@ -150,7 +148,7 @@
                                                         target="_blank">
                                                         <i class="bi bi-plus" title="Ajouter, Modifier, Supprimer"></i> </a>
                                                 @endcan
-                                            </td>
+                                            </td> --}}
                                             <td style="text-align: center;"><span
                                                     class="{{ $operateur?->type_demande }}">{{ $operateur?->type_demande }}</span>
                                             </td>
@@ -347,9 +345,9 @@
                                         <label for="date_quitus" class="form-label">Date visa quitus<span
                                                 class="text-danger mx-1">*</span></label>
 
-                                        <input type="date" name="date_quitus" value="{{ old('date_quitus') }}"
+                                        <input type="text" name="date_quitus" value="{{ old('date_quitus') }}"
                                             class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                            id="date_quitus" placeholder="Date quitus">
+                                            id="date_quitus" placeholder="dd-mm-aaaa">
                                         @error('date_quitus')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -649,10 +647,10 @@
                                     <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                         <label for="date_quitus" class="form-label">Date visa quitus<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_quitus"
-                                            value="{{ $operateur?->debut_quitus?->format('Y-m-d') ?? old('date_quitus') }}"
+                                        <input type="text" name="date_quitus"
+                                            value="{{ $operateur?->debut_quitus?->format('d-m-Y') ?? old('date_quitus') }}"
                                             class="form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                            id="date_quitus" placeholder="Date quitus">
+                                            id="date_quitus" placeholder="dd-mm-aaaa">
                                         @error('date_quitus')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

@@ -76,6 +76,8 @@ class ArriveController extends Controller
 
         $count_courrier = number_format($arrives?->count(), 0, ',', ' ');
 
+        $count_arrives = Arrive::where('type', 'operateur')->count();
+
         if ($count_courrier < "1") {
             $title = 'Aucun courrier';
         } elseif ($count_courrier == "1") {
@@ -88,7 +90,17 @@ class ArriveController extends Controller
 
         $count_today = Arrive::where('type', null)->where("created_at", "LIKE",  "{$today}%")->count();
 
-        return view("courriers.arrives.index", compact("arrives", "count_today", "anneeEnCours", "numCourrier", "title"));
+        return view(
+            "courriers.arrives.index",
+            compact(
+                "arrives",
+                "count_today",
+                "anneeEnCours",
+                "numCourrier",
+                "count_arrives",
+                "title"
+            )
+        );
     }
 
     public function create()
@@ -721,6 +733,7 @@ class ArriveController extends Controller
             ->get();
 
         $count_arrives = Arrive::where('type', 'operateur')->count();
+        $count_courriers_arrives = Arrive::where('type', null)->count();
 
         $count_courrier = number_format($arrives?->count(), 0, ',', ' ');
 
@@ -745,6 +758,7 @@ class ArriveController extends Controller
                 "numCourrier",
                 "title",
                 "count_arrives",
+                "count_courriers_arrives",
                 "numDossier"
             )
         );

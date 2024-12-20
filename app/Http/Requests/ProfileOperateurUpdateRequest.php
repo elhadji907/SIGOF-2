@@ -22,8 +22,8 @@ class ProfileOperateurUpdateRequest extends FormRequest
             'civilite'                  => ['required', 'string', 'max:8'],
             'firstname'                 => ['required', 'string', 'max:150'],
             'name'                      => ['required', 'string', 'max:25'],
-            'date_naissance'            => ['nullable', 'date', "max:10", "min:10", "date_format:d-m-Y"],
-            'lieu_naissance'            => ['nullable', 'string'],
+            /* 'date_naissance'            => ['nullable', 'date', "max:10", "min:10", "date_format:d-m-Y"],
+            'lieu_naissance'            => ['nullable', 'string'], */
             'categorie'                 => ['required', 'string'],
             'rccm'                      => ['required', 'string'],
             'ninea'                     => ['required', 'string', Rule::unique(User::class)->ignore($this->user()->id)],
@@ -33,8 +33,8 @@ class ProfileOperateurUpdateRequest extends FormRequest
             'telephone'                 => ['required', 'string', 'max:9', 'min:9'],
             'telephone_parent'          => ['required', 'string', 'max:9', 'min:9'],
             'adresse'                   => ['required', 'string', 'max:255'],
-            'situation_familiale'       => ['nullable', 'max:15', 'string'],
-            'situation_professionnelle' => ['nullable', 'max:25', 'string'],
+           /*  'situation_familiale'       => ['nullable', 'max:15', 'string'],
+            'situation_professionnelle' => ['nullable', 'max:25', 'string'], */
             'fonction_responsable'      => ['required', 'max:250', 'string'],
             'twitter'                   => ['nullable', 'string', 'max:255'],
             'facebook'                  => ['nullable', 'string', 'max:255'],

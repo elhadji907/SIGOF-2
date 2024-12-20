@@ -303,6 +303,7 @@ class DatabaseSeeder extends Seeder
         'afficher-operateur-module',
         'afficher-operateur-formation',
         'afficher-operateur-statut',
+        'evaluation-formation',
     ];
 
     public function run(): void

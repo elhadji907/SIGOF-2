@@ -32,14 +32,14 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        /* $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP']);
+        $this->middleware(['role:super-admin|admin|DIOF|DEC|DPP']);
         $this->middleware("permission:user-view", ["only" => ["index"]]);
         $this->middleware("permission:user-create", ["only" => ["create", "store"]]);
         $this->middleware("permission:user-update", ["only" => ["update", "edit"]]);
         $this->middleware("permission:user-show", ["only" => ["show"]]);
         $this->middleware("permission:user-delete", ["only" => ["destroy"]]);
         $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]); 
-        */
+       
     }
 
     public function homePage()

@@ -1265,7 +1265,7 @@ class OperateurController extends Controller
                 && $operateur_reference_count > 0
                 && $operateur_equipement_count > 0
                 && $operateur_formateur_count > 0
-                && $operateur_localite_count > 0
+                && $operateur_localite_count >= 0
             ) {
                 $statut_demande = "valide";
             } else {

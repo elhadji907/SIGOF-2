@@ -1052,12 +1052,16 @@
                         enctype="multipart/form-data" class="row">
                         @csrf
                         @method('PUT')
-                        <div class="modal-header">
+                        {{-- <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Situation des attestations
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
-                        </div>
+                        </div> --}}
+                        
+                    <div class="card-header text-center bg-gradient-default">
+                        <h1 class="h4 text-black mb-0">SATATUT ATTESTATIONS</h1>
+                    </div>
                         <div class="modal-body">
                             <input type="hidden" name="formationid" value="{{ $formation->id }}">
                             <label for="region" class="form-label">Statut attestations<span
@@ -1218,10 +1222,10 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-3">
                                     <label for="date_retrait" class="form-label">Date retrait<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="date" name="date_retrait"
-                                        value="{{ date('Y-m-d') ?? old('date_retrait') }}"
+                                    <input type="text" name="date_retrait"
+                                        value="{{ date('d-m-Y') ?? old('date_retrait') }}"
                                         class="form-control form-control-sm @error('date_retrait') is-invalid @enderror"
-                                        id="date_retrait" placeholder="Date naissance">
+                                        id="date_retrait" placeholder="dd-mm-aaaa">
                                     @error('date_retrait')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -1349,10 +1353,10 @@
                                 <label for="floatingInput">Agent suivi</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="date" name="date_suivi"
-                                    value="{{ $formation?->date_suivi?->format('Y-m-d') ?? old('date_suivi') }}"
+                                <input type="text" name="date_suivi"
+                                    value="{{ $formation?->date_suivi?->format('d-m-Y') ?? old('date_suivi') }}"
                                     class="form-control form-control-sm @error('date_suivi') is-invalid @enderror"
-                                    id="date_suivi" placeholder="Date suivi">
+                                    id="date_suivi" placeholder="dd-mm-aaaa">
                                 @error('date_suivi')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
@@ -1379,12 +1383,16 @@
                         enctype="multipart/form-data" class="row g-3">
                         @csrf
                         @method('patch')
-                        <div class="modal-header" id="EditMembresJuryModalLabel{{ $formation->id }}">
+                        {{-- <div class="modal-header" id="EditMembresJuryModalLabel{{ $formation->id }}">
                             <h5 class="modal-title text-center">Evaluation formation <br>
                                 {{ $formation?->module?->name }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
-                        </div>
+                        </div> --}}
+                        
+                    <div class="card-header text-center bg-gradient-default">
+                        <h1 class="h4 text-black mb-0">Evaluation</h1>
+                    </div>
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $formation->id }}">
 
@@ -1406,10 +1414,10 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label>Date convention<span class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_convention"
-                                            value="{{ $formation?->date_convention?->format('Y-m-d') ?? old('date_convention') }}"
+                                        <input type="text" name="date_convention"
+                                            value="{{ $formation?->date_convention?->format('d-m-Y') ?? old('date_convention') }}"
                                             class="form-control form-control-sm @error('date_convention') is-invalid @enderror"
-                                            id="date_convention" placeholder="date_convention">
+                                            id="date_convention" placeholder="dd-mm-aaaa">
                                         @error('date_convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -1420,10 +1428,10 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label>Date évaluation<span class="text-danger mx-1">*</span></label>
-                                        <input type="date" name="date_pv"
-                                            value="{{ $formation?->date_pv?->format('Y-m-d') ?? old('date_pv') }}"
+                                        <input type="text" name="date_pv"
+                                            value="{{ $formation?->date_pv?->format('d-m-Y') ?? old('date_pv') }}"
                                             class="form-control form-control-sm @error('date_pv') is-invalid @enderror"
-                                            id="date_pv" placeholder="date_pv">
+                                            id="date_pv" placeholder="dd-mm-aaaa">
                                         @error('date_pv')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

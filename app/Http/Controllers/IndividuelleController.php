@@ -7,6 +7,7 @@ use App\Models\Arrondissement;
 use App\Models\Commune;
 use App\Models\Demandeur;
 use App\Models\Departement;
+use App\Models\File;
 use App\Models\Individuelle;
 use App\Models\Module;
 use App\Models\Projet;
@@ -516,6 +517,7 @@ class IndividuelleController extends Controller
             $numero_individuelle = 'I' . $annee . $numero_individuelle;
         } */
 
+        $date_depot = date('Y-m-d H:i:s', strtotime($request->input('date_depot')));
 
         $anneeEnCours = date('Y');
         $an = date('y');
@@ -587,7 +589,7 @@ class IndividuelleController extends Controller
 
         if (isset($module_find)) {
             $individuelle = new Individuelle([
-                'date_depot'                        =>  $request->input('date_depot'),
+                'date_depot'                        =>  $date_depot,
                 'numero'                            =>  $numero_individuelle,
                 'telephone'                         =>  $request->input('telephone_secondaire'),
                 'niveau_etude'                      =>  $request->input('niveau_etude'),
@@ -619,7 +621,7 @@ class IndividuelleController extends Controller
             $module->save();
 
             $individuelle = new Individuelle([
-                'date_depot'                        =>  $request->input('date_depot'),
+                'date_depot'                        =>  $date_depot,
                 'numero'                            =>  $numero_individuelle,
                 'niveau_etude'                      =>  $request->input('niveau_etude'),
                 'telephone'                         =>  $request->input('telephone_secondaire'),
@@ -646,6 +648,16 @@ class IndividuelleController extends Controller
         }
 
         $individuelle->save();
+
+        $files = File::where('users_id', null)->distinct()->get();
+
+        foreach ($files as $key => $file) {
+            $file = File::create([
+                'legende'   => $file->legende,
+                'sigle'     => $file->sigle,
+                'users_id'  => $user->id
+            ]);
+        }
 
         Alert::success('Enregistrée ! ', 'demande ajoutée avec succès');
 
@@ -675,6 +687,7 @@ class IndividuelleController extends Controller
         $user_id            = $individuelle?->users_id;
 
         $this->validate($request, [
+            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
             'telephone_secondaire'          => ['required', 'string', 'min:9', 'max:9'],
             'adresse'                       => ['required', 'string', 'max:255'],
             'departement'                   => ['required', 'string', 'max:255'],
@@ -684,6 +697,8 @@ class IndividuelleController extends Controller
             'diplome_professionnel'         => ['required', 'string', 'max:255'],
             'projet_poste_formation'        => ['required', 'string', 'max:255'],
         ]);
+
+        $date_depot = date('Y-m-d H:i:s', strtotime($request->input('date_depot')));
 
         $projet = Projet::where('sigle', $request->input("projet"))->first();
 
@@ -737,6 +752,7 @@ class IndividuelleController extends Controller
         if (isset($module_find)) {
             if (isset($individuelle->module) && ($individuelle->module->name == $module_find->name)) {
                 $individuelle->update([
+                    'date_depot'                        =>  $date_depot,
                     'niveau_etude'                      =>  $request->input('niveau_etude'),
                     'telephone'                         =>  $request->input('telephone_secondaire'),
                     'diplome_academique'                =>  $request->input('diplome_academique'),
@@ -767,6 +783,7 @@ class IndividuelleController extends Controller
                     }
                 }
                 $individuelle->update([
+                    'date_depot'                        =>  $date_depot,
                     'niveau_etude'                      =>  $request->input('niveau_etude'),
                     'telephone'                         =>  $request->input('telephone_secondaire'),
                     'diplome_academique'                =>  $request->input('diplome_academique'),
@@ -800,6 +817,7 @@ class IndividuelleController extends Controller
                 $module->save();
 
                 $individuelle->update([
+                    'date_depot'                        =>  $date_depot,
                     'niveau_etude'                      =>  $request->input('niveau_etude'),
                     'telephone'                         =>  $request->input('telephone_secondaire'),
                     'diplome_academique'                =>  $request->input('diplome_academique'),
@@ -837,6 +855,7 @@ class IndividuelleController extends Controller
             $module->save();
 
             $individuelle->update([
+                'date_depot'                        =>  $date_depot,
                 'niveau_etude'                      =>  $request->input('niveau_etude'),
                 'telephone'                         =>  $request->input('telephone_secondaire'),
                 'diplome_academique'                =>  $request->input('diplome_academique'),
@@ -924,9 +943,9 @@ class IndividuelleController extends Controller
         $individuelles = Individuelle::where('users_id', $user->id)
             ->where('numero', '!=', null)
             ->where('projets_id',  null)
+            ->orderBy("created_at", "desc")
             ->get();
         $individuelle_total = $individuelles->count();
-
         if ($individuelle_total == 0) {
             return view(
                 "individuelles.show-individuelle-aucune",
