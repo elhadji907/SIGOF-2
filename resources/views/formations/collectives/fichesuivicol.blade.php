@@ -88,11 +88,22 @@
 </head>
 
 <body>
-    <h6 valign="top" style="text-align: center;">
+   {{--  <h6 valign="top" style="text-align: center;">
         <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
             MINISTERE DE LA FORMATION PROFESSIONNELLE<br>
+            ********<br>
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                style="width: 100%; max-width: 300px" />
+        </b>
+    </h6> --}}
+    
+    <h6 valign="top" style="text-align: center;">
+        <b>REPUBLIQUE DU SENEGAL<br></b>
+        Un Peuple - Un But - Une Foi<br>
+        <b>********<br>
+            MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
             ********<br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
                 style="width: 100%; max-width: 300px" />

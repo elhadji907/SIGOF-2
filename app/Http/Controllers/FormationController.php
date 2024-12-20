@@ -404,12 +404,12 @@ class FormationController extends Controller
             "detf-file"             =>  ['sometimes', 'file', 'mimes:pdf', 'max:2048']
         ]);
 
-        if(!empty($request->input('prevue_h'))){
+        if (!empty($request->input('prevue_h'))) {
             $prevue_h = $request->input('prevue_h');
         } else {
             $prevue_h = null;
         }
-        if(!empty($request->input('prevue_f'))){
+        if (!empty($request->input('prevue_f'))) {
             $prevue_f = $request->input('prevue_f');
         } else {
             $prevue_f = null;
@@ -1083,7 +1083,6 @@ class FormationController extends Controller
 
     public function addcollectiveformations($idformation, $idlocalite)
     {
-
         $formation = Formation::findOrFail($idformation);
         /* $collectives = Collective::where('statut_demande', 'accepter')
             ->orwhere('statut_demande', 'retenu')
@@ -1146,8 +1145,48 @@ class FormationController extends Controller
 
         $formation = Formation::findOrFail($idformation);
 
-        foreach ($formation->listecollectives as $liste) {
+        if (count($formation->listecollectives) > 0) {
+            if (!empty($liste)) {
+                Alert::warning('Attention !', 'des bénéficiaires sont déjà sélectionnés');
+
+                return redirect()->back();
+            } elseif (isset($request->collectivemoduleformation) && $request->collectivemoduleformation != $collectivemodule->id) {
+                $collectivemoduleformation = Collectivemodule::findOrFail($request->collectivemoduleformation);
+
+                $collectivemoduleformation->update([
+                    "formations_id"      =>  null,
+                    "statut"             =>  'attente',
+                ]);
+
+                $collectivemoduleformation->save();
+
+                $collectivemodule->update([
+                    "formations_id"      =>  $idformation,
+                    "statut"             =>  'retenu',
+                ]);
+
+                $collectivemodule->save();
+
+                Alert::success('Fait !', 'ajouté avec succès');
+
+                return redirect()->back();
+            }
+        } else {
+            $collectivemodule->update([
+                "formations_id"      =>  $idformation,
+                "statut"             =>  'retenu',
+            ]);
+
+            $collectivemodule->save();
+
+            Alert::success('Fait !', 'ajouté avec succès');
+
+            return redirect()->back();
         }
+
+        /* foreach ($formation->listecollectives as $liste) {
+        }
+    
 
         if (!empty($liste)) {
             Alert::warning('Attention !', 'des bénéficiaires sont déjà sélectionnés');
@@ -1173,7 +1212,7 @@ class FormationController extends Controller
 
         Alert::success('Fait !', 'ajouté avec succès');
 
-        return redirect()->back();
+        return redirect()->back(); */
     }
 
     public function givemoduleformationcollectives($idformation, Request $request)

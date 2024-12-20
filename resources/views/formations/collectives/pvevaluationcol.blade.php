@@ -142,17 +142,19 @@
 </head>
 
 <body>
+    {{-- <h6 valign="top" style="text-align: center;">
+        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
+            style="width: 100%; max-width: 300px" />
+    </h6> --}}
     <h6 valign="top" style="text-align: center;">
-        {{--   <b>REPUBLIQUE DU SENEGAL<br></b>
+        <b>REPUBLIQUE DU SENEGAL<br></b>
         Un Peuple - Un But - Une Foi<br>
         <b>********<br>
-            MINISTERE DE LA FORMATION PROFESSIONNELLE<br>
+            MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
             ********<br>
             <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
                 style="width: 100%; max-width: 300px" />
-        </b> --}}
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
-            style="width: 100%; max-width: 300px" />
+        </b>
     </h6>
     <div class="invoice-box">
         <table class="table table-responsive">
@@ -244,6 +246,21 @@
                 @endforeach
             @endisset
         </h4>
+        {{-- <h4 valign="top">
+            <b><u>SIGNATURE DES MEMBRES DU JURY</u></b> : @isset($formation?->date_pv)
+                <span
+                    style="float: right; font-style: italic">{{ $formation?->departement?->nom . ', ' . $formation?->departement?->region?->nom . ', le ' . $formation?->date_pv?->format('d/m/Y') }}</span>
+            @endisset
+            <br>
+            <?php $i = 1; ?>
+            {{ $formation?->evaluateur?->name . ', ' . $formation?->evaluateur?->fonction }}<br>
+            {{ $formation?->onfpevaluateur?->name . ', ' . $formation?->onfpevaluateur?->fonction }}<br>
+            @isset($membres_jury)
+                @foreach ($membres_jury as $item)
+                    {{ $item }} <br>
+                @endforeach
+            @endisset
+        </h4> --}}
     </div>
     {{-- <footer>
         {{ __("Cité SIPRES 1 lot 2 - 2 voies liberté 6 extension VDN  Tél. : 33 827 92 51- Fax : 33 827 92 55
