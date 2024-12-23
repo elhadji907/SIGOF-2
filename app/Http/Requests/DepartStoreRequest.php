@@ -22,15 +22,15 @@ class DepartStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "date_depart"           => ["required", "date", "max:10", "min:10", "date_format:d-m-Y"],
-            "date_corres"           => ["required", "date", "max:10", "min:10", "date_format:d-m-Y"],
+            "date_depart"           => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
+            "date_corres"           => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
             "numero_correspondance" => ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL"],
             "numero_depart"         => ["required", "string", "min:4", "max:6", "unique:departs,numero,Null,id,deleted_at,NULL"],
             "annee"                 => ["required", "string"],
             "objet"                 => ["required", "string"],
             "destinataire"          => ["required", "string"],
             "numero_reponse"        => ["string", "min:4", "max:6", "nullable", "unique:courriers,numero_reponse,Null,id,deleted_at,NULL"],
-            "date_reponse"          => ["nullable", "date", "max:10", "min:10", "date_format:d-m-Y"],
+            "date_reponse"          => ["nullable", "date", "max:10", "min:10", "date_format:Y-m-d"],
         ];
     }
 }

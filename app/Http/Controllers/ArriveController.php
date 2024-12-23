@@ -144,8 +144,8 @@ class ArriveController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
             'numero_arrive'             =>  ["required", "string", "min:4", "max:6", "unique:arrives,numero,Null,id,deleted_at,NULL"],
             'numero_correspondance'     =>  ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL"],
             'annee'                     =>  ['required', 'numeric', 'min:2022'],
@@ -191,8 +191,8 @@ class ArriveController extends Controller
     public function addCourrierOperateur(ArriveOperateurStoreRequest $request): RedirectResponse
     {
         $this->validate($request, [
-            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            'date_arrivee'              =>  ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            'date_correspondance'       =>  ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
             'numero_arrive'             =>  ["required", "string", "min:4", "max:6", "unique:arrives,numero,Null,id,deleted_at,NULL"],
             'annee'                     =>  ['required', 'numeric', 'min:2022'],
             'expediteur'                =>  ['required', 'string', 'max:200'],
@@ -310,10 +310,10 @@ class ArriveController extends Controller
         }
 
         $this->validate($request, [
-            "date_arrivee"          => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            "date_correspondance"   => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            "numero_correspondance" => ["nullable", "string", "min:6", "max:9", "unique:courriers,numero,{$arrive->courrier->id}"],
-            "numero_arrive"         => ["required", "string", "min:6", "max:9", "unique:arrives,numero,{$arrive->id}"],
+            "date_arrivee"          => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "date_correspondance"   => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "numero_correspondance" => ["nullable", "string", "min:4", "max:6", "unique:courriers,numero,{$arrive->courrier->id}"],
+            "numero_arrive"         => ["required", "string", "min:4", "max:6", "unique:arrives,numero,{$arrive->id}"],
             "annee"                 => ["required", "string"],
             "expediteur"            => ["required", "string"],
             "objet"                 => ["required", "string"],
@@ -417,7 +417,12 @@ class ArriveController extends Controller
         return Redirect::route('arrives.index')->with('status', $status); */
 
         Alert::success('Félicitations !', 'mise à jour effectuée');
-        return Redirect::route('arrives.index');
+
+        if ($arrive->type == 'operateur') {
+            return Redirect::route('arrivesop');
+        } else {
+            return Redirect::route('arrives.index');
+        }
     }
     public function show($id)
     {

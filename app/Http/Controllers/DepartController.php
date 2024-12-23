@@ -82,7 +82,17 @@ class DepartController extends Controller
         $today = date('Y-m-d');
         $count_today = Depart::where("created_at", "LIKE",  "{$today}%")->count();
 
-        return view("courriers.departs.index", compact("departs", "numCourrier", "anneeEnCours", "today", "count_today", "title"));
+        return view(
+            "courriers.departs.index",
+            compact(
+                "departs",
+                "numCourrier",
+                "anneeEnCours",
+                "today",
+                "count_today",
+                "title"
+            )
+        );
     }
     public function create()
     {
@@ -193,15 +203,15 @@ class DepartController extends Controller
         }
 
         $this->validate($request, [
-            "date_depart"           => ["required", "date", "max:10", "min:10"],
-            "date_corres"           => ["required", "date", "max:10", "min:10"],
+            "date_depart"           => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
+            "date_corres"           => ["required", "date", "max:10", "min:10", "date_format:Y-m-d"],
             "numero_correspondance" => ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL" . $depart->courrier->id],
             "numero_depart"         => ["required", "string", "min:4", "max:6", "unique:departs,numero,Null,id,deleted_at,NULL" . $depart->id],
             "annee"                 => ["required", "string"],
             "objet"                 => ["required", "string"],
             "destinataire"          => ["required", "string"],
             "numero_reponse"        => ["string", "min:4", "max:6", "nullable", "unique:courriers,numero_reponse,Null,id,deleted_at,NULL" . $courrier->id],
-            "date_reponse"          => ["nullable", "date", "max:10", "min:10"],
+            "date_reponse"          => ["nullable", "date", "max:10", "min:10", "date_format:Y-m-d"],
             "observation"           => ["nullable", "string"],
             "reference"             => ["nullable", "string"],
         ]);

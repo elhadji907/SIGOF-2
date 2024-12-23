@@ -22,8 +22,8 @@ class ArriveStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'date_arrivee'              =>  ["required", "date", "max:10", "min:10", "date_format:d-m-Y"],
-            'date_correspondance'       =>  ["required", "date", "max:10", "min:10", "date_format:d-m-Y"],
+            'date_arrivee'              =>  ["required", "date", "max:10", "min:10", "date_format:d/m/Y"],
+            'date_correspondance'       =>  ["required", "date", "max:10", "min:10", "date_format:d/m/Y"],
             'numero_arrive'             =>  ["required", "string", "min:4", "max:6", "unique:arrives,numero,Null,id,deleted_at,NULL"],
             'numero_correspondance'     =>  ["required", "string", "min:4", "max:6", "unique:courriers,numero,Null,id,deleted_at,NULL"],
             'annee'                     =>  ['required', 'numeric', 'min:2022'],
