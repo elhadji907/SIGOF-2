@@ -1445,7 +1445,7 @@ class FormationController extends Controller
             $validated_by->save();
         }
 
-       Alert::success('Bravo !', 'L\'évaluation est terminée.');
+        Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
         return redirect()->back();
     }
@@ -1512,7 +1512,7 @@ class FormationController extends Controller
 
         $validated_by->save(); */
 
-       Alert::success('Bravo !', 'L\'évaluation est terminée.');
+        Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
         return redirect()->back();
     }
@@ -2517,7 +2517,38 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Suivi du demandeur effectué !');
+        Alert::success('Demandeur suivi avec succès !');
+
+        return redirect()->back();
+    }
+
+    public function nepasSuivre(Request $request, $id)
+    {
+        $individuelle = Individuelle::findOrFail($id);
+
+        $individuelle->update([
+            'suivi' => null
+        ]);
+
+        $individuelle->save();
+
+        Alert::success('Merci !', 'L’arrêt du suivi du demandeur a été effectué avec succès !');
+
+        return redirect()->back();
+    }
+
+    public function suivreTous(Request $request, $id)
+    {
+        $formation = Formation::findOrFail($id);
+        foreach ($formation->individuelles as $individuelle) {
+            $individuelle->update([
+                'suivi' => 'suivi'
+            ]);
+
+            $individuelle->save();
+        }
+
+        Alert::success('Merci !', 'Demandeurs suivis avec succès !');
 
         return redirect()->back();
     }
@@ -2551,7 +2582,40 @@ class FormationController extends Controller
 
         $listecollective->save();
 
-        Alert::success($listecollective?->civilite . ' ' . $listecollective?->prenom . ' ' . $listecollective?->nom . ' suivi !');
+        Alert::success('Merci !', 'Demandeur suivi avec succès !');
+
+        return redirect()->back();
+    }
+    public function suivretousCol(Request $request, $id)
+    {
+        $formation = Formation::findOrFail($id);
+
+        foreach ($formation->listecollectives as $listecollective) {
+            $listecollective->update([
+                'suivi' => 'suivi'
+            ]);
+
+            $listecollective->save();
+        }
+
+        Alert::success('Merci !', 'Demandeur suivi avec succès !');
+
+        return redirect()->back();
+    }
+
+
+    public function nepasSuivreCol(Request $request, $id)
+    {
+        $listecollective = Listecollective::findOrFail($id);
+
+        $listecollective->update([
+            'suivi' => null
+        ]);
+
+
+        $listecollective->save();
+
+        Alert::success('Merci !', 'L’arrêt du suivi du demandeur a été effectué avec succès !');
 
         return redirect()->back();
     }

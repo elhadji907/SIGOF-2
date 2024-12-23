@@ -191,9 +191,9 @@
                                     <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_signature" class="form-label">Date signature<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="date_signature" value="{{ old('date_signature') }}"
+                                        <input type="date" name="date_signature" value="{{ old('date_signature') }}"
                                             class="datepicker form-control form-control-sm @error('date_signature') is-invalid @enderror"
-                                            id="date_signature" placeholder="dd-mm-aaaa">
+                                            id="date_signature" placeholder="jj/mm/aaaa">
                                         @error('date_signature')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -230,9 +230,9 @@
 
                                     <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="debut" class="form-label">Date début</label>
-                                        <input type="text" name="debut" value="{{ old('debut') }}"
+                                        <input type="date" name="debut" value="{{ old('debut') }}"
                                             class="datepicker form-control form-control-sm @error('debut') is-invalid @enderror"
-                                            id="debut" placeholder="dd-mm-aaaa">
+                                            id="debut" placeholder="jj/mm/aaaa">
                                         @error('debut')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -242,9 +242,9 @@
 
                                     <div class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="fin" class="form-label">Date fin</label>
-                                        <input type="text" name="fin" value="{{ old('fin') }}"
+                                        <input type="date" name="fin" value="{{ old('fin') }}"
                                             class="datepicker form-control form-control-sm @error('fin') is-invalid @enderror"
-                                            id="fin" placeholder="dd-mm-aaaa">
+                                            id="fin" placeholder="jj/mm/aaaa">
                                         @error('fin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

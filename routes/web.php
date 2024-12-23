@@ -372,9 +372,13 @@ Route::group(['middleware' => ['XSS']], function () {
 
         Route::put('suivreformes/{id}', [FormationController::class, 'SuivreFormes'])->name('SuivreFormes');
         Route::post('formesuivi', [FormationController::class, 'FormeSuivi'])->name('FormeSuivi');
+        Route::put('nepasSuivre/{id}', [FormationController::class, 'nepasSuivre'])->name('nepasSuivre');
+        Route::put('suivreTous/{id}', [FormationController::class, 'suivreTous'])->name('suivreTous');
 
         Route::put('suivreformesCol/{id}', [FormationController::class, 'SuivreFormesCol'])->name('SuivreFormesCol');
         Route::post('formeColsuivi', [FormationController::class, 'FormeColSuivi'])->name('FormeColSuivi');
+        Route::put('nepasSuivreCol/{id}', [FormationController::class, 'nepasSuivreCol'])->name('nepasSuivreCol');
+        Route::put('suivretousCol/{id}', [FormationController::class, 'suivretousCol'])->name('suivretousCol');
 
         Route::get('regions/rapports', [RegionController::class, 'rapports'])->name('regions.rapports');
         Route::post('regions/rapports', [RegionController::class, 'generateRapport']);

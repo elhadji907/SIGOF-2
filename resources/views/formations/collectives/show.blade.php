@@ -430,6 +430,16 @@
                                                                         <button class="btn btn-sm mx-1">A B E</button>
                                                                     </form>
                                                                 @endcan
+                                                                <hr>
+                                                                
+                                                                <form
+                                                                action="{{ route('suivretousCol', $formation?->id) }}"
+                                                                method="post">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button
+                                                                    class="show_confirm_suivi btn btn-sm mx-1">Suivre tous</button>
+                                                            </form>
                                                             </ul>
                                                         </div>
                                                     </span>
@@ -501,7 +511,7 @@
                                                                             </form>
                                                                         @else
                                                                             <button type="button"
-                                                                                class="btn btn-success rounded-pill btn-sm float-center">Suivi</button>
+                                                                                class="btn btn-success rounded-pill btn-sm float-center">{{ $listecollective?->suivi }}</button>
                                                                         @endif
                                                                     </td>
                                                                 @endcan
@@ -527,6 +537,17 @@
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#indiponibleModal{{ $listecollective->id }}">Retirer
                                                                                     </button>
+                                                                                @endcan
+                                                                                @if (!empty($listecollective?->suivi))
+                                                                                    <form
+                                                                                        action="{{ route('nepasSuivreCol', $listecollective?->id) }}"
+                                                                                        method="post">
+                                                                                        @csrf
+                                                                                        @method('PUT')
+                                                                                        <button
+                                                                                            class="show_confirm_suivi btn btn-sm mx-1">Ne
+                                                                                            plus suivre</button>
+                                                                                    </form>
                                                                                 @endcan
                                                                                 {{-- <form
                                                                                 action="{{ route('listecollectives.destroy', $listecollective->id) }}"

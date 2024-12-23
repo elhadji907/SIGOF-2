@@ -41,20 +41,29 @@ class ProjetController extends Controller
             "sigle"             => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
-            "date_signature"    => ["date", "min:10", "max:10", "date_format:d-m-Y", Rule::unique('projets')->where(function ($query) {
-                return $query->whereNull('deleted_at');
-            })],
+            "date_signature"    => ["date", "min:10", "max:10", "date_format:Y-m-d"],
             "description"       => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })],
             "duree"             => ["nullable", "string"],
             "budjet"            => ["nullable", "string"],
             "effectif"          => ["nullable", "string"],
-            "debut"             => ["nullable", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            "fin"               => ["nullable", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            "debut"             => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "fin"               => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "type"              => ["required", "string"],
             "type_projet"       => ["required", "string"],
         ]);
+        
+        if (!empty($request->input('debut'))) {
+            $debut = $request->input('debut');
+        } else {
+            $debut = null;
+        }
+        if (!empty($request->input('fin'))) {
+            $fin = $request->input('fin');
+        } else {
+            $fin = null;
+        }
 
         $projet = new Projet([
             'name'               =>  $request->input('name'),
@@ -63,8 +72,8 @@ class ProjetController extends Controller
             'description'        =>  $request->input('description'),
             'duree'              =>  $request->input('duree'),
             'budjet'             =>  $request->input('budjet'),
-            'fin'                =>  $request->input('fin'),
-            'debut'              =>  $request->input('debut'),
+            'debut'              =>  $debut,
+            'fin'                =>  $fin,
             'effectif'           =>  $request->input('effectif'),
             'type_localite'      =>  $request->input('type'),
             'type_projet'        =>  $request->input('type_projet'),
@@ -110,22 +119,43 @@ class ProjetController extends Controller
             "sigle"             => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($id)],
-            "date_signature"    => ["date", "min:10", "max:10", "date_format:d-m-Y"],
+            "date_signature"    => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "description"       => ["required", "string", Rule::unique('projets')->where(function ($query) {
                 return $query->whereNull('deleted_at');
             })->ignore($id)],
             "duree"             => ["nullable", "string"],
             "budjet"            => ["nullable", "string"],
             "effectif"          => ["nullable", "string"],
-            "debut"             => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
-            "fin"               => ["required", "date", "min:10", "max:10", "date_format:d-m-Y"],
+            "debut"             => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
+            "fin"               => ["nullable", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "type"              => ["required", "string"],
             "type_projet"       => ["required", "string"],
-            "date_ouverture"    => ["required", "string"],
-            "date_fermeture"    => ["required", "string"],
+            "date_ouverture"    => ["nullable", "string", "date_format:Y-m-d"],
+            "date_fermeture"    => ["nullable", "string", "date_format:Y-m-d"],
             'image'             => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
             'convention_file'   => ['file', 'nullable', 'mimes:pdf', 'max:2048'],
         ]);
+
+        if (!empty($request->input('date_ouverture'))) {
+            $date_ouverture = $request->input('date_ouverture');
+        } else {
+            $date_ouverture = null;
+        }
+        if (!empty($request->input('date_fermeture'))) {
+            $date_fermeture = $request->input('date_fermeture');
+        } else {
+            $date_fermeture = null;
+        }
+        if (!empty($request->input('debut'))) {
+            $debut = $request->input('debut');
+        } else {
+            $debut = null;
+        }
+        if (!empty($request->input('fin'))) {
+            $fin = $request->input('fin');
+        } else {
+            $fin = null;
+        }
 
         if (request('image')) {
 
@@ -147,7 +177,6 @@ class ProjetController extends Controller
             // Remove unwanted characters
             $filename = preg_replace("/[^A-Za-z0-9 ]/", '', $filename);
             $filename = preg_replace("/\s+/", '-', $filename);
-
         } else {
             $filePath = $projet->convention_file;
         }
@@ -159,13 +188,13 @@ class ProjetController extends Controller
             'description'           =>  $request->input('description'),
             'duree'                 =>  $request->input('duree'),
             'budjet'                =>  $request->input('budjet'),
-            'fin'                   =>  $request->input('fin'),
-            'debut'                 =>  $request->input('debut'),
+            'debut'                 =>  $debut,
+            'fin'                   =>  $fin,
             'effectif'              =>  $request->input('effectif'),
             'type_localite'         =>  $request->input('type'),
             'type_projet'           =>  $request->input('type_projet'),
-            'date_ouverture'        =>  $request->input('date_ouverture'),
-            'date_fermeture'        =>  $request->input('date_fermeture'),
+            'date_ouverture'        =>  $date_ouverture,
+            'date_fermeture'        =>  $date_fermeture,
             'image'                 =>  $imagePath,
             'convention_file'       =>  $filePath
         ]);
