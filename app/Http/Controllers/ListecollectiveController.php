@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listecollective;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -58,8 +59,10 @@ class ListecollectiveController extends Controller
 
     public function edit($id)
     {
+        foreach (Auth::user()->roles as $key => $role) {
+        }
         $listecollective   = Listecollective::find($id);
-        if ($listecollective->statut != 'nouveau') {
+        if ($listecollective->statut != 'nouveau' && !empty($role?->name) && ($role?->name != 'super-admin')) {
             Alert::warning('Désolé !', 'Impossible de modifier ce demandeur.');
             return redirect()->back();
         } else {
@@ -124,7 +127,6 @@ class ListecollectiveController extends Controller
         } else {
             $listecollective->delete();
             Alert::success('Supprimé !', 'Le demandeur a été supprimé avec succès.');
-
             return redirect()->back();
         }
     }

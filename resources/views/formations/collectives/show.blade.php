@@ -1290,16 +1290,20 @@
         {{-- Agent de suivi --}}
         <div class="modal fade" id="EditAgentSuiviModal{{ $formation->id }}" tabindex="-1" role="dialog"
             aria-labelledby="EditAgentSuiviModalLabel{{ $formation->id }}" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <form method="post" action="{{ route('formations.updateAgentSuivi') }}"
                         enctype="multipart/form-data" class="row g-3">
                         @csrf
                         @method('patch')
-                        <div class="modal-header" id="EditAgentSuiviModalLabel{{ $formation->id }}">
+                        {{-- <div class="modal-header" id="EditAgentSuiviModalLabel{{ $formation->id }}">
                             <h5 class="modal-title">Ajouter un agent de suivi</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
+                        </div> --}}
+                        
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Ajouter un agent de suivi</h1>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" name="id" value="{{ $formation->id }}">
@@ -1329,8 +1333,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-printer"></i>
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-printer"></i>
                                 Vavilider</button>
                         </div>
                     </form>
@@ -1800,7 +1804,7 @@
 
         <!-- Remise attestation-->
         <div class="modal fade" id="EditRemiseAttestationsModal{{ $formation->id }}" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <form method="post" action="{{ url('remiseAttestations', ['$idformation' => $formation->id]) }}"
                         enctype="multipart/form-data" class="row">
@@ -1844,7 +1848,7 @@
                             @enderror
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
                             <button type="submit" class="btn btn-primary btn-sm"><i
                                     class="bi bi-arrow-right-circle"></i>
                                 Valider</button>
