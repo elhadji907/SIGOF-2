@@ -66,7 +66,7 @@ return [
     |
     */
 
-    'timer' => env('SWEET_ALERT_TIMER', 1200000),
+    'timer' => env('SWEET_ALERT_TIMER', 30000),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,7 +175,7 @@ return [
 
     'button_text' => [
         'confirm' => env('SWEET_ALERT_CONFIRM_BUTTON_TEXT', 'OK'),
-        'cancel' => env('SWEET_ALERT_CANCEL_BUTTON_TEXT', 'Cancel'),
+        'cancel' => env('SWEET_ALERT_CANCEL_BUTTON_TEXT', 'Fermer'),
     ],
 
     /*
@@ -218,7 +218,7 @@ return [
 
         'toast_close_button' => env('SWEET_ALERT_MIDDLEWARE_TOAST_CLOSE_BUTTON', true),
 
-        'timer' => env('SWEET_ALERT_MIDDLEWARE_ALERT_CLOSE_TIME', 120000),
+        'timer' => env('SWEET_ALERT_MIDDLEWARE_ALERT_CLOSE_TIME', 30000),
 
         'auto_display_error_messages' => env('SWEET_ALERT_AUTO_DISPLAY_ERROR_MESSAGES', true),
     ],
