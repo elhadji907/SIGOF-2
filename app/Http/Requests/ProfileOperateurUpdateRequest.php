@@ -22,7 +22,7 @@ class ProfileOperateurUpdateRequest extends FormRequest
             'civilite'                  => ['required', 'string', 'max:8'],
             'firstname'                 => ['required', 'string', 'max:150'],
             'name'                      => ['required', 'string', 'max:25'],
-            /* 'date_naissance'            => ['nullable', 'date', "max:10", "min:10", "date_format:d-m-Y"],
+            /* 'date_naissance'            => ['nullable', 'date', "max:10", "min:10", "date_format:Y-m-d"],
             'lieu_naissance'            => ['nullable', 'string'], */
             'categorie'                 => ['required', 'string'],
             'rccm'                      => ['required', 'string'],

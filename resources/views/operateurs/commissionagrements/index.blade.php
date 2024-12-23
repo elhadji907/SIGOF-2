@@ -14,7 +14,7 @@
                             <li class="breadcrumb-item active">Commisions</li>
                         </ol>
                     </nav>
-                </div><!-- End Page Title -->
+                </div>
                 @if ($message = Session::get('status'))
                     <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                         role="alert">
@@ -29,8 +29,8 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
+                @if ($errors?->any())
+                    @foreach ($errors?->all() as $error)
                         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
                             role="alert"><strong>{{ $error }}</strong></div>
                     @endforeach
@@ -47,7 +47,6 @@
                         @endcan
                         {{-- @endcan --}}
                         <h5 class="card-title">COMMISIONS AGREMENTS</h5>
-                        <!-- Table with stripped rows -->
                         <table class="table datatables align-middle justify-content-center" id="table-agrements">
                             <thead>
                                 <tr>
@@ -75,9 +74,9 @@
                                         <td>{{ $commissionagrement?->date?->translatedFormat('l d F Y') }}
                                         </td>
                                         <td style="text-align: center;">
-                                            @foreach ($commissionagrement->operateurs as $operateur)
-                                                @if ($loop->last)
-                                                    <span class="badge bg-info">{{ $loop->count }}</span>
+                                            @foreach ($commissionagrement?->operateurs as $operateur)
+                                                @if ($loop?->last)
+                                                    <span class="badge bg-info">{{ $loop?->count }}</span>
                                                 @endif
                                             @endforeach
                                         </td>
@@ -85,10 +84,10 @@
                                         <td style="text-align: center;">
                                             @can('commission-show')
                                                 <span class="d-flex mt-2 align-items-baseline"><a
-                                                        href="{{ route('commissionagrements.show', $commissionagrement->id) }}"
+                                                        href="{{ route('commissionagrements.show', $commissionagrement?->id) }}"
                                                         class="btn btn-warning btn-sm mx-1" title="Voir détails">
                                                         <i class="bi bi-eye"></i></a>
-                                                    @if (auth()->user()->hasRole('super-admin|admin'))
+                                                    @if (auth()?->user()?->hasRole('super-admin|admin'))
                                                         <div class="filter">
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
@@ -98,7 +97,7 @@
                                                                     @csrf
                                                                     {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
-                                                                        value="{{ $commissionagrement->id }}">
+                                                                        value="{{ $commissionagrement?->id }}">
                                                                     <button type="submit"
                                                                         class="dropdown-item btn btn-sm mx-1"><i
                                                                             class="bi bi-file-earmark-pdf-fill"
@@ -108,7 +107,7 @@
                                                                     <li>
                                                                         <button type="button" class="dropdown-item btn btn-sm mx-1"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#EditagrementModal{{ $commissionagrement->id }}">
+                                                                            data-bs-target="#EditagrementModal{{ $commissionagrement?->id }}">
                                                                             <i class="bi bi-pencil" title="Modifier"></i> Modifier
                                                                         </button>
                                                                     </li>
@@ -116,7 +115,7 @@
                                                                 @can('commission-delete')
                                                                     <li>
                                                                         <form
-                                                                            action="{{ url('commissionagrements', $commissionagrement->id) }}"
+                                                                            action="{{ url('commissionagrements', $commissionagrement?->id) }}"
                                                                             method="post">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -242,18 +241,18 @@
 
         <!-- Edit agrement -->
         @foreach ($commissionagrements as $commissionagrement)
-            <div class="modal fade" id="EditagrementModal{{ $commissionagrement->id }}" tabindex="-1" role="dialog"
-                aria-labelledby="EditagrementModalLabel{{ $commissionagrement->id }}" aria-hidden="true">
+            <div class="modal fade" id="EditagrementModal{{ $commissionagrement?->id }}" tabindex="-1" role="dialog"
+                aria-labelledby="EditagrementModalLabel{{ $commissionagrement?->id }}" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
-                        <form method="post" action="{{ route('commissionagrements.update', $commissionagrement->id) }}"
+                        <form method="post" action="{{ route('commissionagrements.update', $commissionagrement?->id) }}"
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')
                             <div class="card-header text-center bg-gradient-default">
                                 <h1 class="h4 text-black mb-0">MODIFICATION COMMISSION</h1>
                             </div>
-                            {{-- <div class="modal-header" id="EditagrementModalLabel{{ $commissionagrement->id }}">
+                            {{-- <div class="modal-header" id="EditagrementModalLabel{{ $commissionagrement?->id }}">
                                 <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier région</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
@@ -262,7 +261,7 @@
                                 <div class="mb-3">
                                     <label for="floatingInput">Commission<span class="text-danger mx-1">*</span></label>
                                     <input type="text" name="commission"
-                                        value="{{ $commissionagrement->commission ?? old('commission') }}"
+                                        value="{{ $commissionagrement?->commission ?? old('commission') }}"
                                         class="form-control form-control-sm @error('commission') is-invalid @enderror"
                                         id="commission" placeholder="Commission">
                                     @error('commission')
@@ -276,8 +275,8 @@
                                     <label for="floatingInput">Session<span class="text-danger mx-1">*</span></label>
                                     <select name="session" class="form-select  @error('session') is-invalid @enderror"
                                         aria-label="Select" id="select-field" data-placeholder="Choisir session">
-                                        <option value="{{ $commissionagrement->session ?? old('session') }}">
-                                            {{ $commissionagrement->session ?? old('session') }}
+                                        <option value="{{ $commissionagrement?->session ?? old('session') }}">
+                                            {{ $commissionagrement?->session ?? old('session') }}
                                         </option>
                                         <option value="Normale">
                                             Normale
@@ -296,7 +295,7 @@
                                 <div class="mb-3">
                                     <label for="floatingInput">Année<span class="text-danger mx-1">*</span></label>
                                     <input type="number" min="2020" name="annee"
-                                        value="{{ $commissionagrement->annee ?? old('annee') }}"
+                                        value="{{ $commissionagrement?->annee ?? old('annee') }}"
                                         class="form-control form-control-sm @error('annee') is-invalid @enderror"
                                         id="annee" placeholder="Ex: 2024">
                                     @error('annee')
@@ -321,7 +320,7 @@
                                 <div class="mb-3">
                                     <label for="floatingInput">Lieu commission</label>
                                     <input type="text" name="lieu"
-                                        value="{{ $commissionagrement->lieu ?? old('lieu') }}"
+                                        value="{{ $commissionagrement?->lieu ?? old('lieu') }}"
                                         class="form-control form-control-sm @error('lieu') is-invalid @enderror"
                                         id="lieu" placeholder="Adresse exacte de la commission">
                                     @error('lieu')
@@ -334,7 +333,7 @@
                                 <div class="mb-3">
                                     <label for="floatingInput">Date fin agrément</label>
                                     <input type="date" name="date"
-                                        value="{{ $commissionagrement->date ?? old('date') }}"
+                                        value="{{ $commissionagrement?->date?->format('Y-m-d') ?? old('date') }}"
                                         class="form-control form-control-sm @error('date') is-invalid @enderror"
                                         id="date" placeholder="date">
                                     @error('date')
@@ -356,7 +355,6 @@
                 </div>
             </div>
         @endforeach
-        <!-- End Edit agrement-->
     </section>
 
 @endsection

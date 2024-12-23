@@ -1222,10 +1222,10 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 pt-3">
                                     <label for="date_retrait" class="form-label">Date retrait<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="text" name="date_retrait"
+                                    <input type="date" name="date_retrait"
                                         value="{{ date('d-m-Y') ?? old('date_retrait') }}"
-                                        class="form-control form-control-sm @error('date_retrait') is-invalid @enderror"
-                                        id="date_retrait" placeholder="dd-mm-aaaa">
+                                        class="datepicker form-control form-control-sm @error('date_retrait') is-invalid @enderror"
+                                        id="date_retrait" placeholder="jj/mm/aaaa">
                                     @error('date_retrait')
                                         <span class="invalid-feedback" role="alert">
                                             <div>{{ $message }}</div>
@@ -1353,10 +1353,10 @@
                                 <label for="floatingInput">Agent suivi</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="text" name="date_suivi"
+                                <input type="date" name="date_suivi"
                                     value="{{ $formation?->date_suivi?->format('d-m-Y') ?? old('date_suivi') }}"
-                                    class="form-control form-control-sm @error('date_suivi') is-invalid @enderror"
-                                    id="date_suivi" placeholder="dd-mm-aaaa">
+                                    class="datepicker form-control form-control-sm @error('date_suivi') is-invalid @enderror"
+                                    id="date_suivi" placeholder="jj/mm/aaaa">
                                 @error('date_suivi')
                                     <span class="invalid-feedback" role="alert">
                                         <div>{{ $message }}</div>
@@ -1414,10 +1414,10 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label>Date convention<span class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="date_convention"
+                                        <input type="date" name="date_convention"
                                             value="{{ $formation?->date_convention?->format('d-m-Y') ?? old('date_convention') }}"
-                                            class="form-control form-control-sm @error('date_convention') is-invalid @enderror"
-                                            id="date_convention" placeholder="dd-mm-aaaa">
+                                            class="datepicker form-control form-control-sm @error('date_convention') is-invalid @enderror"
+                                            id="date_convention" placeholder="jj/mm/aaaa">
                                         @error('date_convention')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -1428,10 +1428,10 @@
                                 <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                                     <div class="mb-3">
                                         <label>Date évaluation<span class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="date_pv"
+                                        <input type="date" name="date_pv"
                                             value="{{ $formation?->date_pv?->format('d-m-Y') ?? old('date_pv') }}"
-                                            class="form-control form-control-sm @error('date_pv') is-invalid @enderror"
-                                            id="date_pv" placeholder="dd-mm-aaaa">
+                                            class="datepicker form-control form-control-sm @error('date_pv') is-invalid @enderror"
+                                            id="date_pv" placeholder="jj/mm/aaaa">
                                         @error('date_pv')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

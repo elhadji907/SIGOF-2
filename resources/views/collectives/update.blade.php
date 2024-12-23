@@ -48,7 +48,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                     <label for="name" class="form-label">Nom de la structure<span
                                             class="text-danger mx-1">*</span></label>
                                     <textarea name="name" id="name" rows="1"
@@ -76,7 +76,7 @@
                                 <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                     <label for="email" class="form-label">Email<span
                                             class="text-danger mx-1">*</span></label>
-                                    <input type="email" name="email" value="{{ $collective?->email ?? old('email') }}"
+                                    <input type="email" name="email" value="{{ $collective?->user?->email ?? old('email') }}"
                                         class="form-control form-control-sm @error('email') is-invalid @enderror"
                                         id="email" placeholder="Adresse email">
                                     @error('email')
@@ -179,8 +179,8 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="date" name="date_depot"
                                             value="{{ date_format(date_create($collective?->date_depot), 'Y-m-d') ?? old('date_depot') }}"
-                                            class="form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                            id="date_depot" placeholder="Date dépot">
+                                            class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
+                                            id="date_depot" placeholder="jj/mm/aaaa">
                                         @error('date_depot')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

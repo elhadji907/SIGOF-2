@@ -101,8 +101,8 @@
                                     <div class="col-12 col-md-4 col-lg-4 mb-0">
                                         <label for="date_naissance" class="form-label">Date naissance<span
                                                 class="text-danger mx-1">*</span></label>
-                                        <input type="text" name="date_naissance"
-                                            value="{{ $listecollective?->date_naissance->format('d-m-Y') ?? old('date_naissance') }}"
+                                        <input type="date" name="date_naissance"
+                                            value="{{ $listecollective?->date_naissance->format('Y-m-d') ?? old('date_naissance') }}"
                                             class="datepicker form-control form-control-sm @error('date_naissance') is-invalid @enderror"
                                             id="date_naissance" placeholder="dd-mm-aaaa">
                                         @error('date_naissance')

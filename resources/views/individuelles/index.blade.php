@@ -283,9 +283,9 @@
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="date_naissance" class="form-label">Date naissance<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="text" name="date_naissance" value="{{ old('date_naissance') }}"
+                                            <input type="date" name="date_naissance" value="{{ old('date_naissance') }}"
                                                 class="datepicker form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                                id="date_naissance" placeholder="dd-mm-aaaa">
+                                                id="date_naissance" placeholder="jj/mm/aaaa">
                                             @error('date_naissance')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>
@@ -433,9 +433,9 @@
                                         <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="date_depot" class="form-label">Date depot<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <input type="text" name="date_depot" value="{{ old('date_depot') }}"
+                                            <input type="date" name="date_depot" value="{{ old('date_depot') }}"
                                                 class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                                id="date_depot" placeholder="dd-mm-aaaa">
+                                                id="date_depot" placeholder="jj/mm/aaaa">
                                             @error('date_depot')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

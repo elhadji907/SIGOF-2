@@ -478,7 +478,8 @@
                                                         </td>
                                                         <td>{{ $collectivemodule?->module }}
                                                         </td>
-                                                        <td class="text-center">{{ count($collectivemodule?->listecollectives) }}</td>
+                                                        <td class="text-center">
+                                                            {{ count($collectivemodule?->listecollectives) }}</td>
                                                         <td class="text-center"><a><span
                                                                     class="{{ $collectivemodule?->formation?->statut }}">{{ $collectivemodule?->formation?->statut }}</span></a>
                                                         </td>
@@ -576,16 +577,20 @@
         </div>
         {{-- Ajouter module collective --}}
         <div class="modal fade" id="AddcollectiveModuleModal" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form method="post" action="{{ route('collectivemodules.store') }}" enctype="multipart/form-data"
                         class="row g-3">
                         @csrf
-                        <div class="modal-header">
+                        {{-- <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un nouveau module
                             </h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
+                        </div> --}}
+
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Ajouter un nouveau module</h1>
                         </div>
                         <div class="modal-body">
                             <div class="form-floating mb-3">
@@ -605,7 +610,8 @@
                         </div>
                         <input type="hidden" name="collective" value="{{ $collective->id }}">
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                            <button type="button" class="btn btn-secondary btn-sm"
+                                data-bs-dismiss="modal">Fermer</button>
                             <button type="submit" class="btn btn-primary btn-sm">Enregistrer</button>
                         </div>
                     </form>
@@ -621,10 +627,14 @@
                         <form method="post" action="{{ route('listecollectives.store') }}"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="modal-header">
+                            {{-- <div class="modal-header">
                                 <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un membre</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
+                            </div> --}}
+
+                            <div class="card-header text-center bg-gradient-default">
+                                <h1 class="h4 text-black mb-0">Ajouter un membre</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
@@ -696,7 +706,7 @@
                                                 class="text-danger mx-1">*</span></label>
                                         <input type="date" name="date_naissance" value="{{ old('date_naissance') }}"
                                             class="form-control form-control-sm @error('date_naissance') is-invalid @enderror"
-                                            id="date_naissance" placeholder="Date naissance">
+                                            id="datepicker date_naissance" placeholder="jj/mm-aaaa">
                                         @error('date_naissance')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -837,7 +847,7 @@
         @foreach ($collectivemodules as $collectivemodule)
             <div class="modal fade" id="EditRegionModal{{ $collectivemodule->id }}" tabindex="-1" role="dialog"
                 aria-labelledby="EditRegionModalLabel{{ $collectivemodule->id }}" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         {{-- <form method="POST" action="{{ route('updateRegion') }}">
                             @csrf --}}
@@ -845,10 +855,14 @@
                             enctype="multipart/form-data" class="row g-3">
                             @csrf
                             @method('patch')
-                            <div class="modal-header" id="EditRegionModalLabel{{ $collectivemodule->id }}">
+                            {{-- <div class="modal-header" id="EditRegionModalLabel{{ $collectivemodule->id }}">
                                 <h5 class="modal-title"><i class="bi bi-pencil" title="Ajouter"></i> Modifier module</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
+                            </div> --}}
+
+                            <div class="card-header text-center bg-gradient-default">
+                                <h1 class="h4 text-black mb-0">Modifier module</h1>
                             </div>
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="{{ $collectivemodule->id }}">
@@ -867,7 +881,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    data-bs-dismiss="modal">Fermer</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Modifier</button>
                             </div>
                         </form>
@@ -876,16 +891,19 @@
             </div>
         @endforeach
         <div class="modal fade" id="RejetDemandeModal" tabindex="-1">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <form method="post" action="{{ route('validation-collectives.destroy', $collective?->id) }}"
                         enctype="multipart/form-data" class="row">
                         @csrf
                         @method('DELETE')
-                        <div class="modal-header">
+                        {{-- <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Rejet demande</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
+                        </div> --}}
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Rejeter demande</h1>
                         </div>
                         <div class="modal-body">
                             <label for="motif" class="form-label">Motifs du rejet</label>
@@ -915,11 +933,14 @@
                             enctype="multipart/form-data" class="row">
                             @csrf
                             @method('PUT')
-                            <div class="modal-header">
+                            {{-- <div class="modal-header">
                                 <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Rejet module</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
-                            </div>
+                            </div> --}}
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Rejeter module</h1>
+                        </div>
                             <div class="modal-body">
                                 <input type="hidden" name="id" value="{{ $collectivemodule->id }}">
                                 <label for="motif" class="form-label">Motifs du rejet</label>

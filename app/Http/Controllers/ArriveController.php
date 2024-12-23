@@ -184,7 +184,7 @@ class ArriveController extends Controller
         ]);
 
         $arrive->save();
-        Alert::success("Félicitations !", "Courrier ajouté avec succès");
+        Alert::success("Bravo !", "Le courrier a été ajouté avec succès.");
         return redirect()->back();
     }
 
@@ -268,7 +268,7 @@ class ArriveController extends Controller
 
         $user->assignRole('Operateur');
 
-        Alert::success("Félicitations !", "Courrier ajouté avec succès");
+        Alert::success("Bravo !", "Le courrier a été ajouté avec succès.");
         return redirect()->back();
     }
 
@@ -302,7 +302,7 @@ class ArriveController extends Controller
 
             return Redirect::route('arrives.index')->with('status', $status); */
 
-            Alert::success('Félicitations !', 'Courrier imputé avec succès');
+            Alert::success('Bravo !', 'Le courrier a été imputé avec succès.');
 
             return redirect()->back();
 
@@ -416,7 +416,7 @@ class ArriveController extends Controller
 
         return Redirect::route('arrives.index')->with('status', $status); */
 
-        Alert::success('Félicitations !', 'mise à jour effectuée');
+        Alert::success('Bravo !', 'La mise à jour a été effectuée avec succès.');
 
         if ($arrive->type == 'operateur') {
             return Redirect::route('arrivesop');
@@ -445,7 +445,7 @@ class ArriveController extends Controller
         $arrive->courrier()->delete();
         $arrive->delete();
         /*  $status = "Supprimer avec succès"; */
-        Alert::success('Effectué !', 'courrier supprimé avec succès');
+        Alert::success('Opération réussie !', 'Le courrier a été supprimé avec succès.');
         /* return redirect()->back()->with("danger", $status); */
         return redirect()->back();
     }
@@ -637,7 +637,7 @@ class ArriveController extends Controller
         ]);
 
         if ($request?->numero == null && $request->objet == null && $request->expediteur == null) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            Alert::warning('Attention !', 'Veuillez renseigner au moins un champ pour effectuer la recherche.');
             return redirect()->back();
         }
 
@@ -659,10 +659,11 @@ class ArriveController extends Controller
             $title = $count . ' courriers trouvés';
         }
 
-        /* $modules = Module::orderBy("created_at", "desc")->get(); */
+        $count_arrives = Arrive::where('type', 'operateur')->count();
 
         return view('courriers.arrives.index', compact(
             'arrives',
+            'count_arrives',
             'title'
         ));
     }

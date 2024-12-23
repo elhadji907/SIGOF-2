@@ -12,6 +12,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                                role="alert"><strong>{{ $error }}</strong></div>
+                        @endforeach
+                    @endif
                     <div
                         class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
                         <div class="card mb-3">
@@ -164,10 +170,9 @@
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="categorie" class="form-label">Catégorie<span
                                                     class="text-danger mx-1">*</span></label>
-                                            <select name="categorie" class="form-select selectpicker"
-                                                data-live-search="true @error('categorie') is-invalid @enderror"
+                                            <select name="categorie" class="form-select  @error('categorie') is-invalid @enderror"
                                                 aria-label="Select" id="select-field-categorie-update"
-                                                data-placeholder="Choisir categorie">
+                                                data-placeholder="Choisir">
                                                 <option value="{{ $operateur?->user?->categorie ?? old('categorie') }}">
                                                     {{ $operateur?->user?->categorie ?? old('categorie') }}
                                                 </option>
@@ -437,10 +442,10 @@
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                             <label for="date_quitus" class="form-label">Date délivrance </label>
-                                            <input type="text" name="date_quitus"
-                                                value="{{ $operateur?->debut_quitus?->format('d-m-Y') ?? old('date_quitus') }}"
+                                            <input type="date" name="date_quitus"
+                                                value="{{ $operateur?->debut_quitus?->format('Y-m-d') ?? old('date_quitus') }}"
                                                 class="datepicker form-control form-control-sm @error('date_quitus') is-invalid @enderror"
-                                                id="date_quitus" placeholder="Date quitus">
+                                                id="date_quitus" placeholder="jj/mm/aaaa">
                                             @error('date_quitus')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

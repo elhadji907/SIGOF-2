@@ -25,7 +25,7 @@ class ListecollectiveController extends Controller
             "civilite"             =>      "required|string",
             "firstname"            =>      "required|string",
             "name"                 =>      "required|string",
-            "date_naissance"       =>      "required|date|min:10|max:10|date_format:d-m-Y",
+            "date_naissance"       =>      "required|date|min:10|max:10|date_format:Y-m-d",
             "lieu_naissance"       =>      "required|string",
             "module"               =>      "required|string",
             "niveau_etude"         =>      "nullable|string",
@@ -51,7 +51,7 @@ class ListecollectiveController extends Controller
 
         $membre->save();
 
-        Alert::success("Ajouté !", "avec succès");
+        Alert::success("Ajout réussi!", "Le bénéficiaire a été ajouté avec succès.");
 
         return redirect()->back();
     }
@@ -60,7 +60,7 @@ class ListecollectiveController extends Controller
     {
         $listecollective   = Listecollective::find($id);
         if ($listecollective->statut != 'nouveau') {
-            Alert::warning('Désolez ! !', 'impossible de modifier ce demandeur');
+            Alert::warning('Désolé !', 'Impossible de modifier ce demandeur.');
             return redirect()->back();
         } else {
             return view("collectives.updateliste", compact("listecollective"));
@@ -76,7 +76,7 @@ class ListecollectiveController extends Controller
             "civilite"             =>      "required|string",
             "firstname"            =>      "required|string",
             "name"                 =>      "required|string",
-            "date_naissance"       =>      "required|date|min:10|max:10|date_format:d-m-Y",
+            "date_naissance"       =>      "required|date|min:10|max:10|date_format:Y-m-d",
             "lieu_naissance"       =>      "required|string",
             "module"               =>      "required|string",
             "niveau_etude"         =>      "nullable|string",
@@ -103,7 +103,7 @@ class ListecollectiveController extends Controller
 
         $listecollective->save();
 
-        Alert::success("Modification effectuée !", "merci");
+        Alert::success("Modification réussie !", "Merci.");
 
         return Redirect::route('collectivemodules.show', $request->input('module'));
     }
@@ -119,11 +119,11 @@ class ListecollectiveController extends Controller
         $listecollective   = Listecollective::find($id);
 
         if (!empty($listecollective->formations_id)) {
-            Alert::warning('Désolez ! !', 'impossible');
+            Alert::warning('Désolé !', 'Action impossible.');
             return redirect()->back();
         } else {
             $listecollective->delete();
-            Alert::success('demandeur supprimé !');
+            Alert::success('Supprimé !', 'Le demandeur a été supprimé avec succès.');
 
             return redirect()->back();
         }
@@ -137,7 +137,7 @@ class ListecollectiveController extends Controller
             'statut'    =>  'attente',
         ]);
         $listecollective->save();
-        Alert::success('Félicitations !', 'demande validée');
+        Alert::success('Bravo !', 'La demande a été validée.');
         return redirect()->back();
     }
 }

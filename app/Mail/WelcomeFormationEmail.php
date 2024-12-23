@@ -39,9 +39,9 @@ class WelcomeFormationEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('lamine.badji@onfp.sn', 'ONFP, Démarrage formation'),
+            from: new Address('lamine.badji@onfp.sn', 'ONFP - Démarrage de la formation'),
             replyTo: [
-                new Address('lamine.badji@onfp.sn', 'ONFP, Réponse démarrage formation')
+                new Address('lamine.badji@onfp.sn', 'ONFP - Réponse concernant le démarrage de la formation')
             ],
             subject: $this->subject,
         );
@@ -52,7 +52,7 @@ class WelcomeFormationEmail extends Mailable
      */
     public function content(): Content
     {
-        Alert::success("E-mails envoyés !", "Notifications de démarrage bien envoyés");
+        Alert::success("E-mails envoyés !", "Les notifications de démarrage ont été envoyées avec succès.");
         return new Content(
             view: 'formations.maildebut',
         );

@@ -275,7 +275,7 @@ class OperateurController extends Controller
             "autre_statut"              =>  "nullable|string",
             "departement"               =>  "required|string",
             "quitus"                    =>  ['image', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"               =>  "nullable|date|max:10|min:10|date_format:d-m-Y",
+            "date_quitus"               =>  "nullable|date|max:10|min:10|date_format:Y-m-d",
             "type_demande"              =>  "required|string",
             "arrete_creation"           =>  "nullable|string",
             "file_arrete_creation"      =>  ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
@@ -439,7 +439,7 @@ class OperateurController extends Controller
         }
         $this->validate($request, [
             "quitus"                =>      ['image', 'required', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['required', 'date',"max:10", "min:10", "date_format:d-m-Y"],
+            "date_quitus"           =>      ['required', 'date',"max:10", "min:10", "date_format:Y-m-d"],
         ]);
 
         foreach (Auth::user()->roles as $key => $role) {
@@ -612,9 +612,11 @@ class OperateurController extends Controller
         $user      = $operateur->user;
 
         $this->validate($request, [
+            "numero_dossier"        =>      ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
+            "numero_arrive"         =>      ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
+            "numero_agrement"       =>      ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
             "operateur"             =>      ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "username"              =>      ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
-            "numero_agrement"       =>      ['nullable', 'string', Rule::unique(Operateur::class)->ignore($id)->whereNull('deleted_at')],
             "email"                 =>      ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "fixe"                  =>      ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
             "telephone"             =>      ['required', 'string', Rule::unique(User::class)->ignore($user->id)->whereNull('deleted_at')],
@@ -625,7 +627,7 @@ class OperateurController extends Controller
             "ninea"                 =>      ['nullable', 'string'],
             "registre_commerce"     =>      ['nullable', 'string'],
             "quitus"                =>      ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:d-m-Y"],
+            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:Y-m-d"],
             "type_demande"          =>      ['required', 'string'],
             "arrete_creation"       =>      ['nullable', 'string'],
             "file_arrete_creation"  =>      ['file', 'sometimes', 'mimes:jpeg,png,jpg,gif,svg,pdf', 'max:2048'],
@@ -633,7 +635,7 @@ class OperateurController extends Controller
             "formulaire_signe"      =>      ['nullable', 'string'],
             "web"                   =>      ['nullable', 'string'],
         ]);
-
+        
         $departement = Departement::where('nom', $request->input("departement"))->firstOrFail();
 
         foreach (Auth::user()->roles as $key => $role) {
@@ -808,7 +810,7 @@ class OperateurController extends Controller
         $this->validate($request, [
             "departement"           =>      ['required', 'string'],
             "quitus"                =>      ['sometimes', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:d-m-Y"],
+            "date_quitus"           =>      ['nullable', 'date',"max:10", "min:10", "date_format:Y-m-d"],
             "type_demande"          =>      ['required', 'string'],
         ]);
 
@@ -1031,7 +1033,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:Y-m-d"               =>  date('Y-m-d'),
             ]);
             Alert::success("Effectué !", "l'opérateur " . $operateur?->user?->username . ' a été agréé');
         } elseif ($count_nouveau > 0) {
@@ -1041,7 +1043,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'rejeter',
                 'motif'              => 'rejeter',
-                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:Y-m-d"               =>  date('Y-m-d'),
             ]);
             Alert::warning("Dommage !", "l'opérateur " . $operateur?->user?->username . " n'a pas été agréé");
         } else {
@@ -1108,7 +1110,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:Y-m-d"               =>  date('Y-m-d'),
             ]);
 
             $operateur->save();
@@ -1160,7 +1162,7 @@ class OperateurController extends Controller
             $operateur->update([
                 'statut_agrement'    => 'agréer',
                 'motif'              => null,
-                'date',"max:10", "min:10", "date_format:d-m-Y"               =>  date('Y-m-d'),
+                'date',"max:10", "min:10", "date_format:Y-m-d"               =>  date('Y-m-d'),
             ]);
 
             $operateur->save();

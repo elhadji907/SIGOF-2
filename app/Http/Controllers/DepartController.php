@@ -163,7 +163,7 @@ class DepartController extends Controller
         ]);
 
         $depart->save();
-        Alert::success('Félicitations', 'courrié ajouté avec succès');
+        Alert::success('Bravo !', 'Le courrier a été ajouté avec succès.');
         return back();
         /* $status = "Enregistrement effectué avec succès";
         return redirect()->back()->with("status", $status); */
@@ -196,7 +196,7 @@ class DepartController extends Controller
 
             return Redirect::route('departs.index')->with('status', $status); */
 
-            Alert::success('Félicitations !', 'Courrier imputé avec succès');
+            Alert::success('Bravo !', 'L\'imputation du courrier a été effectuée avec succès.');
             return Redirect::route('departs.index');
 
             //solution, récuper l'id à partir de blade avec le mode hidden
@@ -282,7 +282,7 @@ class DepartController extends Controller
 
         /*  $status = 'Courrier mis à jour effectuée avec succès'; */
 
-        Alert::success('Félicitations', 'courrié modifié avec succès');
+        Alert::success('Bravo !', 'Le courrier a été modifié avec succès.');
 
         /* return Redirect::route('departs.index')->with('status', $status); */
         return Redirect::back();
@@ -307,8 +307,8 @@ class DepartController extends Controller
         $depart = Depart::findOrFail($departId);
         $depart->courrier()->delete();
         $depart->delete();
-        $status = "courrier supprimer avec succès";
-        return redirect()->back()->with("danger", $status);
+        Alert::success('Opération réussie !', 'Le courrier a été supprimé avec succès.');
+        return redirect()->back();
     }
 
 
@@ -471,7 +471,7 @@ class DepartController extends Controller
         ]);
 
         if ($request?->numero == null && $request->objet == null && $request->expediteur == null && $request->destinataire == null) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            Alert::warning('Attention !', 'Veuillez remplir au moins un champ pour effectuer la recherche.');
             return redirect()->back();
         }
 

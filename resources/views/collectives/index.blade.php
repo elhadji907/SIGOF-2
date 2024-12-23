@@ -135,7 +135,7 @@
                                                         {{ '(' . $collective?->sigle . ')' }}
                                                     @endisset
                                                 </td>
-                                                <td><a href="mailto:{{ $collective->email }}">{{ $collective->email }}</a>
+                                                <td><a href="mailto:{{ $collective->user->email }}">{{ $collective->user->email }}</a>
                                                 </td>
                                                 <td><a
                                                         href="tel:+221{{ $collective->telephone }}">{{ $collective->telephone }}</a>
@@ -199,12 +199,15 @@
                         <div class="modal-content">
                             <form method="post" action="{{ route('addCollective') }}" enctype="multipart/form-data">
                                 @csrf
-                                <div class="modal-header">
+                                <div class="card-header text-center bg-gradient-default">
+                                    <h1 class="h4 text-black mb-0">Ajouter une nouvelle demande collective</h1>
+                                </div>
+                                {{-- <div class="modal-header">
                                     <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter une demande
                                         collective</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
-                                </div>
+                                </div> --}}
                                 <div class="modal-body">
                                     <div class="row g-3">
                                         <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
@@ -335,8 +338,8 @@
                                             <label for="date_depot" class="form-label">Date dépot<span
                                                     class="text-danger mx-1">*</span></label>
                                             <input type="date" name="date_depot" value="{{ old('date_depot') }}"
-                                                class="form-control form-control-sm @error('date_depot') is-invalid @enderror"
-                                                id="date_depot" placeholder="Date dépot">
+                                                class="datepicker form-control form-control-sm @error('date_depot') is-invalid @enderror"
+                                                id="date_depot" placeholder="jj/mm/aaaa">
                                             @error('date_depot')
                                                 <span class="invalid-feedback" role="alert">
                                                     <div>{{ $message }}</div>

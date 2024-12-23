@@ -168,8 +168,8 @@ class FormationController extends Controller
             "lieu"                  =>   "required|string",
             "type_certification"    =>   "required|string",
             "types_formation"       =>   "required|string",
-            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
-            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
         ]);
 
         /* $mois = date('m');
@@ -350,7 +350,7 @@ class FormationController extends Controller
         $statut->save();
 
 
-        Alert::success("Formation", "créée avec succès");
+        Alert::success("Bravo !", "La formation a été créée avec succès.");
 
         return redirect()->back();
     }
@@ -394,10 +394,10 @@ class FormationController extends Controller
             "lieu"                  =>   "required|string",
             "type_certification"   =>    "required|string",
             "titre"                 =>   "nullable|string",
-            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
-            "date_convention"       =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
-            "date_lettre"           =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
-            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:d-m-Y",
+            "date_debut"            =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_convention"       =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_lettre"           =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
+            "date_fin"              =>   "nullable|date|min:10|max:10|date_format:Y-m-d",
             "lettre_mission"        =>   "nullable|string",
             "annee"                 =>   "nullable|numeric",
             "file_convention"       =>  ['sometimes', 'file', 'mimes:pdf', 'max:2048'],
@@ -585,7 +585,7 @@ class FormationController extends Controller
 
         $formation->save();
 
-        Alert::success("Modification effectuée", "formation modifiée avec succès");
+        Alert::success("Modification réussie", "La formation a été modifiée avec succès.");
 
         return redirect()->back();
     }
@@ -662,7 +662,7 @@ class FormationController extends Controller
             foreach ($formation->listecollectives as $liste) {
             }
             if (!empty($liste)) {
-                Alert::warning('Attention !', 'impossible de supprimer');
+                Alert::warning('Avertissement !', 'La suppression est impossible.');
                 return redirect()->back();
             } else {
                 $formation->update([
@@ -672,14 +672,14 @@ class FormationController extends Controller
                 $formation->save();
 
                 $formation->delete();
-                Alert::success('Effectuée ! ' . 'formation supprimée');
+                Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
                 return redirect()->back();
             }
         } elseif (!empty($formation->types_formation->name) && $formation->types_formation->name == "individuelle") {
             foreach ($formation->individuelles as $individuelle) {
             }
             if (!empty($individuelle)) {
-                Alert::warning('Attention !', 'impossible de supprimer');
+                Alert::warning('Avertissement !', 'La suppression est impossible.');
                 return redirect()->back();
             } else {
                 $formation->update([
@@ -688,7 +688,7 @@ class FormationController extends Controller
 
                 $formation->save();
                 $formation->delete();
-                Alert::success('Effectuée ! ', 'formation supprimée');
+                Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
                 return redirect()->back();
             }
         } else {
@@ -706,7 +706,7 @@ class FormationController extends Controller
 
             $statut->save();
 
-            Alert::success('Effectuée ! ', 'formation supprimée');
+            Alert::success('Opération réussie !', 'La formation a été supprimée avec succès.');
 
             return redirect()->back();
         }
@@ -792,9 +792,9 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($idformation);
 
         if ($formation->statut == 'terminer') {
-            Alert::warning('Désolez !', 'formation déjà exécutée');
+            Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
         } elseif ($formation->statut == 'annuler') {
-            Alert::warning('Désolez !', 'formation annulée');
+            Alert::warning('Désolé !', 'La formation a été annulée.');
         } else {
             foreach ($request->individuelles as $individuelle) {
                 $individuelle = Individuelle::findOrFail($individuelle);
@@ -814,7 +814,7 @@ class FormationController extends Controller
 
             $validated_by->save();
 
-            Alert::success('Effectuée !', 'Candidat(s) ajouté(s)');
+            Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
         }
 
         return redirect()->back();
@@ -830,7 +830,7 @@ class FormationController extends Controller
         $formation   = Formation::findOrFail($idformation);
 
         if ($formation->statut == 'terminer' && $individuelle->note_obtenue > 0) {
-            Alert::warning('Attention !', 'impossible de retirer ce demandeur');
+            Alert::warning('Avertissement !', 'Ce demandeur ne peut pas être retiré.');
         } else {
             $individuelle->update([
                 "formations_id"      =>  null,
@@ -856,7 +856,7 @@ class FormationController extends Controller
 
             $validated_by->save();
 
-            Alert::success('Effectué', 'demandeur retiré de cette formation');
+            Alert::success('Opération réussie', 'Le demandeur a été retiré de cette formation.');
         }
         return redirect()->back();
     }
@@ -871,7 +871,7 @@ class FormationController extends Controller
         $formation   = Formation::findOrFail($idformation);
 
         if ($formation->statut == 'terminer' && $listecollective->note_obtenue > 0) {
-            Alert::warning('Attention !', 'impossible de retirer ce demandeur');
+            Alert::warning('Avertissement !', 'Ce demandeur ne peut pas être retiré.');
         } else {
             $listecollective->update([
                 "formations_id"      =>  null,
@@ -881,7 +881,7 @@ class FormationController extends Controller
 
             $listecollective->save();
 
-            Alert::success('Effectué', 'demandeur retiré de cette formation');
+            Alert::success('Opération réussie', 'Le demandeur a été retiré de cette formation.');
         }
         return redirect()->back();
     }
@@ -896,7 +896,7 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($request->input('formationid'));
 
         if ($formation->statut != 'terminer') {
-            Alert::warning('Attention !', 'la formation n\'est pas encore terminée');
+            Alert::warning('Action impossible !', 'La formation n\'est pas encore achevée.');
         } else {
             $formation->update([
                 "attestation"             =>  $request->statut,
@@ -1273,7 +1273,7 @@ class FormationController extends Controller
         } else {
 
             /* if ($formation->statut == 'terminer') {
-                Alert::warning('Désolez !', 'formation déjà exécutée');
+                Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
             } else */
 
             if ($formation->statut == 'annuler') {
@@ -1367,7 +1367,7 @@ class FormationController extends Controller
             Alert::warning('Désolez !', 'action non autorisée');
         } else {
             if ($formation->statut == 'terminer') {
-                Alert::warning('Désolez !', 'formation déjà exécutée');
+                Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
             } elseif ($formation->statut == 'démarrer') {
                 Alert::warning('Désolez !', 'formation en cours...');
             } else {
@@ -1386,7 +1386,7 @@ class FormationController extends Controller
 
                 $validated_by->save();
 
-                Alert::success('Félicitation !', 'la formation est lancée');
+                Alert::success('Bravo !', 'La formation est maintenant lancée.');
             }
         }
 
@@ -1430,7 +1430,7 @@ class FormationController extends Controller
                     "statut"             =>  'former',
                 ]);
             } else {
-                Alert::warning('Désolez !', 'la formation n\'est pas encore terminée');
+                Alert::warning('Désolé !', 'La formation n\'est pas encore achevée.');
                 return redirect()->back();
             }
 
@@ -1445,7 +1445,7 @@ class FormationController extends Controller
             $validated_by->save();
         }
 
-        Alert::success('Félicitations !', 'Evaluation terminée');
+       Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
         return redirect()->back();
     }
@@ -1512,7 +1512,7 @@ class FormationController extends Controller
 
         $validated_by->save(); */
 
-        Alert::success('Félicitations !', 'Evaluation terminée');
+       Alert::success('Bravo !', 'L\'évaluation est terminée.');
 
         return redirect()->back();
     }
@@ -1533,7 +1533,7 @@ class FormationController extends Controller
 
         $formation->save();
 
-        Alert::success('Fait !', 'enregistré avec succès');
+        Alert::success('Réussi !', 'Enregistrement effectué avec succès.');
 
         return redirect()->back();
     }
@@ -1548,8 +1548,8 @@ class FormationController extends Controller
             'type_certificat'           => ['nullable', 'string'],
             'recommandations'           => ['nullable', 'string'],
             'titre'                     => ['nullable', 'string'],
-            'date_pv'                   => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
-            'date_convention'           => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'date_pv'                   => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
+            'date_convention'           => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
         ]);
 
         $formation = Formation::findOrFail($request->input('id'));
@@ -1599,7 +1599,7 @@ class FormationController extends Controller
 
         $formation->save();
 
-        Alert::success('Fait !', 'Enregistré avec succès');
+        Alert::success('Réussi !', 'Enregistrement effectué avec succès.');
 
         return redirect()->back();
     }
@@ -1619,7 +1619,7 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Fait !', 'Observations ajoutées');
+        Alert::success('Réussi !', 'Les observations ont été ajoutées.');
 
         return redirect()->back();
     }
@@ -1639,7 +1639,7 @@ class FormationController extends Controller
 
         $listecollective->save();
 
-        Alert::success('Fait !', 'Observations ajoutées');
+        Alert::success('Réussi !', 'Les observations ont été ajoutées.');
 
         return redirect()->back();
     }
@@ -1683,7 +1683,7 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Merci et à bientôt !', 'Bonne chance pour la suite');
+        Alert::success('Merci et à bientôt !', 'Bonne continuation pour la suite.');
 
         return redirect()->back();
     }
@@ -1813,7 +1813,7 @@ class FormationController extends Controller
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
-            Alert::warning('Désolez !', "la formation n'est pas encore terminée");
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
     }
@@ -1861,7 +1861,7 @@ class FormationController extends Controller
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
-            Alert::warning('Désolez !', "la formation n'est pas encore terminée");
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
     }
@@ -1931,7 +1931,7 @@ class FormationController extends Controller
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
-            Alert::warning('Désolez !', "la formation n'est pas encore terminée");
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
     }
@@ -1970,9 +1970,9 @@ class FormationController extends Controller
         $formation = Formation::findOrFail($idformation);
 
         if ($formation->statut == 'terminer') {
-            Alert::warning('Désolez !', 'formation déjà exécutée');
+            Alert::warning('Désolé !', 'Cette formation a déjà été exécutée.');
         } elseif ($formation->statut == 'annuler') {
-            Alert::warning('Désolez !', 'formation annulée');
+            Alert::warning('Désolé !', 'La formation a été annulée.');
         } else {
             $listecollectiveformations = Listecollective::where('formations_id', $idformation)->get();
             foreach ($listecollectiveformations as $key => $listecollectiveformation) {
@@ -2002,7 +2002,7 @@ class FormationController extends Controller
 
             $validated_by->save(); */
 
-            Alert::success('Effectuée !', 'Candidat(s) ajouté(s)');
+            Alert::success('Opération réussie !', 'Le(s) candidat(s) a/ont été ajouté(s) avec succès.');
         }
 
         return redirect()->back();
@@ -2053,7 +2053,7 @@ class FormationController extends Controller
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
-            Alert::warning('Désolez !', "la formation n'est pas encore terminée");
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
     }
@@ -2162,7 +2162,7 @@ class FormationController extends Controller
             // Output the generated PDF to Browser
             $dompdf->stream($name, ['Attachment' => false]);
         } else {
-            Alert::warning('Désolez !', "la formation n'est pas encore terminée");
+            Alert::warning('Désolé !', "La formation n'est pas encore terminée.");
             return redirect()->back();
         }
     }
@@ -2517,7 +2517,8 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Demandeur suivi !');
+        Alert::success('Suivi du demandeur effectué !');
+
         return redirect()->back();
     }
 
@@ -2535,7 +2536,7 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Enregistrement effectué !');
+        Alert::success('Enregistrement réussi !');
 
         return redirect()->back();
     }
@@ -2569,7 +2570,7 @@ class FormationController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Enregistrement effectué !');
+        Alert::success('Enregistrement réussi !');
 
         return redirect()->back();
     }

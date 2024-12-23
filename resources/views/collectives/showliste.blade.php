@@ -1,11 +1,5 @@
 @extends('layout.user-layout')
-@section('title',
-    $collectivemodule->collective->name .
-    ' (' .
-    $collectivemodule->collective->sigle .
-    '), liste membres
-    en ' .
-    $collectivemodule->module)
+@section('title', $collectivemodule?->collective?->sigle . ' - Liste des bénéficiaires en ' . $collectivemodule?->module)
 @section('space-work')
     <section class="section">
         <div class="row justify-content-center">
@@ -17,11 +11,7 @@
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Accueil</a></li>
                             <li class="breadcrumb-item">Tables</li>
                             <li class="breadcrumb-item active">
-                                {{ $collectivemodule->collective->name .
-                                    ' (' .
-                                    $collectivemodule->collective->sigle .
-                                    '), liste membres en ' .
-                                    $collectivemodule->module }}
+                                {{ $collectivemodule?->collective?->sigle . ' - Liste des bénéficiaires en ' . $collectivemodule?->module }}
                             </li>
                         </ol>
                     </nav>
@@ -59,8 +49,8 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">Modules: {{ $collectivemodule->module }}</h5>
-                            <button type="button" class="btn btn-primary btn-sm float-end btn-rounded" data-bs-toggle="modal"
-                                data-bs-target="#AddIndividuelModal">
+                            <button type="button" class="btn btn-primary btn-sm float-end btn-rounded"
+                                data-bs-toggle="modal" data-bs-target="#AddIndividuelModal">
                                 Ajouter
                             </button>
                         </div>
@@ -359,10 +349,14 @@
                                 enctype="multipart/form-data" class="row g-3">
                                 @csrf
                                 @method('patch') --}}
-                            <div class="modal-header" id="EditlistecollectiveModalLabel{{ $listecollective->id }}">
+                            {{-- <div class="modal-header" id="EditlistecollectiveModalLabel{{ $listecollective->id }}">
                                 <h5 class="modal-title text-center">Détails</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
+                            </div> --}}
+                            
+                            <div class="card-header text-center bg-gradient-default">
+                                <h1 class="h4 text-black mb-0">Détails</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
@@ -437,7 +431,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
                                 </form>
                             </div>
                         </div>

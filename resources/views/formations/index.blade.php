@@ -482,9 +482,9 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_debut" class="form-label">Date début</label>
-                                        <input type="text" name="date_debut" value="{{ old('date_debut') }}"
-                                            class="form-control form-control-sm @error('date_debut') is-invalid @enderror"
-                                            id="date_debut" placeholder="dd-mm-aaaa">
+                                        <input type="date" name="date_debut" value="{{ old('date_debut') }}"
+                                            class="datepicker form-control form-control-sm @error('date_debut') is-invalid @enderror"
+                                            id="date_debut" placeholder="jj/mm/aaaa">
                                         @error('date_debut')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>
@@ -494,9 +494,9 @@
 
                                     <div class="col-12 col-md-12 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
                                         <label for="date_fin" class="form-label">Date fin</label>
-                                        <input type="text" name="date_fin" value="{{ old('date_fin') }}"
-                                            class="form-control form-control-sm @error('date_fin') is-invalid @enderror"
-                                            id="date_fin" placeholder="dd-mm-aaaa">
+                                        <input type="date" name="date_fin" value="{{ old('date_fin') }}"
+                                            class="datepicker form-control form-control-sm @error('date_fin') is-invalid @enderror"
+                                            id="date_fin" placeholder="jj/mm/aaaa">
                                         @error('date_fin')
                                             <span class="invalid-feedback" role="alert">
                                                 <div>{{ $message }}</div>

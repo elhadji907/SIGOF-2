@@ -39,9 +39,9 @@ class WelcomeEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('lamine.badji@onfp.sn', 'ONFP, Evaluation'),
+            from: new Address('lamine.badji@onfp.sn', 'ONFP - Evaluation formation'),
             replyTo:[
-                new Address('lamine.badji@onfp.sn', 'ONFP, Evaluation')
+                new Address('lamine.badji@onfp.sn', 'ONFP - Réponse concernant l\'évaluation de la formation')
             ],
             subject: $this->subject,
         );
@@ -52,7 +52,7 @@ class WelcomeEmail extends Mailable
      */
     public function content(): Content
     {
-        Alert::success("Féliciations !" , " Evaluation terminée");
+        Alert::success("Félicitations !", "L'évaluation a été terminée avec succès.");
         return new Content(
             view: 'formations.mail',
         );

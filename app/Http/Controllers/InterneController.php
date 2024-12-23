@@ -108,7 +108,7 @@ class InterneController extends Controller
         ]);
 
         $arrive->save();
-        Alert::success("Félicitations !", "Courrier ajouté avec succès");
+        Alert::success("Bravo !", "Le courrier a été ajouté avec succès.");
         return redirect()->back();
     }
 
@@ -235,7 +235,7 @@ class InterneController extends Controller
             ]
         );
 
-        Alert::success('Félicitations !', 'mise à jour effectuée');
+        Alert::success('Bravo !', 'La mise à jour a été effectuée avec succès.');
         return Redirect::route('internes.index');
     }
 
@@ -248,7 +248,7 @@ class InterneController extends Controller
         ]);
 
         if ($request?->numero == null && $request->objet == null && $request->expediteur == null) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            Alert::warning('Attention !', 'Merci de renseigner au moins un champ pour effectuer la recherche.');
             return redirect()->back();
         }
 
@@ -276,5 +276,14 @@ class InterneController extends Controller
             'internes',
             'title'
         ));
+    }
+
+    public function destroy($id)
+    {
+        $interne = Interne::findOrFail($id);
+        $interne->courrier()->delete();
+        $interne->delete();
+        Alert::success('Opération réussie !', 'Le courrier a été supprimé avec succès.');
+        return redirect()->back();
     }
 }

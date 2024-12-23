@@ -136,7 +136,7 @@
                                         <input type="email" name="email"
                                             class="form-control form-control-sm @error('email') is-invalid @enderror"
                                             id="email" placeholder="Votre e-mail"
-                                            value="{{ old('email') ?? $request->email }}" autofocus
+                                            value="{{ old('email') ?? $request->email }}"
                                             autocomplete="username">
                                         <div class="invalid-feedback">
                                             @error('email')
@@ -152,7 +152,7 @@
                                             class="text-danger mx-1">*</span></label>
                                     <input type="password" name="password"
                                         class="form-control form-control-sm @error('password') is-invalid @enderror"
-                                        id="password" placeholder="Nouveau mot de passe" value="{{ old('password') }}"
+                                        id="password" placeholder="Nouveau mot de passe" value="{{ old('password') }}" autofocus
                                         autocomplete="new-password">
                                     <div class="invalid-feedback">
                                         @error('password')

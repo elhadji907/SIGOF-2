@@ -141,7 +141,7 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($individuelle_total >= 3) {
-            Alert::warning('Attention ! ', 'Vous avez atteint le nombre de demandes autoriées');
+            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 
@@ -196,7 +196,7 @@ class IndividuelleController extends Controller
             if (isset($module_find)) {
                 foreach ($demandeur_ind as $key => $value) {
                     if ($value->module->name == $module_find->name) {
-                        Alert::warning('Attention !', ' le module ' . $value->module->name . ' a déjà été choisi');
+                        Alert::warning('Attention !', 'Le module ' . $value->module->name . ' a déjà été sélectionné.');
                         return redirect()->back();
                     }
                 }
@@ -262,7 +262,7 @@ class IndividuelleController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Enregistrée ! ', 'demande ajoutée avec succès');
+        Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
     }
@@ -287,10 +287,10 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($projet->statut == 'fermer') {
-            Alert::warning('Attention ! ', 'les dépôts sont clôturés');
+            Alert::warning('Avertissement !', 'La période de dépôt est terminée.');
             return redirect()->back();
         } elseif ($individuelle >= 3) {
-            Alert::warning('Attention ! ', 'Vous avez atteint le nombre de demandes autoriées');
+            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 
@@ -373,7 +373,7 @@ class IndividuelleController extends Controller
             if (isset($module_find)) {
                 foreach ($demandeur_ind as $key => $value) {
                     if ($value->module->name == $module_find->name) {
-                        Alert::warning('Attention !', ' le module ' . $value->module->name . ' a déjà été choisi');
+                        Alert::warning('Attention !', 'Le module ' . $value->module->name . ' a déjà été sélectionné.');
                         return redirect()->back();
                     }
                 }
@@ -445,7 +445,7 @@ class IndividuelleController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Enregistrée ! ', 'demande ajoutée avec succès');
+        Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
     }
@@ -454,14 +454,14 @@ class IndividuelleController extends Controller
     {
         $this->validate($request, [
             'civilite'                      => ['required', 'string'],
-            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
             'cin'                           => ['required', 'string', 'min:13', 'max:15', 'unique:' . User::class],
             'email'                         => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'firstname'                     => ['required', 'string', 'max:50'],
             'lastname'                      => ['required', 'string', 'max:25'],
             'telephone'                     => ['required', 'string', 'min:9', 'max:9'],
             'telephone_secondaire'          => ['required', 'string', 'min:9', 'max:9'],
-            'date_naissance'                => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'date_naissance'                => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
             'lieu_naissance'                => ['required', 'string'],
             'adresse'                       => ['required', 'string', 'max:255'],
             'departement'                   => ['required', 'string', 'max:255'],
@@ -659,7 +659,7 @@ class IndividuelleController extends Controller
             ]);
         }
 
-        Alert::success('Enregistrée ! ', 'demande ajoutée avec succès');
+        Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return redirect()->back();
     }
@@ -671,11 +671,14 @@ class IndividuelleController extends Controller
         $modules            = Module::orderBy("created_at", "desc")->get();
         $projets            = Projet::orderBy("created_at", "desc")->get();
 
+        foreach (Auth::user()->roles as $key => $role) {
+        }
+
         if ($individuelle->projet && $individuelle->projet->statut != 'ouvert') {
-            Alert::warning('Attention ! ', 'impossible de modifier');
+            Alert::warning('Avertissement !', 'La modification a échoué.');
             return redirect()->back();
-        } elseif ($individuelle->statut != 'nouvelle') {
-            Alert::warning('Attention ! ', 'action impossible demande déjà traitée');
+        } elseif ($individuelle->statut != 'nouvelle' && !empty($role?->name) && ($role?->name != 'super-admin')) {
+            Alert::warning('Attention ! ', 'action impossible demande déjà traitée.');
             return redirect()->back();
         } else {
             return view("individuelles.update", compact("individuelle", "departements", "modules", "projets"));
@@ -687,7 +690,7 @@ class IndividuelleController extends Controller
         $user_id            = $individuelle?->users_id;
 
         $this->validate($request, [
-            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:d-m-Y'],
+            'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
             'telephone_secondaire'          => ['required', 'string', 'min:9', 'max:9'],
             'adresse'                       => ['required', 'string', 'max:255'],
             'departement'                   => ['required', 'string', 'max:255'],
@@ -778,7 +781,7 @@ class IndividuelleController extends Controller
             } elseif (isset($module_find)) {
                 foreach ($demandeur_ind as $value) {
                     if ($value->module->name == $module_find->name) {
-                        Alert::warning('Attention !', ' le module ' . $value->module->name . ' a déjà été choisi');
+                        Alert::warning('Attention !', 'Le module ' . $value->module->name . ' a déjà été sélectionné.');
                         return redirect()->back();
                     }
                 }
@@ -884,8 +887,8 @@ class IndividuelleController extends Controller
             $individuelle->save();
         }
 
-        Alert::success('Modification ! ', 'demande modifiée avec succès');
-        /* return Redirect::route("demandesIndividuelle"); */
+        Alert::success('Succès !', 'La demande a été modifiée avec succès.');
+
         return Redirect::back();
     }
 
@@ -906,14 +909,16 @@ class IndividuelleController extends Controller
         $individuelle->numero = $request->input('motif');
         $individuelle->save();
 
-        return redirect()->route('modal')->with('success', 'Région modifiée avec succès');
+        Alert::success('Opération réussie!', 'La région a été modifiée avec succès.');
+        return redirect()->route('modal');
     }
     public function destroy($id)
     {
         $individuelle   = Individuelle::find($id);
-
-        if ($individuelle->statut != 'nouvelle') {
-            Alert::warning('Attention ! ', 'action impossible demande déjà traitée');
+        foreach (Auth::user()->roles as $key => $role) {
+        }
+        if ($individuelle->statut != 'nouvelle' && !empty($role?->name) && ($role?->name != 'super-admin')) {
+            Alert::warning('Attention ! ', 'action impossible demande déjà traitée.');
             return redirect()->back();
         } else {
             $individuelle->update([
@@ -924,7 +929,7 @@ class IndividuelleController extends Controller
 
             $individuelle->delete();
 
-            Alert::success('Fait !', 'demande supprimée');
+            Alert::success('Succès !', 'La demande a été supprimée avec succès.');
 
             return redirect()->back();
         }
@@ -1031,7 +1036,7 @@ class IndividuelleController extends Controller
         ]);
 
         if ($request?->cin == null && $request->firstname == null && $request->telephone == null && $request->name == null && $request->email == null) {
-            Alert::warning('Attention ', 'Renseigner au moins un champ pour rechercher');
+            Alert::warning('Attention', 'Veuillez renseigner au moins un champ pour effectuer une recherche.');
             return redirect()->back();
         }
 
@@ -1085,7 +1090,7 @@ class IndividuelleController extends Controller
             ->count();
 
         if ($individuelle_total >= 3) {
-            Alert::warning('Attention ! ', 'Vous avez atteint le nombre de demandes autoriées');
+            Alert::warning('Avertissement !', 'Vous avez atteint la limite autorisée de demandes.');
             return redirect()->back();
         } else {
 
@@ -1167,7 +1172,7 @@ class IndividuelleController extends Controller
             if (isset($module_find)) {
                 foreach ($demandeur_ind as $key => $value) {
                     if ($value->module->name == $module_find->name) {
-                        Alert::warning('Attention ! le module ' . $value->module->name, 'a déjà été choisi');
+                        Alert::warning('Attention !Le module ' . $value->module->name, 'a déjà été sélectionné');
                         return redirect()->back();
                     }
                 }
@@ -1241,7 +1246,7 @@ class IndividuelleController extends Controller
 
         $individuelle->save();
 
-        Alert::success('Enregistrée ! ', 'demande ajoutée avec succès');
+        Alert::success("Succès !", "L'enregistrement a été effectué avec succès.");
 
         return Redirect::back();
     }
