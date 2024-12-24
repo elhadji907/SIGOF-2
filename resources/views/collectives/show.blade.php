@@ -4,7 +4,7 @@
 
     <section
         class="section profile min-vh-0 d-flex flex-column align-items-center justify-content-center py-0 section profile">
-        <div class="container">
+        <div class="container-fluid">
             <div class="pagetitle">
                 {{-- <h1>Data Tables</h1> --}}
                 <nav>

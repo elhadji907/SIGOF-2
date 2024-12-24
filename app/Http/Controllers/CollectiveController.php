@@ -333,7 +333,8 @@ class CollectiveController extends Controller
     {
         $collective = Collective::findOrFail($id);
         $user_id = $collective?->users_id;
-        /*  $demandeur = $collective->demandeur; */
+        
+        $this->authorize('update', $collective);
 
         $this->validate($request, [
             "name"                  => ["required", "string", Rule::unique('collectives')->where(function ($query) {
@@ -451,6 +452,8 @@ class CollectiveController extends Controller
     {
         $collective = Collective::findOrFail($id);
 
+        $this->authorize('view', $collective);
+
         $listecollective = Listecollective::where('collectives_id', $id)->first();
 
         $listemodulescollective = Collectivemodule::where("collectives_id", $id)->first();
@@ -477,11 +480,7 @@ class CollectiveController extends Controller
     {
         $collective   = Collective::find($id);
 
-        /* $collective->delete();
-
-        Alert::success('Demande', 'supprimée');
-
-        return redirect()->back(); */
+        $this->authorize('delete', $collective);
 
         if ($collective->statut_demande != 'nouvelle') {
             Alert::warning('Attention !', 'Cette action est impossible, la demande a déjà été traitée.');

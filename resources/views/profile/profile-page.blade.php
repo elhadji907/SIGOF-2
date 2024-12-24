@@ -864,17 +864,16 @@
                                             </table>
                                         </div>
                                     </div>
-
                                     <form method="post" action="{{ route('files.update', $user->id) }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
 
                                         <h5 class="card-title">{{ __("Ajouter d'autres fichiers") }}</h5>
-                                        <span style="color:red;">NB:</span> <span>Seule la Carte nationale d'identité
-                                            (Recto/Verso)</span> <span style="color:red;"> est obligatoire</span>
+                                        <span style="color:red;">NB:</span>
+                                        <span>Seule la Carte nationale d'identité(Recto/Verso)</span><span
+                                            style="color:red;"> est obligatoire</span>
                                         <!-- Profile Edit Form -->
-
                                         <div class="row mb-3 mt-3">
                                             <label for="legende"
                                                 class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label">Légende<span
@@ -920,8 +919,15 @@
                                             </div>
                                         </div>
 
-                                        <div class="text-center mt-2">
-                                            <button type="submit" class="btn btn-info btn-sm">Ajouter</button>
+                                        <div class="row mb-3">
+                                            <label for="file"
+                                                class="col-12 col-md-4 col-lg-4 col-sm-12 col-xs-12 col-xxl-4 col-form-label"><span
+                                                    class="text-danger mx-1"></span></label>
+                                            <div class="col-12 col-md-8 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
+                                                <div class="pt-2">
+                                                    <button type="submit" class="btn btn-info btn-sm">Ajouter</button>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </form>
@@ -1130,7 +1136,7 @@
                                                 <thead class="table-default">
                                                     <tr>
                                                         <th style="width:40%;">Imputations</th>
-                                                        <th style="width:15%;">Instructions DG</th>
+                                                        <th style="width:15%;" class="text-center">Instructions DG</th>
                                                         {{-- <th style="width:10%;">Suivi dossier</th> --}}
                                                         <th class="text-center">
                                                             @unless (auth()->user()->unReadNotifications->isEmpty())
@@ -1187,7 +1193,7 @@
                                                                         class="badge badge-info">{!! $arrive?->courrier?->user?->firstname !!}&nbsp;{!! $arrive?->courrier?->user?->name !!}</span>
                                                                 </div>
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center">
                                                                 <p>{!! $arrive?->courrier->description ?? '' !!}</p>
                                                             </td>
                                                             {{-- <td>

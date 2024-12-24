@@ -67,7 +67,7 @@
                             </a>
                         </div>
                     </div>
-                    
+
                     <div class="col-12 col-md-4 col-lg-3 col-sm-12 col-xs-12 col-xxl-3">
                         <div class="card info-card sales-card">
                             {{-- <div class="filter">
@@ -137,9 +137,13 @@
                                         class="bi bi-arrow-counterclockwise"></i></a>&nbsp;Liste des courriers
                             </span>
                             @can('courrier-operateur-view')
-                                <button type="button" class="btn btn-outline-primary btn-sm float-end" data-bs-toggle="modal"
+                                {{-- <button type="button" class="btn btn-outline-primary btn-sm float-end" data-bs-toggle="modal"
                                     data-bs-target="#addCourrierOperateur"><i class="bi bi-plus"
-                                        title="ajouter courrier opérateurs"></i>&nbsp;ajouter courrier opérateurs</button>
+                                        title="ajouter courrier opérateurs"></i>&nbsp;ajouter courrier opérateurs</button> --}}
+
+                                <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('arrivesop') }}"
+                                        class="btn btn-primary btn-sm" title="ajouter opérateur">ajouter courrier opérateur</a>
+                                </span>
                             @endcan
                             <span class="d-flex align-items-baseline">
                                 <a href="#" class="btn btn-success btn-sm float-end" data-bs-toggle="modal"
@@ -188,49 +192,51 @@
                                             <td>{{ $arrive?->courrier?->expediteur }}</td>
                                             <td>{{ $arrive?->courrier?->objet }}</td>
                                             <td>
-                                                @can('view', $arrive)
-                                                    <span class="d-flex align-items-baseline"><a
-                                                            href="{{ route('arrives.show', $arrive?->id) }}"
-                                                            class="btn btn-success btn-sm" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
+                                                {{-- @can('view', $arrive) --}}
+                                                <span class="d-flex align-items-baseline"><a
+                                                        href="{{ route('arrives.show', $arrive?->id) }}"
+                                                        class="btn btn-success btn-sm" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        @can('update', $arrive)
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                @can('update', $arrive)
-                                                                    <li><a class="dropdown-item btn btn-sm"
-                                                                            href="{{ route('arrives.edit', $arrive?->id) }}"
-                                                                            class="mx-1"><i class="bi bi-pencil"></i>
-                                                                            Modifier</a>
-                                                                    </li>
-                                                                @endcan
-                                                                {{-- <li><a class="dropdown-item btn btn-sm"
+                                                        @endcan
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            @can('update', $arrive)
+                                                                <li><a class="dropdown-item btn btn-sm"
+                                                                        href="{{ route('arrives.edit', $arrive?->id) }}"
+                                                                        class="mx-1"><i class="bi bi-pencil"></i>
+                                                                        Modifier</a>
+                                                                </li>
+                                                            @endcan
+                                                            {{-- <li><a class="dropdown-item btn btn-sm"
                                                                 href="{{ url('arrive-imputations', ['id' => $arrive->id]) }}"
                                                                 class="mx-1">Imputer</a>
                                                         </li> --}}
-                                                                {{--  <li><a class="dropdown-item btn btn-sm"
+                                                            {{--  <li><a class="dropdown-item btn btn-sm"
                                                                 href="{!! url('coupon-arrive', ['$id' => $arrive->id]) !!}" class="mx-1"
                                                                 target="_blank">Imprimer</a>
                                                         </li> --}}
-                                                                @can('delete', $arrive)
-                                                                    @can('arrive-delete')
-                                                                        <li>
-                                                                            <form
-                                                                                action="{{ route('arrives.destroy', $arrive?->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button type="submit"
-                                                                                    class="dropdown-item show_confirm"><i
-                                                                                        class="bi bi-trash"></i>Supprimer</button>
-                                                                            </form>
-                                                                        </li>
-                                                                    @endcan
+                                                            @can('delete', $arrive)
+                                                                @can('arrive-delete')
+                                                                    <li>
+                                                                        <form
+                                                                            action="{{ route('arrives.destroy', $arrive?->id) }}"
+                                                                            method="post">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="dropdown-item show_confirm"><i
+                                                                                    class="bi bi-trash"></i>Supprimer</button>
+                                                                        </form>
+                                                                    </li>
                                                                 @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                                @endcan
+                                                            @endcan
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                                {{-- @endcan --}}
                                             </td>
                                         </tr>
                                     @endforeach

@@ -364,7 +364,7 @@
                                 </ul>
                             </div> --}}
 
-                                    <a href="{{ url('/user') }}">
+                                    <a href="{{ route('user.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Utilisateurs <span>| Tous</span></h5>
 
@@ -391,7 +391,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="card info-card sales-card">
 
-                                    <a href="{{ url('/arrives') }}">
+                                    <a href="{{ route('arrives.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Courriers <span>| Arrivés</span></h5>
 
@@ -416,7 +416,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="card info-card sales-card">
 
-                                    <a href="{{ url('/departs') }}">
+                                    <a href="{{ route('departs.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Courriers <span>| Départs</span></h5>
 
@@ -440,7 +440,7 @@
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                 <div class="card info-card sales-card">
 
-                                    <a href="#">
+                                    <a href="{{ route('internes.index') }}">
                                         <div class="card-body">
                                             <h5 class="card-title">Courriers <span>| Internes</span></h5>
 

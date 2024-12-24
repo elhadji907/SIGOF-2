@@ -304,6 +304,8 @@ class DatabaseSeeder extends Seeder
         'afficher-operateur-formation',
         'afficher-operateur-statut',
         'evaluation-formation',
+        'courrier-operateur-view',
+        'courrier-notification-show',
     ];
 
     public function run(): void

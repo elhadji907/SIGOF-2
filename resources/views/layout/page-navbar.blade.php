@@ -9,44 +9,46 @@
         <!-- End Search Icon-->
 
         @unless (auth()->user()->unReadNotifications->isEmpty())
-            <li class="nav-item dropdown">
+            @can('courrier-notification-show')
+                <li class="nav-item dropdown">
 
-                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                    <i class="bi bi-bell"></i>
-                    <span class="badge bg-primary badge-number">{!! auth()->user()->unReadNotifications->count() !!}</span>
-                </a><!-- End Notification Icon -->
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">{!! auth()->user()->unReadNotifications->count() !!}</span>
+                    </a><!-- End Notification Icon -->
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-                    <li class="dropdown-header">
-                        {!! auth()->user()->unReadNotifications->count() !!} nouvelles notifications
-                        <a href="{{ url('notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
-                                toutes</span></a>
-                    </li>
-                    <li>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            {!! auth()->user()->unReadNotifications->count() !!} nouvelles notifications
+                            <a href="{{ url('notifications') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
+                                    toutes</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        @foreach (auth()->user()->unReadNotifications as $notification)
+                            <a class="dropdown-item d-flex align-items-centers"
+                                href="{{ route('courriers.showFromNotification', ['courrier' => $notification->data['courrierId'], 'notification' => $notification->id]) }}">
+                                <li class="notification-item">
+                                    <i class="bi bi-check-circle text-success"></i>
+                                    <div>
+                                        <h4>{!! $notification->data['firstname'] !!}&nbsp;{!! $notification->data['name'] !!}</h4>
+                                        <p>{!! $notification->data['courrierTitle'] !!}</p>
+                                        <p>{!! $notification->created_at->diffForHumans() !!}</p>
+                                    </div>
+                                </li>
+                            </a>
+                        @endforeach
+
                         <hr class="dropdown-divider">
-                    </li>
-                    @foreach (auth()->user()->unReadNotifications as $notification)
-                        <a class="dropdown-item d-flex align-items-centers"
-                            href="{{ route('courriers.showFromNotification', ['courrier' => $notification->data['courrierId'], 'notification' => $notification->id]) }}">
-                            <li class="notification-item">
-                                <i class="bi bi-check-circle text-success"></i>
-                                <div>
-                                    <h4>{!! $notification->data['firstname'] !!}&nbsp;{!! $notification->data['name'] !!}</h4>
-                                    <p>{!! $notification->data['courrierTitle'] !!}</p>
-                                    <p>{!! $notification->created_at->diffForHumans() !!}</p>
-                                </div>
-                            </li>
-                        </a>
-                    @endforeach
+                        <li class="dropdown-footer">
+                            <a href="{{ url('notifications') }}">Voir toutes les notifications</a>
+                        </li>
 
-                    <hr class="dropdown-divider">
-                    <li class="dropdown-footer">
-                        <a href="{{ url('notifications') }}">Voir toutes les notifications</a>
-                    </li>
+                    </ul><!-- End Notification Dropdown Items -->
 
-                </ul><!-- End Notification Dropdown Items -->
-
-            </li>
+                </li>
+            @endcan
         @endunless
         <!-- End Notification Nav -->
 

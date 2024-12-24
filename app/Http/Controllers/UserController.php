@@ -38,8 +38,7 @@ class UserController extends Controller
         $this->middleware("permission:user-update", ["only" => ["update", "edit"]]);
         $this->middleware("permission:user-show", ["only" => ["show"]]);
         $this->middleware("permission:user-delete", ["only" => ["destroy"]]);
-        $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]); 
-       
+        $this->middleware("permission:give-role-permissions", ["only" => ["givePermissionsToRole"]]);
     }
 
     public function homePage()
@@ -123,7 +122,7 @@ class UserController extends Controller
             $pourcentage_hommes = 0;
             $pourcentage_femmes = 0;
         }
-        
+
         $email_verified_at = ($email_verified_at / $total_user) * 100;
 
         return view(
@@ -273,6 +272,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        foreach (Auth::user()->roles as $key => $role) {
+            if (strpos($role?->name, 'super-admin') !== false || strpos($role?->name, 'admin') !== false) {
+            } else {
+                $this->authorize('update', $user);
+            }
+        }
+
         if ($request->input('employe') == "1") {
             $this->validate($request, [
                 /* "matricule"           => ['nullable', 'string', 'min:8', 'max:8',Rule::unique(Employee::class)], */
@@ -299,7 +305,7 @@ class UserController extends Controller
                 "cin"              => ["nullable", "string", "min:12", "max:14", Rule::unique(User::class)->ignore($id)],
                 'firstname'        => ['required', 'string', 'max:150'],
                 'name'             => ['required', 'string', 'max:50'],
-                'date_naissance'   => ['string', 'nullable'],
+                'date_naissance'   => ['date', 'nullable', 'max:10', 'min:10', 'date_format:Y-m-d'],
                 'lieu_naissance'   => ['string', 'nullable'],
                 'image'            => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
                 'telephone'        => ['required', 'string', 'max:25', 'min:9'],
@@ -308,6 +314,12 @@ class UserController extends Controller
                 'roles.*'          => ['string', 'max:255', 'nullable', 'max:255'],
                 "email"            => ["lowercase", 'email', "max:255", Rule::unique(User::class)->ignore($id)],
             ]);
+
+            if (!empty($request->date_naissance)) {
+                $date_naissance = $request->date_naissance;
+            } else {
+                $date_naissance = null;
+            }
 
             if (request('image')) {
                 $imagePath = request('image')->store('avatars', 'public');
@@ -342,7 +354,7 @@ class UserController extends Controller
                     'cin'                       =>  $request->cin,
                     'firstname'                 =>  $request->firstname,
                     'name'                      =>  $request->name,
-                    'date_naissance'            =>  $request->date_naissance,
+                    'date_naissance'            =>  $date_naissance,
                     'lieu_naissance'            =>  $request->lieu_naissance,
                     'situation_familiale'       =>  $request->situation_familiale,
                     'situation_professionnelle' =>  $request->situation_professionnelle,
@@ -362,7 +374,7 @@ class UserController extends Controller
                     'cin'                       =>  $request->cin,
                     'firstname'                 =>  $request->firstname,
                     'name'                      =>  $request->name,
-                    'date_naissance'            =>  $request->date_naissance,
+                    'date_naissance'            =>  $date_naissance,
                     'lieu_naissance'            =>  $request->lieu_naissance,
                     'situation_familiale'       =>  $request->situation_familiale,
                     'situation_professionnelle' =>  $request->situation_professionnelle,
@@ -396,6 +408,13 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        foreach (Auth::user()->roles as $key => $role) {
+            if (strpos($role?->name, 'super-admin') !== false || strpos($role?->name, 'admin') !== false) {
+            } else {
+                $this->authorize('view', $user);
+            }
+        }
+
         if ($user->created_by == null || $user->updated_by == null) {
             $user_create_name = "moi même";
             $user_update_name = "moi même";
@@ -421,13 +440,19 @@ class UserController extends Controller
     public function destroy($userId)
     {
         $user = User::findOrFail($userId);
+
+        foreach (Auth::user()->roles as $key => $role) {
+            if (strpos($role?->name, 'super-admin') !== false || strpos($role?->name, 'admin') !== false) {
+            } else {
+                $this->authorize('delete', $user);
+            }
+        }
+
         $user->roles()->detach();
+
         $user->delete();
 
-        /* $mesage = $user->firstname . ' ' . $user->name . ' a été supprimé(e)';
-        return redirect()->back()->with("danger", $mesage); */
-
-        Alert::success('Fait ! ' . $user->firstname . ' ' . $user->name, 'a été(e) supprimé(e)');
+        Alert::success('Succès !', $user->firstname . ' ' . $user->name . ' a été supprimé(e).');
 
         return redirect()->back();
     }

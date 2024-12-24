@@ -21,7 +21,7 @@ class DepartPolicy
      */
     public function view(User $user, Depart $depart): bool
     {
-        return $user->id === $depart->courrier->user->id;
+        return $user->id === $depart->courrier->users_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class DepartPolicy
      */
     public function update(User $user, Depart $depart): bool
     {
-        return $user->id === $depart->courrier->user->id;
+        return $user->id === $depart->courrier->users_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class DepartPolicy
      */
     public function delete(User $user, Depart $depart): bool
     {
-        return $user->id === $depart->courrier->user->id;
+        return $user->id === $depart->courrier->users_id;
     }
 
     /**

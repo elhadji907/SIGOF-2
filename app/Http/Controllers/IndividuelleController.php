@@ -689,6 +689,8 @@ class IndividuelleController extends Controller
         $individuelle       = Individuelle::findOrFail($id);
         $user_id            = $individuelle?->users_id;
 
+        $this->authorize('update', $individuelle);
+
         $this->validate($request, [
             'date_depot'                    => ['required', 'date', 'min:10', 'max:10', 'date_format:Y-m-d'],
             'telephone_secondaire'          => ['required', 'string', 'min:9', 'max:9'],
@@ -895,6 +897,7 @@ class IndividuelleController extends Controller
     public function show($id)
     {
         $individuelle = Individuelle::findOrFail($id);
+        $this->authorize('view', $individuelle);
         return view("individuelles.show", compact("individuelle"));
     }
 
@@ -915,6 +918,7 @@ class IndividuelleController extends Controller
     public function destroy($id)
     {
         $individuelle   = Individuelle::find($id);
+        $this->authorize('delete', $individuelle);
         foreach (Auth::user()->roles as $key => $role) {
         }
         if ($individuelle->statut != 'nouvelle' && !empty($role?->name) && ($role?->name != 'super-admin')) {
@@ -973,7 +977,6 @@ class IndividuelleController extends Controller
             );
         }
     }
-
     public function rapports(Request $request)
     {
         $title = 'rapports demandes individuelles';

@@ -308,7 +308,7 @@ class ArriveController extends Controller
 
             //solution, récuper l'id à partir de blade avec le mode hidden
         }
-
+        
         $this->validate($request, [
             "date_arrivee"          => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "date_correspondance"   => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],

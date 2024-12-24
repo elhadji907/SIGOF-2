@@ -21,7 +21,7 @@ class ArrivePolicy
      */
     public function view(User $user, Arrive $arrive): bool
     {
-        return $user->id === $arrive->courrier->user->id;
+        return $user->id === $arrive->courrier->users_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class ArrivePolicy
      */
     public function update(User $user, Arrive $arrive): bool
     {
-        return $user->id === $arrive->courrier->user->id;
+        return $user->id === $arrive->courrier->users_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class ArrivePolicy
      */
     public function delete(User $user, Arrive $arrive): bool
     {
-        return $user->id === $arrive->courrier->user->id;
+        return $user->id === $arrive->courrier->users_id;
     }
 
     /**

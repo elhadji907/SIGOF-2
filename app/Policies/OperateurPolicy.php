@@ -21,7 +21,7 @@ class OperateurPolicy
      */
     public function view(User $user, Operateur $operateur): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $operateur->users_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class OperateurPolicy
      */
     public function update(User $user, Operateur $operateur): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $operateur->users_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class OperateurPolicy
      */
     public function delete(User $user, Operateur $operateur): bool
     {
-        return $user->id === $operateur->user->id;
+        return $user->id === $operateur->users_id;
     }
 
     /**
