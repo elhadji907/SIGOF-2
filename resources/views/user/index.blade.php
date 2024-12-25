@@ -124,35 +124,41 @@
 
                                             <td>
                                                 {{-- @can('user-show') --}}
-                                                    <span class="d-flex mt-2 align-items-baseline"><a
-                                                            href="{{ route('users.show', $user->id) }}"
-                                                            class="btn btn-info btn-sm mx-1" title="voir détails"><i
-                                                                class="bi bi-eye"></i></a>
-                                                        <div class="filter">
-                                                            <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                                                    class="bi bi-three-dots"></i></a>
-                                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                {{-- @can('user-update') --}}
-                                                                    <li><a class="dropdown-item btn btn-sm mx-1"
-                                                                            href="{{ route('users.edit', $user->id) }}"
-                                                                            class="mx-1"><i class="bi bi-pencil"></i> Modifier</a>
-                                                                    </li>
-                                                                {{-- @endcan --}}
-                                                                @can('user-delete')
-                                                                    <li>
-                                                                        <form action="{{ route('users.destroy', $user->id) }}"
-                                                                            method="post">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="dropdown-item show_confirm"><i
-                                                                                    class="bi bi-trash"></i>Supprimer</button>
-                                                                        </form>
-                                                                    </li>
-                                                                @endcan
-                                                            </ul>
-                                                        </div>
-                                                    </span>
-                                              {{--   @endcan --}}
+                                                <span class="d-flex mt-2 align-items-baseline"><a
+                                                        href="{{ route('users.show', $user->id) }}"
+                                                        class="btn btn-info btn-sm mx-1" title="voir détails"><i
+                                                            class="bi bi-eye"></i></a>
+                                                    <div class="filter">
+                                                        <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                                                class="bi bi-three-dots"></i></a>
+                                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                                            {{-- @can('user-update') --}}
+                                                            <li><a class="dropdown-item btn btn-sm mx-1"
+                                                                    href="{{ route('users.edit', $user->id) }}"><i
+                                                                        class="bi bi-pencil"></i> Modifier</a>
+                                                            </li>
+                                                            {{-- @endcan --}}
+                                                            @can('user-delete')
+                                                                <li>
+                                                                    <form action="{{ route('users.destroy', $user->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="dropdown-item show_confirm"><i
+                                                                                class="bi bi-trash"></i>Supprimer</button>
+                                                                    </form>
+                                                                </li>
+                                                            @endcan
+                                                            <li>
+                                                                <a class="dropdown-item btn btn-sm mx-1" href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#forgotModal{{ $user->id }}">
+                                                                    <i class="bi bi-key"></i>Réinitialiser MP</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </span>
+                                                {{--   @endcan --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -168,9 +174,13 @@
                 <div class="modal-content">
                     <form method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <div class="modal-header">
+                        {{-- <div class="modal-header">
                             <h5 class="modal-title"><i class="bi bi-plus" title="Ajouter"></i> Ajouter un utilisateur</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> --}}
+
+                        <div class="card-header text-center bg-gradient-default">
+                            <h1 class="h4 text-black mb-0">Ajouter un nouveau utilisateur</h1>
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">
@@ -256,7 +266,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 col-sm-12 col-xs-12 col-xxl-4">
+                                <div class="col-12 col-md-6 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
                                         id="multiple-select-field" multiple data-placeholder="Choisir roles">
@@ -314,7 +324,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Générer une recherche<span class="text-danger mx-1">*</span></h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
                     <form method="post" action="{{ route('users.report') }}">
                         @csrf
@@ -421,6 +431,95 @@
                 </div>
             </div>
         </div>
+
+        @foreach ($user_liste as $user)
+            <div
+                class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12 d-flex flex-column align-items-center justify-content-center">
+                <div class="modal fade" id="forgotModal{{ $user->id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form class="row g-3 needs-validation" novalidate method="POST"
+                                action="{{ route('resetuserPassword', ['id' => $user->id]) }}">
+                                @csrf
+                                @method('PUT')
+                                {{-- <div class="modal-header">
+                                    <h5 class="w-100  text-center">Réinitialisation du mot de passe
+                                        par e-mail</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Fermer"></button>
+                                </div> --}}
+
+                                <div class="card-header text-center bg-gradient-default">
+                                    <h1 class="h4 text-black mb-0">Réinitialiser mot de passe</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                            <label for="email" class="form-label">Email<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <div class="input-group has-validation">
+                                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                <input type="email" name="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    id="email" placeholder="Votre adresse e-mail"
+                                                    value="{{ $user?->email ?? old('email') }}" @readonly(true)>
+                                                <div class="invalid-feedback">
+                                                    @error('email')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3">
+
+                                            <!-- Mot de passe -->
+                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <label for="password" class="form-label">Mot de passe<span
+                                                        class="text-danger mx-1">*</span></label>
+                                                <input type="text" name="password"
+                                                    class="form-control form-control-sm @error('password') is-invalid @enderror"
+                                                    id="password" required placeholder="Nouveau mot de passe"
+                                                    value="{{ old('password') }}" autocomplete="new-password" autofocus>
+                                                <div class="invalid-feedback">
+                                                    @error('password')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <!-- Mot de passe de confirmation -->
+                                            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-xxl-12">
+                                                <label for="password_confirmation" class="form-label">Confirmez mot de
+                                                    passe<span class="text-danger mx-1">*</span></label>
+                                                <input type="text" name="password_confirmation"
+                                                    class="form-control form-control-sm @error('password_confirmation') is-invalid @enderror"
+                                                    id="password_confirmation" required
+                                                    placeholder="Confimez mot de passe"
+                                                    value="{{ old('password_confirmation') }}"
+                                                    autocomplete="new-password_confirmation">
+                                                <div class="invalid-feedback">
+                                                    @error('password_confirmation')
+                                                        {{ $message }}
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary btn-sm"
+                                                data-bs-dismiss="modal">Fermer</button>
+                                            <div class="text-center">
+                                                <button type="submit"
+                                                    class="btn btn-warning btn-sm">Réinitialiser</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </section>
 @endsection
 @push('scripts')

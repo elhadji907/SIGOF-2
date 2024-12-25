@@ -26,6 +26,7 @@ use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -202,10 +203,6 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        /* $this->validate($request, [
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)],
-        ]); */
-
         if ($request->password) {
             $password = Hash::make($request->password);
         } else {
@@ -310,7 +307,6 @@ class UserController extends Controller
                 'image'            => ['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
                 'telephone'        => ['required', 'string', 'max:25', 'min:9'],
                 'adresse'          => ['required', 'string', 'max:255'],
-                'password'         => ['string', 'max:255', 'nullable'],
                 'roles.*'          => ['string', 'max:255', 'nullable', 'max:255'],
                 "email"            => ["lowercase", 'email', "max:255", Rule::unique(User::class)->ignore($id)],
             ]);
@@ -345,61 +341,32 @@ class UserController extends Controller
                     'image' => $imagePath
                 ]);
             }
-            if (isset($request->password)) {
-                $password = Hash::make($request->password);
-                $user->update([
-                    'password'                  =>  $password,
-                    'civilite'                  =>  $request->civilite,
-                    'username'                  =>  $request->username,
-                    'cin'                       =>  $request->cin,
-                    'firstname'                 =>  $request->firstname,
-                    'name'                      =>  $request->name,
-                    'date_naissance'            =>  $date_naissance,
-                    'lieu_naissance'            =>  $request->lieu_naissance,
-                    'situation_familiale'       =>  $request->situation_familiale,
-                    'situation_professionnelle' =>  $request->situation_professionnelle,
-                    'email'                     =>  $request->email,
-                    'telephone'                 =>  $request->telephone,
-                    'adresse'                   =>  $request->adresse,
-                    'twitter'                   =>  $request->twitter,
-                    'facebook'                  =>  $request->facebook,
-                    'instagram'                 =>  $request->instagram,
-                    'linkedin'                  =>  $request->linkedin,
-                    'updated_by'                =>  Auth::user()->id,
-                ]);
-            } else {
-                $user->update([
-                    'civilite'                  =>  $request->civilite,
-                    'username'                  =>  $request->username,
-                    'cin'                       =>  $request->cin,
-                    'firstname'                 =>  $request->firstname,
-                    'name'                      =>  $request->name,
-                    'date_naissance'            =>  $date_naissance,
-                    'lieu_naissance'            =>  $request->lieu_naissance,
-                    'situation_familiale'       =>  $request->situation_familiale,
-                    'situation_professionnelle' =>  $request->situation_professionnelle,
-                    'email'                     =>  $request->email,
-                    'telephone'                 =>  $request->telephone,
-                    'adresse'                   =>  $request->adresse,
-                    /* 'password'                  =>  $request->newPassword, */
-                    'twitter'                   =>  $request->twitter,
-                    'facebook'                  =>  $request->facebook,
-                    'instagram'                 =>  $request->instagram,
-                    'linkedin'                  =>  $request->linkedin,
-                    'updated_by'                =>  Auth::user()->id,
-                ]);
-            }
 
-            /* $user->save(); */
+            $user->update([
+                'civilite'                  =>  $request->civilite,
+                'username'                  =>  $request->username,
+                'cin'                       =>  $request->cin,
+                'firstname'                 =>  $request->firstname,
+                'name'                      =>  $request->name,
+                'date_naissance'            =>  $date_naissance,
+                'lieu_naissance'            =>  $request->lieu_naissance,
+                'situation_familiale'       =>  $request->situation_familiale,
+                'situation_professionnelle' =>  $request->situation_professionnelle,
+                'email'                     =>  $request->email,
+                'telephone'                 =>  $request->telephone,
+                'adresse'                   =>  $request->adresse,
+                'twitter'                   =>  $request->twitter,
+                'facebook'                  =>  $request->facebook,
+                'instagram'                 =>  $request->instagram,
+                'linkedin'                  =>  $request->linkedin,
+                'updated_by'                =>  Auth::user()->id,
+            ]);
 
             $user->syncRoles($request->roles);
 
 
             Alert::success('Effectuée ! ', 'Mise à jour effectuée');
 
-            /*  $status = 'Mise à jour effectuée avec succès'; */
-
-            /* return Redirect::route('user.index')->with('status', $status); */
             return Redirect::route('user.index');
         }
     }
@@ -747,5 +714,23 @@ class UserController extends Controller
             'roles',
             'title'
         ));
+    }
+
+    public function resetuserPassword(Request $request, $id){
+        
+        $request->validate([
+            'password'              => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        
+        $user = User::findOrFail($id);
+        
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+        
+        Alert::success('Succès !', 'Votre mot de passe a été réinitialisé avec succès.');
+
+        return Redirect::back();
+
     }
 }

@@ -119,7 +119,8 @@
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="row align-items-center">
-                    @if ($message = Session::get('status'))
+
+                @if ($message = Session::get('status'))
                         <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
                             role="alert">
                             <strong>{{ $message }}</strong>
@@ -136,9 +137,9 @@
                             </div>
                         @endforeach
                     @endif
-                    <div class="col-lg-6">
+                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                         <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
-                            <div class="company-badge mb-4 mt-0">
+                            <div class="company-badge mb-4">
                                 <i class="bi bi-gear-fill me-2"></i>
                                 La référence de la formation professionnelle
                             </div>
@@ -146,36 +147,43 @@
                             <h1 class="mb-4">
                                 @if (!empty($une?->titre1))
                                     {{ $une?->titre1 }} <br>
+                                @else
+                                    M. Mouhamadou Lamine Bara LO <br>
                                 @endif
 
                                 @if (!empty($une?->titre2))
                                     <span class="accent-text">{{ $une?->titre2 }}</span>
+                                @else
+                                    <span class="accent-text">Directeur Général</span>
                                 @endif
                             </h1>
 
-                            @if (!empty($une?->message))
-                                <p class="mb-4 mb-md-5">
+                            <p class="mb-4 mb-md-5">
+                                @if (!empty($une?->message))
                                     {{ substr($une?->message, 0, 350) }}...
-                                </p>
-                            @endif
-
+                                @else
+                                    
+                                @endif
+                            </p>
                             <div class="hero-buttons">
                                 @if (!empty($une?->message))
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#enSavoirPlusModal"
                                         class="btn btn-primary me-0 me-sm-2 mx-1">En savoir plus</a>
+                                @else
+                                    <a href="#apropos" class="btn btn-primary me-0 me-sm-2 mx-1">En savoir plus</a>
                                 @endif
                                 @if (!empty($une?->video))
                                     <a href="{{ $une?->video }}" class="btn btn-link mt-2 mt-sm-0 glightbox">
-                                        <i class="bi bi-play-circle me-1"></i>
-                                        Lire la vidéo
-                                    </a>
+                                        <i class="bi bi-play-circle me-1"></i>Lire la vidéo</a>
+                                @else
+                                    <a href="https://www.youtube.com/watch?v=UVn3WAv8XbM&t=49s" class="btn btn-link mt-2 mt-sm-0 glightbox">
+                                        <i class="bi bi-play-circle me-1"></i>Vidéo présentation</a>
                                 @endif
                             </div>
-
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-12 col-md-12 col-lg-6 col-sm-12 col-xs-12 col-xxl-6">
                         <div class="hero-image" data-aos="zoom-out" data-aos-delay="300">
 
                             @if (!empty($une?->image))
@@ -197,10 +205,8 @@
                         </div>
                     </div>
                 </div>
-
                 @foreach ($postes as $poste)
                 @endforeach
-
                 @if (!empty($poste))
                     <div class="row stats-row gy-4 mt-5" data-aos="fade-up" data-aos-delay="500">
                         @foreach ($postes as $poste)
@@ -427,7 +433,7 @@
 
         <section class="stats section">
         </section>
-        
+
         <!-- Contact Section -->
         <section id="contact" class="contact section light-background">
             <!-- Section Title -->
@@ -622,7 +628,7 @@
             </div>
 
         </section>
-        
+
         <section class="testimonials section light-background">
         </section>
 
@@ -638,7 +644,7 @@
                             <div class="modal-header">
                                 <h5 class="w-100 text-center">CONNEXION</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Fermer"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
@@ -713,7 +719,7 @@
                             <div class="modal-header">
                                 <h5 class="w-100 text-center">Création compte personnel</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Fermer"></button>
                             </div>
 
                             <div class="modal-body">
@@ -836,7 +842,7 @@
                             <div class="modal-header">
                                 <h5 class="w-100  text-center">Création compte opérateur</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Fermer"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
@@ -954,7 +960,7 @@
                                 <h5 class="w-100  text-center">Réinitialisation du mot de passe
                                     par e-mail</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                                    aria-label="Fermer"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="row g-3">
@@ -997,7 +1003,7 @@
                         <div class="modal-header">
                             <h3 class="w-100  text-center">{{ $une?->titre1 }}</h3>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                                aria-label="Fermer"></button>
                         </div>
                         <div class="modal-body">
                             <div class="row g-3">

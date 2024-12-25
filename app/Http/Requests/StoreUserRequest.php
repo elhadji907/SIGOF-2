@@ -31,7 +31,6 @@ class StoreUserRequest extends FormRequest
             'image'     => ['string', 'max:255', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'telephone' => ['required', 'string', 'max:9', 'min:9'],
             'adresse'   => ['required', 'string', 'max:255'],
-            'password'  => ['string', 'max:255', 'nullable'],
             'roles.*'   => ['string', 'max:255', 'nullable', 'max:255'],
         ];
     }

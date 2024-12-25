@@ -36,8 +36,8 @@ class PasswordResetLinkController extends Controller
         $status = Password::sendResetLink(
             $request->only('email')
         );
-        
-        Alert::success('Félicitations ! ', 'Nous vous avons envoyé par courriel le lien de réinitialisation du mot de passe !');
+
+        Alert::success('Félicitations !', 'Un lien de réinitialisation de mot de passe vous a été envoyé par email.');
 
         return $status == Password::RESET_LINK_SENT
                     ? back()->with('status', __($status))

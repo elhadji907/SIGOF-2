@@ -107,7 +107,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                                <div class="col-12 col-md-6 col-lg-8 mb-8">
 
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
@@ -125,7 +125,7 @@
                                     </small>
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                               {{--  <div class="col-12 col-md-6 col-lg-4 mb-4">
                                     <label for="password" class="form-label">Mot de passe</label>
                                     <input type="password" name="password" value="{{ old('password') }}"
                                         class="form-control form-control-sm @error('password') is-invalid @enderror"
@@ -135,7 +135,7 @@
                                             <div>{{ $message }}</div>
                                         </span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                                     <label for="profil" class="form-label">Image de profil</label>

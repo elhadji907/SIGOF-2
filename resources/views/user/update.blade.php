@@ -242,7 +242,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-0">
+                               {{--  <div class="col-12 col-md-6 col-lg-4 mb-0">
                                     <label for="password" class="form-label">Modifier mot de passe</label>
                                     <input type="password" name="password"
                                         class="form-control form-control-sm @error('password') is-invalid @enderror"
@@ -252,9 +252,9 @@
                                             {{ $message }}
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <div class="col-12 col-md-6 col-lg-4 mb-0">
+                                <div class="col-12 col-md-12 col-lg-8 mb-0">
                                     <label for="roles" class="form-label">Roles</label>
                                     <select name="roles[]" class="form-select" aria-label="Select"
                                         id="multiple-select-field" multiple data-placeholder="Choisir roles">

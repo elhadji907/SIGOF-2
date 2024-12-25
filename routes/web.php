@@ -418,6 +418,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::patch('/operateurs/{id}', [OperateurController::class, 'updated'])->name('operateurs.updated');
 
         Route::put('/agreerAllModuleOperateur/{id}', [OperateurController::class, 'agreerAllModuleOperateur'])->name('agreerAllModuleOperateur');
+        Route::put('/resetuserPassword/{id}', [UserController::class, 'resetuserPassword'])->name('resetuserPassword');
 
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
