@@ -281,7 +281,13 @@ class ArriveController extends Controller
     public function update(Request $request, $id)
     {
         $arrive = Arrive::findOrFail($id);
-        $this->authorize('update', $arrive);
+
+        foreach (Auth::user()->roles as $role) {
+            if (!empty($role?->name) && ($role?->name != 'super-admin') && ($role?->name != 'Employe') && ($role?->name != 'admin') && ($role?->name != 'DIOF') && ($role?->name != 'DEC')) {
+                $this->authorize('update', $arrive);
+            }
+        }
+        
         $courrier = Courrier::findOrFail($arrive->courriers_id);
 
         $imp = $request->input('imp');

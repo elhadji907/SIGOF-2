@@ -81,7 +81,7 @@
 </head>
 
 <body>
-    <div class="invoice-box">
+    <div class="invoice-box" style="margin-top: -20px;">
         <table class="table table-responsive" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
@@ -92,8 +92,25 @@
                             MINISTERE DE LA FORMATION PROFESSIONNELLE
                         </b> --}}
 
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
-                            style="width: 100%; max-width: 300px" />
+                        {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
+                            style="width: 100%; max-width: 300px" /> --}}
+
+                            
+                    <td colspan="1" valign="top" style="text-align: center;">
+                        {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
+                        style="width: 100%; max-width: 300px" /> --}}
+
+                        <h6>
+                            <b>REPUBLIQUE DU SENEGAL<br></b>
+                            Un Peuple - Un But - Une Foi<br>
+                            <b>********<br>
+                                MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                                ********<br>
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                    style="width: 100%; max-width: 300px" />
+                            </b>
+                        </h6>
+                    </td>
                     </td>
                     <td colspan="2" align="right">
                         <p>
@@ -127,7 +144,7 @@
                 </tr>
             </tbody>
         </table> --}}
-        <table class="table table-responsive">
+        <table class="table table-responsive" style="margin-top: -20px;">
             <tbody>
                 <tr>
                     <td colspan="4" align="left" valign="top">

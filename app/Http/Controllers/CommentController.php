@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Courrier;
 use App\Notifications\newCommentPosted;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CommentController extends Controller
 {
@@ -25,8 +26,6 @@ class CommentController extends Controller
 
         $courrier->user->notify(new newCommentPosted($courrier, auth()->user()));
 
-        $success = 'Commentaire posté !';
-
         $type_courrier = $courrier->type;
 
         if ($type_courrier == 'depart') {
@@ -39,7 +38,11 @@ class CommentController extends Controller
             }
         }
 
-        return redirect()->route($type_courrier . 's.show', $id)->with('status', $success);
+        /* $success = 'Commentaire posté !'; */
+        /* return redirect()->route($type_courrier . 's.show', $id)->with('status', $success); */
+
+        Alert::success('Bravo !', 'votre commentaire à été ajouté !');
+        return redirect()->route($type_courrier . 's.show', $id);
     }
 
     public function storeCommentReply(Comment $comment)
@@ -59,7 +62,8 @@ class CommentController extends Controller
 
 
         //Notifications Réponse 
-        $success = 'réponse posté !';
+        /* $success = 'réponse posté !'; */
+        Alert::success('Bravo !', 'votre réponse au commentaire à été ajouté !');
 
         $comment->user->notify(new newCommentPosted($comment->courrier, auth()->user()));
        
@@ -76,7 +80,7 @@ class CommentController extends Controller
             }
         }
 
-        return redirect()->route($type_courrier . 's.show', $id)->with('status', $success);
+        return redirect()->route($type_courrier . 's.show', $id);
 
     }
 }

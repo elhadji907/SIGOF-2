@@ -18,15 +18,16 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules;
 use Intervention\Image\Facades\Image;
 use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
-use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -732,5 +733,14 @@ class UserController extends Controller
 
         return Redirect::back();
 
+    }
+
+    public function backup(Request $request) {
+        
+        Artisan::call('database:backup');
+        
+        Alert::success('Sauvegarde réussie !', 'Waw.');
+
+        return Redirect::back();
     }
 }

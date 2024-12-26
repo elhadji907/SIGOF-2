@@ -420,6 +420,8 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::put('/agreerAllModuleOperateur/{id}', [OperateurController::class, 'agreerAllModuleOperateur'])->name('agreerAllModuleOperateur');
         Route::put('/resetuserPassword/{id}', [UserController::class, 'resetuserPassword'])->name('resetuserPassword');
 
+        Route::get('backup', [UserController::class, 'backup'])->name('backup');
+
         /* Vues ressouces */
         Route::resource('/users', UserController::class);
         Route::resource('/permissions', PermissionController::class);

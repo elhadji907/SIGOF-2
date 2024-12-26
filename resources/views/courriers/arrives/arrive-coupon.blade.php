@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <title>{{ $title }}</title>
+<title>{{ $title }}</title>
 
 <head>
 
     <meta charset="utf-8" />
     <style>
-        
         @page {
             margin-top: 0cm;
         }
@@ -82,21 +81,26 @@
 </head>
 
 <body>
-    <div class="invoice-box">
+    <div class="invoice-box" style="margin-top: -20px;">
         <table class="table table-responsive" cellpadding="0" cellspacing="0">
             <tbody>
                 <tr>
-                    <td>
-                        {{-- <b>REPUBLIQUE DU SENEGAL<br>
+                    <td colspan="1" valign="top" style="text-align: center;">
+                        {{-- <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
+                        style="width: 100%; max-width: 300px" /> --}}
+
+                        <h6>
+                            <b>REPUBLIQUE DU SENEGAL<br></b>
                             Un Peuple - Un But - Une Foi<br>
-                            ********<br>
-                            MINISTERE DE LA FORMATION PROFESSIONNELLE
-                        </b> --}}
-                        
-                        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/entete_lettre_mission.png'))) }}"
-                        style="width: 100%; max-width: 300px" />
+                            <b>********<br>
+                                MINISTERE DE LA FORMATION PROFESSIONNELLE ET TECHNIQUE<br>
+                                ********<br>
+                                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('assets/img/logo-onfp.jpg'))) }}"
+                                    style="width: 100%; max-width: 300px" />
+                            </b>
+                        </h6>
                     </td>
-                    <td colspan="2" align="right" valign="top">
+                    <td colspan="3" align="right" valign="top">
                         <p>
                             <b> {{ __("Date d'imputation : ") }} </b>
                             @if (isset($courrier->date_imp))
@@ -107,15 +111,15 @@
                             <b> {{ __("Date d'arrivée : ") }} </b>
                             {{ $courrier->date_recep?->format('d/m/Y') }} <br />
                             <b> {{ __('N° du courrier : ') }} </b> <span
-                                style="color:red">{{ 'CA-'.$arrive->numero }}</span> <br />
-                                <h1><br><u>{{ __("FICHE D'IMPUTATION") }}</u></h1>
+                                style="color:red">{{ 'CA-' . $arrive->numero }}</span> <br />
+                        <h2><br><u>{{ __("FICHE D'IMPUTATION") }}</u></h2>
 
                         </p>
                     </td>
                 </tr>
             </tbody>
         </table>
-       {{--  <table class="table table-responsive">
+        {{--  <table class="table table-responsive">
             <tbody>
                 <tr>
                     <td colspan="4" align="left">
@@ -129,7 +133,7 @@
                 </tr>
             </tbody>
         </table> --}}
-        <table class="table table-responsive">
+        <table class="table table-responsive" style="margin-top: -20px;">
             <tbody>
                 <tr>
                     <td colspan="4" align="left" valign="top">
@@ -174,7 +178,8 @@
                                         <td style="padding-left:5px;">
                                             {!! $direction ?? 'Aucune' !!}
                                             <span style="float:right;">
-                                                <span style="color: red; padding-right:5px;">{!! in_array($direction, $arriveDirections) ? "X" : "" !!}</span></span>
+                                                <span
+                                                    style="color: red; padding-right:5px;">{!! in_array($direction, $arriveDirections) ? 'X' : '' !!}</span></span>
                                         </td>
                                         @if ($i % 4 == 0)
                                 </tr>
@@ -282,7 +287,7 @@
                 </tr>
             </tbody>
         </table> --}}
-       {{--  <div
+        {{--  <div
             style="position: fixed;
             bottom: -10px;
             left: 0px;
