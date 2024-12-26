@@ -287,12 +287,20 @@ class ArriveController extends Controller
                 $this->authorize('update', $arrive);
             }
         }
-        
+
         $courrier = Courrier::findOrFail($arrive->courriers_id);
 
         $imp = $request->input('imp');
 
         if (isset($imp) && $imp == "1") {
+
+            $this->validate($request, [
+                "date_imp"          => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
+                "description"       => ["required", "string"],
+                "id_emp"            => ["required"],
+                "observation"       => ["nullable", "string"],
+            ]);
+
             $courrier = $arrive->courrier;
             /* $count = count($request->product); */
             /* $courrier->directions()->sync($request->id_direction);
@@ -302,6 +310,7 @@ class ArriveController extends Controller
             $courrier->directions()->sync($request->id_direction);
             $courrier->description =  $request->input('description');
             $courrier->date_imp    =  $request->input('date_imp');
+            $courrier->observation =  $request->input('observation');
             $courrier->save();
 
             /*  $status = 'Courrier imputé avec succès';
@@ -314,7 +323,7 @@ class ArriveController extends Controller
 
             //solution, récuper l'id à partir de blade avec le mode hidden
         }
-        
+
         $this->validate($request, [
             "date_arrivee"          => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],
             "date_correspondance"   => ["required", "date", "min:10", "max:10", "date_format:Y-m-d"],

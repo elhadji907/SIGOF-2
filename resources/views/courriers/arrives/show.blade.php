@@ -12,6 +12,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show"
+                            role="alert">
+                            <strong>{{ $error }}</strong>
+                        </div>
+                    @endforeach
+                @endif
                 <span class="d-flex mt-2 align-items-baseline"><a href="{{ route('arrives.index') }}"
                         class="btn btn-success btn-sm" title="retour"><i class="bi bi-arrow-counterclockwise"></i></a>&nbsp;
                     <p> | Liste des courriers arrivés</p>
@@ -33,7 +41,6 @@
                             @endif
                         </div>
                     </div>
-
                 </div>
                 <div class="col-12 col-md-12 col-lg-8 col-sm-12 col-xs-12 col-xxl-8">
                     <div class="card border-info mb-3">
@@ -589,8 +596,10 @@
                                                     <table class="table table-bordered" style="display: none;">
                                                         <thead>
                                                             <tr>
-                                                                <th style="width: 50%">Direction</th>
-                                                                <th>Responsable</th>
+                                                                <th style="width: 50%">Direction<span
+                                                                    class="text-danger mx-1">*</span></th>
+                                                                <th>Responsable<span
+                                                                    class="text-danger mx-1">*</span></th>
                                                                 <th style="width: 5%">#</th>
                                                             </tr>
                                                         </thead>
@@ -629,9 +638,9 @@
                                                                         @endforeach
                                                                     @endif
                                                                 </small> --}}
-                                                                    <label for="description" class="form-label">Actions
+                                                                <strong><label for="description" class="form-label">Actions
                                                                         attendues<span
-                                                                            class="text-danger mx-1">*</span></label>
+                                                                            class="text-danger mx-1">*</span></label></strong>
                                                                     <select name="description"
                                                                         class="form-select font-italic @error('description') is-invalid @enderror"
                                                                         aria-label="Select" id="select-field-familiale"
@@ -674,7 +683,8 @@
                                                                 </td>
                                                                 <td colspan="1">
                                                                     <strong><label
-                                                                            for="date_imp">{{ __('Date imputation') }}</label></strong>
+                                                                            for="date_imp">{{ __('Date imputation') }}<span
+                                                                            class="text-danger mx-1">*</span></label></strong>
                                                                     <input id="date_imp"
                                                                         {{ $errors?->has('date_imp') ? 'is-invalid' : '' }}
                                                                         type="date"
@@ -684,6 +694,21 @@
                                                                         value="{{ optional($arrive?->courrier?->date_imp)?->format('Y-m-d') ?? old('date_imp') }}"
                                                                         autocomplete="date_imp">
                                                                     @error('date_imp')
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                            <div>{{ $message }}</div>
+                                                                        </span>
+                                                                    @enderror
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <strong><label
+                                                                            for="observation">{{ __('Observations') }}</label></strong>
+                                                                            <textarea name="observation" id="observation" rows="2" class="form-control form-control-sm"
+                                                                                placeholder="observation">{{ old('observation', $arrive?->courrier?->observation) }}</textarea>
+                                                                    @error('observation')
                                                                         <span class="invalid-feedback" role="alert">
                                                                             <div>{{ $message }}</div>
                                                                         </span>
@@ -714,7 +739,7 @@
                                                 <table class="table datatables align-middle" id="table-employes">
                                                     <thead>
                                                         <tr>
-                                                            <th></th>
+                                                            <th>#</th>
                                                             <th>Matricule</th>
                                                             <th>Prénom</th>
                                                             <th>Nom</th>
