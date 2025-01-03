@@ -92,17 +92,16 @@
                                                             <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                                     class="bi bi-three-dots"></i></a>
                                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                                                <form action="{{ route('ficheSynthese') }}" method="post"
+                                                                {{-- <form action="{{ route('ficheSynthese') }}" method="post"
                                                                     target="_blank">
                                                                     @csrf
-                                                                    {{-- @method('PUT') --}}
                                                                     <input type="hidden" name="id"
                                                                         value="{{ $commissionagrement?->id }}">
                                                                     <button type="submit"
                                                                         class="dropdown-item btn btn-sm mx-1"><i
                                                                             class="bi bi-file-earmark-pdf-fill"
                                                                             title="Fiche synthèse"></i>Fiche synthèse</button>
-                                                                </form>
+                                                                </form> --}}
                                                                 @can('commission-update')
                                                                     <li>
                                                                         <button type="button" class="dropdown-item btn btn-sm mx-1"

@@ -234,6 +234,12 @@
                                         @can('afficher-operateur-telephone')
                                             <th>Telephone</th>
                                         @endcan
+                                        @can('afficher-operateur-adresse')
+                                            <th>Adresse</th>
+                                        @endcan
+                                        @can('afficher-operateur-responsable')
+                                            <th>Responsable</th>
+                                        @endcan
                                         @can('afficher-operateur-module')
                                             <th class="text-center">Modules</th>
                                         @endcan
@@ -268,8 +274,14 @@
                                             @endcan
                                             @can('afficher-operateur-telephone')
                                                 <td><a
-                                                        href="tel:+{{ $operateur?->user?->telephone }}">{{ $operateur?->user?->telephone }}</a>
+                                                        href="tel:+{{ $operateur?->user?->fixe }}">{{ $operateur?->user?->fixe . ' ' . $operateur?->user?->telephone }}</a>
                                                 </td>
+                                            @endcan
+                                            @can('afficher-operateur-adresse')
+                                                <td>{{ $operateur?->user?->adresse }}</td>
+                                            @endcan
+                                            @can('afficher-operateur-responsable')
+                                                <td>{{ $operateur?->user?->firstname . ' ' . $operateur?->user?->name }}</td>
                                             @endcan
                                             @can('afficher-operateur-module')
                                                 <td style="text-align: center;">

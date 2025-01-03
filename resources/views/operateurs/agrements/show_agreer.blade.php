@@ -35,7 +35,7 @@
                                 <span class="d-flex align-items-baseline">
                                     <a href="#" class="btn btn-secondary btn-sm float-end" data-bs-toggle="modal"
                                         data-bs-target="#AddUserModal" title="Générer">Générer lettres</a>
-                                    <div class="filter">
+                                    {{-- <div class="filter">
                                         <a class="icon" href="#" data-bs-toggle="dropdown"><i
                                                 class="bi bi-three-dots"></i></a>
                                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -69,7 +69,7 @@
                                                     <input type="hidden" name="value2" value="150">
                                                     <input type="hidden" name="value1" value="100">
                                                     <button type="submit" class="dropdown-item btn btn-sm">De 100 à
-                                                        150</button>
+                                                        {{ count($commissionagrement->operateurs) }}</button>
                                                 </form>
                                             </li>
                                             <li>
@@ -85,7 +85,7 @@
                                                         {{ count($commissionagrement->operateurs) }}</button>
                                                 </form>
                                             </li>
-                                            {{-- <li>
+                                            <li>
                                                 <form action="{{ route('lettreAgrement') }}" method="post"
                                                     target="_blank">
                                                     @csrf
@@ -96,9 +96,9 @@
                                                     <button type="submit" class="dropdown-item btn btn-sm">De 200 à
                                                         250</button>
                                                 </form>
-                                            </li> --}}
+                                            </li>
                                         </ul>
-                                    </div>
+                                    </div> --}}
                                 </span>
                             @endif
 
@@ -166,6 +166,69 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="AddUserModal" tabindex="-1" role="dialog" aria-labelledby="AddUserModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Générer lettres [{{ count($commissionagrement->operateurs) }}]</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="{{ route('lettreAgrement') }}">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <input type="hidden" name="id" value="{{ $commissionagrement->id }}">
+                                <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="form-group">
+                                            <label for="value1" class="form-label">De<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="number" min="0"
+                                                max="{{ count($commissionagrement->operateurs) }}" name="value1"
+                                                value="{{ old('value1') }}"
+                                                class="form-control form-control-sm @error('value1') is-invalid @enderror"
+                                                id="value1" placeholder="Valeur de départ">
+                                            @error('value1')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xxl-12">
+                                        <div class="form-group">
+                                            <label for="value2" class="form-label">À<span
+                                                    class="text-danger mx-1">*</span></label>
+                                            <input type="number" min="0"
+                                                max="{{ count($commissionagrement->operateurs) }}" name="value2"
+                                                value="{{ old('value2') }}"
+                                                class="form-control form-control-sm @error('value2') is-invalid @enderror"
+                                                id="value2" placeholder="Valeur arrivée">
+                                            @error('value2')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <div>{{ $message }}</div>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary btn-block submit_rapport btn-sm"
+                                            target="_blank">Générer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </section>
 @endsection
 @push('scripts')

@@ -1468,6 +1468,11 @@ class OperateurController extends Controller
 
     public function lettreAgrement(Request $request)
     {
+        $this->validate($request, [
+            'value1' => 'required|numeric',
+            'value2' => 'required|numeric',
+        ]);
+
         $commission = Commissionagrement::find($request->input('id'));
 
         $operateurs_count = Operateur::where('statut_agrement', 'agréer')
@@ -1496,6 +1501,35 @@ class OperateurController extends Controller
         $dompdf->render();
 
         $name = 'Lettres agrément opérateurs, ' . $commission?->commission . ' du ' . $commission?->date?->translatedFormat('l d F Y') . ' à ' . $commission?->lieu . '.pdf';
+
+        // Output the generated PDF to Browser
+        $dompdf->stream($name, ['Attachment' => false]);
+    }
+
+    public function lettreOperateur(Request $request)
+    {
+
+        $operateur = Operateur::findOrFail($request->id);
+
+
+        $title = 'Lettres agrément , ' . $operateur?->user?->operateur;
+
+        $dompdf = new Dompdf();
+        $options = $dompdf->getOptions();
+        $dompdf->setOptions($options);
+
+        $dompdf->loadHtml(view('operateurs.lettreoperateur', compact(
+            'operateur',
+            'title'
+        )));
+
+        // (Optional) Setup the paper size and orientation (portrait ou landscape)
+        $dompdf->setPaper('Letter', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $name = 'Lettres agrément opérateurs, ' . $operateur?->user?->operateur . '.pdf';
 
         // Output the generated PDF to Browser
         $dompdf->stream($name, ['Attachment' => false]);

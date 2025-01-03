@@ -412,6 +412,7 @@ Route::group(['middleware' => ['XSS']], function () {
         Route::post('ficheSynthese', [OperateurController::class, 'ficheSynthese'])->name('ficheSynthese');
 
         Route::post('lettreAgrement', [OperateurController::class, 'lettreAgrement'])->name('lettreAgrement');
+        Route::post('lettreOperateur', [OperateurController::class, 'lettreOperateur'])->name('lettreOperateur');
 
         Route::get('arrivesop', [ArriveController::class, 'arrivesop'])->name('arrivesop');
 
