@@ -9,9 +9,9 @@
     <link href="{{ asset('assets/img/favicon-onfp.png') }}" rel="icon">
     <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
     <style>
-        /* @page {
+        @page {
             margin: 0cm 0cm;
-        } */
+        }
 
         .invoice-box {
             max-width: 800px;
@@ -110,7 +110,7 @@
 @foreach ($operateurs as $operateur)
 
     <body>
-        <h6 valign="top" style="text-align: center; margin-top: -40px;">
+        <h6 valign="top" style="text-align: center;">
             <b>REPUBLIQUE DU SENEGAL<br></b>
             Un Peuple - Un But - Une Foi<br>
             <b>********<br>
@@ -149,17 +149,16 @@
                     <tr class="item" style="text-align: center;">
                         <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>
                     </tr>
-                    <tr class="item">
+                    <tr class="item" style="text-align: center;">
                         <td colspan="2" style="width:170px"><b>{{ __('DOMAINES') }}</b></td>
-                        <td colspan="2" style="width:200px"><b>{{ __('MODULES OU SPECIALITE') }}</b></td>
-                        <td colspan="5"><b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT ') }}</b>
-                        </td>
+                        <td colspan="2" width="30%"><b>{{ __('MODULES OU SPECIALITE') }}</b></td>
+                        <td colspan="5" width="55%"><b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT ') }}</b></td>
                     </tr>
                     @foreach ($operateur?->operateurmodules?->where('statut', 'agréer') as $operateurmodule)
-                        <tr class="item">
-                            <td colspan="2">{{ ucfirst(strtolower($operateurmodule?->domaine)) }}</td>
+                        <tr class="item" style="text-align: center;">
+                            <td colspan="2">{{ $operateurmodule?->domaine }}</td>
                             <td colspan="2">{{ $operateurmodule?->module }}</td>
-                            <td colspan="5">{{ ucfirst(strtolower($operateurmodule?->categorie)) }}</td>
+                            <td colspan="5">{{ $operateurmodule?->categorie }}</td>
                         </tr>
                     @endforeach
                 </tbody>
