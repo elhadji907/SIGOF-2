@@ -44,11 +44,12 @@ class ContactController extends Controller
 
         $contact->save();
 
-        Alert::success("Félicitations !!!", "Votre message a été envoyé. Merci!");
+        Alert::success("Félicitations !!!", "Votre message a été envoyé. Merci! !");
 
-        $status = "Félicitation, Votre message a été envoyé. Merci!";
+        /* $status = "Félicitation, Votre message a été envoyé. Merci !"; */
 
-        return redirect()->back()->with('status', $status);
+        /* return redirect()->back()->with('status', $status); */
+        return redirect()->back();
     }
 
 

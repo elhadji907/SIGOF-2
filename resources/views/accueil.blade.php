@@ -415,7 +415,7 @@
                             @foreach ($contacts as $contact)
                                 @if (!empty($contact?->reponse))
                                     <div class="faq-item">
-                                        <h3>{{ $contact?->message }} ?</h3>
+                                        <h3>{{ $contact?->message }}</h3>
                                         <div class="faq-content">
                                             <p>{{ $contact?->reponse }}</p>
                                         </div>

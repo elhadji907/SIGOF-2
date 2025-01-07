@@ -110,7 +110,7 @@
 @foreach ($operateurs as $operateur)
 
     <body>
-        <h6 valign="top" style="text-align: center; margin-top: -15px;">
+        <h6 valign="top" style="text-align: center; margin-top: -40px;">
             <b>REPUBLIQUE DU SENEGAL<br></b>
             Un Peuple - Un But - Une Foi<br>
             <b>********<br>
@@ -141,7 +141,7 @@
                 <a style="text-decoration:none"
                     href="mailto:{{ $operateur?->user?->email }}">{{ $operateur?->user?->email }}</a>
                 <br>
-                Est agréé par l'ONFP sous le N° <span
+                Est agréé par l'ONFP sous le N°: <span
                     style="color: #DC3545; font-weight: bold">{{ $operateur?->numero_agrement }}</span>
             </p>
             <table class="table table-responsive">
@@ -149,32 +149,29 @@
                     <tr class="item" style="text-align: center;">
                         <td colspan="9"><b>{{ __('FORMATIONS AGRÉÉES') }}</b></td>
                     </tr>
-                    <tr class="item" style="text-align: center;">
-                        <td colspan="3" style="width:170px"><b>{{ __('DOMAINES') }}</b></td>
-                        <td colspan="3" style="width:200px"><b>{{ __('MODULES OU SPECIALITE') }}</b></td>
-                        <td colspan="3"><b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT ') }}</b>
+                    <tr class="item">
+                        <td colspan="2" style="width:170px"><b>{{ __('DOMAINES') }}</b></td>
+                        <td colspan="2" style="width:200px"><b>{{ __('MODULES OU SPECIALITE') }}</b></td>
+                        <td colspan="5"><b>{{ __('TITRE OU NIVEAU DE QUALIFICATION CORRESPONDANT ') }}</b>
                         </td>
                     </tr>
                     @foreach ($operateur?->operateurmodules?->where('statut', 'agréer') as $operateurmodule)
-                        <tr class="item" style="text-align: center;">
-                            <td colspan="3">{{ $operateurmodule?->domaine }}</td>
-                            <td colspan="3">{{ $operateurmodule?->module }}</td>
-                            <td colspan="3">{{ $operateurmodule?->niveau_qualification }}</td>
+                        <tr class="item">
+                            <td colspan="2">{{ ucfirst(strtolower($operateurmodule?->domaine)) }}</td>
+                            <td colspan="2">{{ $operateurmodule?->module }}</td>
+                            <td colspan="5">{{ ucfirst(strtolower($operateurmodule?->categorie)) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <p style="text-align: justify; text-justify: inter-word;">
-                Le présent agrément est valable deux (2) ans renouvelables une fois. Durant cette période, l'opérateur
-                dispose de la faculté de renoncer à son agrément, en le notifiant par écrit à l'ONFP, au moins un
-                (1) mois à l'avance. L'ONFP se réserve le droit de suspendre ou de résilier, à tout moment, le présent
-                agrément, par notification écrite à l'opérateur.
-                <br>
+            Le présent agrément est valable deux (2) ans renouvelables une fois. Durant cette période, l'opérateur
+            dispose de la faculté de renoncer à son agrément, en le notifiant par écrit à l'ONFP, au moins un
+            (1) mois à l'avance. L'ONFP se réserve le droit de suspendre ou de résilier, à tout moment, le présent
+            agrément, par notification écrite à l'opérateur.
             <ul>
                 L'Opérateur agréé :
-                <li>déclare avoir pris connaissance des procédures de l'ONFP notamment celles relatives à
-                    l'opérateur
-                    de formation,</li>
+                <li>déclare avoir pris connaissance des procédures de l'ONFP notamment celles relatives à l'opérateur de
+                    formation,</li>
                 <li>s'engage à exécuter comme assistant les formations qui lui sont confiées dans le respect des normes
                     du
                     métier et participe à la demande de l'ONFP à toute activité en lien avec cet agrément,</li>
@@ -184,27 +181,27 @@
                 <li>reconnait que toute production faite dans le cadre des actions de formation qui lui sont confiées,
                     est
                     la propriété de l'Office.</li>
+
             </ul>
-            </p>
-            <table style="margin-top: -100px;">
+        </div>
+        <div class="invoice-box">
+            <table>
                 <thead>
                     <tr class="heading">
                         <td colspan="3">
-                            <h3><br><br>L'Opérateur <br><small class="small fst-italic">(Lu et
+                            <h3>L'Opérateur <br><small class="small fst-italic">(Lu et
                                     approuvé - Signature)</small></h3>
                         </td>
                         <td colspan="3"></td>
                         <td colspan="3" style="text-align: right;">
-                            <h3>{{ $operateur?->commissionagrement?->description }} <br><br>
+                            <h3>{{ $operateur?->commissionagrement?->description }} <br>
                                 <span style="padding-right: 40px">Le Directeur Général</span>
                             </h3>
                         </td>
                     </tr>
                 </thead>
-
             </table>
         </div>
-
         {{-- <div style="page-break-after: always;"></div> --}}
     </body>
 @endforeach
